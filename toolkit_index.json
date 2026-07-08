@@ -1,0 +1,77 @@
+{
+  "name": "Local Assistant Reliability Lab",
+  "purpose": "A public map of tiny, runnable examples for reviewable AI-assisted work.",
+  "boundary": "Synthetic public examples only. Do not add private logs, connector exports, credentials, local paths, or personal data.",
+  "repos": [
+    {
+      "slug": "public-repo-safety-kit",
+      "name": "Public Repo Safety Kit",
+      "url": "https://github.com/TheDarkniteFalls/public-repo-safety-kit",
+      "use_when": "Check a public-candidate repo before publishing.",
+      "commands": [
+        "python3 public_repo_guard.py --self-test",
+        "python3 public_repo_guard.py ."
+      ]
+    },
+    {
+      "slug": "codex-project-instructions-starter",
+      "name": "Codex Project Instructions Starter",
+      "url": "https://github.com/TheDarkniteFalls/codex-project-instructions-starter",
+      "use_when": "Give a coding agent clear project rules before it works.",
+      "commands": [
+        "python3 check_templates.py"
+      ]
+    },
+    {
+      "slug": "evidencegate",
+      "name": "EvidenceGate",
+      "url": "https://github.com/TheDarkniteFalls/evidencegate",
+      "use_when": "Leave a compact review receipt for AI-assisted work.",
+      "commands": [
+        "python3 evidencegate.py --self-test",
+        "python3 evidencegate.py examples/agent-run-receipt.json"
+      ]
+    },
+    {
+      "slug": "local-model-reliability-example",
+      "name": "Local Model Reliability Example",
+      "url": "https://github.com/TheDarkniteFalls/local-model-reliability-example",
+      "use_when": "Validate structured local-model output before trusting it.",
+      "commands": [
+        "python3 reliability_demo.py --self-test",
+        "python3 structured_output_canary.py examples/canary_outputs.jsonl",
+        "python3 protected_path_proof.py examples/protected_path_cases.jsonl"
+      ]
+    },
+    {
+      "slug": "context-boundary-examples",
+      "name": "Context Boundary Examples",
+      "url": "https://github.com/TheDarkniteFalls/context-boundary-examples",
+      "use_when": "Check that answers stay inside supplied evidence.",
+      "commands": [
+        "python3 context_boundary_check.py --self-test",
+        "python3 context_boundary_check.py examples/context_outputs.jsonl"
+      ]
+    },
+    {
+      "slug": "agent-action-authority-examples",
+      "name": "Agent Action Authority Examples",
+      "url": "https://github.com/TheDarkniteFalls/agent-action-authority-examples",
+      "use_when": "Classify model or agent actions before execution.",
+      "commands": [
+        "python3 action_authority_check.py --self-test",
+        "python3 action_authority_check.py examples/action_cases.jsonl"
+      ]
+    },
+    {
+      "slug": "green-spine-qa-pattern",
+      "name": "Green-Spine QA Pattern",
+      "url": "https://github.com/TheDarkniteFalls/green-spine-qa-pattern",
+      "use_when": "Keep one important workflow obviously healthy.",
+      "commands": [
+        "python3 spine_green.py",
+        "python3 browser_structure_check.py --self-test"
+      ]
+    }
+  ]
+}
