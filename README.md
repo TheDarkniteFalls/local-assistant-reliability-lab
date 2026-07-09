@@ -1,12 +1,28 @@
 # Local Assistant Reliability Lab
 
-A small map of public examples for making AI-assisted and local-assistant work
-more reviewable.
+Start here for public, runnable examples of practical harnesses for reliable,
+human-accountable AI work.
 
-This is an overview repo, not a platform. It points to tiny, runnable examples
-that show public-safe publishing, project instructions, evidence receipts,
-structured output checks, context boundaries, action authority, and green-spine
-QA.
+This is an overview repo, not a platform. EvidenceGate is the flagship pattern
+for leaving a human-reviewed receipt, while the wider toolkit explores small
+models, coding-agent boundaries, structured output, context, action authority,
+repeatable QA, and public-safe publishing.
+
+## Start Here
+
+- Start with [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate)
+  for the core idea: AI-assisted work should leave a receipt.
+- Choose a repository from the problem-based table below when you need a
+  specific runnable pattern.
+- Use the 15-minute walkthrough and command matrix for a quick tour of the
+  complete toolkit.
+
+## Latest Lessons
+
+- [AI-assisted work should leave a reviewable receipt](https://github.com/TheDarkniteFalls/evidencegate),
+  not just a chat history.
+- [A model may suggest an action without owning the authority to execute it](https://github.com/TheDarkniteFalls/agent-action-authority-examples).
+- [Reliable harnesses validate model output before trusting or applying it](https://github.com/TheDarkniteFalls/local-model-reliability-example).
 
 ## Which Repo Should I Use?
 
