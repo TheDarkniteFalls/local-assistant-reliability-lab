@@ -4,9 +4,9 @@ Start here for public, runnable examples of practical harnesses for reliable,
 human-accountable AI work.
 
 This is an overview repo, not a platform. EvidenceGate is the flagship pattern
-for leaving a human-reviewed receipt, while the wider toolkit explores small
-models, coding-agent boundaries, structured output, context, action authority,
-repeatable QA, and public-safe publishing.
+for leaving a revision-bound, human-reviewed receipt, while the wider toolkit
+explores small models, coding-agent boundaries, structured output, context,
+action authority, repeatable QA, and public-safe publishing.
 
 **Want to see the pieces work together?** [Reviewing an AI-Assisted Change from
 Instructions to Publication](REVIEWING_AN_AI_ASSISTED_CHANGE.md) follows one
@@ -16,7 +16,7 @@ publication decision.
 ## Start Here
 
 - Start with [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate)
-  for the core idea: AI-assisted work should leave a receipt.
+  for the core idea and its one-command detached v1 reference run.
 - Choose a repository from the problem-based table below when you need a
   specific runnable pattern.
 - Use the 15-minute walkthrough and command matrix for a quick tour of the
@@ -24,8 +24,8 @@ publication decision.
 
 ## Latest Lessons
 
-- [AI-assisted work should leave a reviewable receipt](https://github.com/TheDarkniteFalls/evidencegate),
-  not just a chat history.
+- [AI-assisted work should leave a revision-bound, reviewable receipt](https://github.com/TheDarkniteFalls/evidencegate),
+  not just a chat history or an ungrounded summary.
 - [A model may suggest an action without owning the authority to execute it](https://github.com/TheDarkniteFalls/agent-action-authority-examples).
 - [Reliable harnesses validate model output before trusting or applying it](https://github.com/TheDarkniteFalls/local-model-reliability-example).
 
@@ -45,7 +45,8 @@ publication decision.
 
 1. Spend 2 minutes with Public Repo Safety Kit to see the public/private gate.
 2. Spend 2 minutes with Codex Project Instructions Starter to see the repo rules.
-3. Spend 2 minutes with EvidenceGate to see the review receipt.
+3. Spend 2 minutes with EvidenceGate to run a detached v1 receipt against real
+   temporary Git revisions.
 4. Spend 3 minutes with Local Model Reliability Example to see validation before trust.
 5. Spend 2 minutes with Context Boundary Examples to see evidence-only answers.
 6. Spend 2 minutes with Agent Action Authority Examples to see action classification.
@@ -57,7 +58,7 @@ publication decision.
 | --- | --- |
 | Public Repo Safety Kit | `python3 public_repo_guard.py --self-test` |
 | Codex Project Instructions Starter | `python3 check_templates.py` |
-| EvidenceGate | `python3 evidencegate.py --self-test` |
+| EvidenceGate | `python3 -B examples/run-v1-reference.py` |
 | Local Model Reliability Example | `python3 reliability_demo.py --self-test` |
 | Context Boundary Examples | `python3 context_boundary_check.py --self-test` |
 | Agent Action Authority Examples | `python3 action_authority_check.py --self-test` |
@@ -77,6 +78,7 @@ Expected result:
 ```text
 PASS toolkit_index
 PASS required_repos
+PASS evidencegate_v1_reference
 PASS public_safe_text
 ```
 
