@@ -8,6 +8,11 @@ for leaving a human-reviewed receipt, while the wider toolkit explores small
 models, coding-agent boundaries, structured output, context, action authority,
 repeatable QA, and public-safe publishing.
 
+**Want to see the pieces work together?** [Reviewing an AI-Assisted Change from
+Instructions to Publication](REVIEWING_AN_AI_ASSISTED_CHANGE.md) follows one
+small, synthetic Python CLI bug fix from the first project rule to the final
+publication decision.
+
 ## Start Here
 
 - Start with [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate)
