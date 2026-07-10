@@ -8,6 +8,11 @@ for leaving a revision-bound, human-reviewed receipt, while the wider toolkit
 explores small models, coding-agent boundaries, structured output, context,
 action authority, repeatable QA, and public-safe publishing.
 
+**Not a coder?** Start with the [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook).
+It shows how to point an agent at the current source of truth, set a few stop
+signs, review evidence without reading code, and carry one tested lesson into
+the next task.
+
 **Want to see the pieces work together?** [Reviewing an AI-Assisted Change from
 Instructions to Publication](REVIEWING_AN_AI_ASSISTED_CHANGE.md) follows one
 small, synthetic Python CLI bug fix from the first project rule to the final
@@ -15,6 +20,9 @@ publication decision.
 
 ## Start Here
 
+- Begin with the [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook)
+  if you mostly want the agent to do the work and need a plain-language way to
+  stay in control.
 - Start with [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate)
   for the core idea and its one-command detached v1 reference run.
 - Choose a repository from the problem-based table below when you need a
