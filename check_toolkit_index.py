@@ -23,6 +23,7 @@ BLOCKED_TEXT = (
     "sk-",
     "BEGIN PRIVATE KEY",
 )
+EVIDENCEGATE_REFERENCE_COMMAND = "python3 -B examples/run-v1-reference.py"
 
 
 def fail(message: str) -> None:
@@ -63,6 +64,10 @@ def validate_index(index: dict) -> None:
     if missing:
         fail("missing required repos: " + ", ".join(sorted(missing)))
 
+    evidencegate = next(repo for repo in repos if repo["slug"] == "evidencegate")
+    if EVIDENCEGATE_REFERENCE_COMMAND not in evidencegate["commands"]:
+        fail("EvidenceGate entry must include the detached v1 reference run")
+
     haystack = json.dumps(index, sort_keys=True)
     blocked = [text for text in BLOCKED_TEXT if text.lower() in haystack.lower()]
     if blocked:
@@ -75,6 +80,7 @@ def main(argv: list[str]) -> int:
     validate_index(index)
     print("PASS toolkit_index")
     print("PASS required_repos")
+    print("PASS evidencegate_v1_reference")
     print("PASS public_safe_text")
     return 0
 

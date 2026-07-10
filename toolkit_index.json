@@ -28,8 +28,8 @@
       "url": "https://github.com/TheDarkniteFalls/evidencegate",
       "use_when": "Leave a compact review receipt for AI-assisted work.",
       "commands": [
-        "python3 evidencegate.py --self-test",
-        "python3 evidencegate.py examples/agent-run-receipt.json"
+        "python3 -B examples/run-v1-reference.py",
+        "python3 -B evidencegate.py validate examples/v1-review-ready.json"
       ]
     },
     {

@@ -14,9 +14,10 @@ small: the CLI, its regression test, the synthetic fixture, and the changelog.
 The agent may edit those files and run local checks, while a human keeps the
 authority to approve and publish the result.
 
-The receipt for this scenario already lives in EvidenceGate as
-[`examples/python-cli-bugfix.json`](https://github.com/TheDarkniteFalls/evidencegate/blob/main/examples/python-cli-bugfix.json).
-To keep the walkthrough concrete, the commands below exercise the public
+EvidenceGate's
+[`examples/run-v1-reference.py`](https://github.com/TheDarkniteFalls/evidencegate/blob/main/examples/run-v1-reference.py)
+recreates the receipt portion of this scenario with actual temporary Git
+revisions and a detached v1 receipt. The commands below exercise the public
 examples around that same review. Run each command from the root of the named
 repository unless the step says otherwise. None of them calls a model.
 
@@ -185,9 +186,9 @@ focused unit tests and diff review.
 
 ## 6. Leave the reviewer a useful receipt
 
-**Practical question:** Can the reviewer quickly see what changed, which
-commands ran, which files changed, what risk remains, and whether a human
-approved the work?
+**Practical question:** Can the reviewer see what changed, which check supports
+each bounded claim, whether the receipt targets the exact final revision, what
+risk remains, and whether review was recorded for that same head?
 
 **Relevant repository:**
 [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate)
@@ -195,23 +196,33 @@ approved the work?
 **Runnable command:**
 
 ```sh
-python3 evidencegate.py examples/python-cli-bugfix.json
+python3 -B examples/run-v1-reference.py
 ```
 
 **Expected output:**
 
 ```text
-PASS EvidenceGate
+PASS focused_check
+PASS receipt_structure
+PASS repository_verification
+PASS stale_head_rejected
+PASS omitted_path_rejected
+PASS protected_path_rejected
+PASS v1_reference_run
 ```
 
-**What the check proves:** A pass confirms that the scenario receipt contains
-the required summary, commands, touched files, tests, residual risk, human
-review, and public-safety review fields, with acceptable statuses.
+**What the check proves:** The reference run creates real temporary base and
+head commits, runs the focused regression check, writes the receipt outside the
+synthetic repository, and confirms that its revision, complete diff, allowed
+paths, evidence references, and recorded review heads agree. It also confirms
+that stale evidence, an omitted changed path, and a protected-path change are
+rejected.
 
-**What it does not prove:** A well-formed receipt is a starting point for
-review, not a substitute for it. This check does not rerun the commands, inspect
-the diff, verify that the file list is complete, or authenticate the claimed
-human approval.
+**What it does not prove:** The human and public-safety decisions in this demo
+are explicitly simulated. A pass does not authenticate those identities,
+generalize beyond the temporary repository, prove the fix correct or secure,
+or authorize publication. EvidenceGate does not rerun commands from arbitrary
+receipts; the demo itself runs the focused check before recording it.
 
 ## 7. Give the publication candidate a final safety check
 
@@ -255,7 +266,8 @@ publication into autopilot:
 2. The host kept edits and publication behind explicit authority.
 3. The diagnosis and any model proposal stayed inside reviewable contracts.
 4. Focused tests and the green spine passed.
-5. The receipt made the work and residual risk reviewable.
+5. The detached receipt matched the final revision and made the work and
+   residual risk reviewable.
 6. The publication candidate passed a final public-safety check.
 7. A human reviewed the diff, evidence, remaining risk, and publication action.
 
@@ -272,7 +284,8 @@ project can copy the review shape directly:
 [ ] Reproduce the bug from public or synthetic evidence before changing code.
 [ ] Keep model suggestions separate from file-write and network authority.
 [ ] Review the complete diff; run the focused regression and one critical-path check.
-[ ] Record the summary, commands, results, touched files, risks, and human decision.
+[ ] Record the exact revision, summary, checks, claims, touched files, risks, and human decision.
+[ ] Verify the detached receipt against a clean checkout of that final revision.
 [ ] Scan the publishable tree and inspect repository history before publication.
 [ ] Let a human make the final publish decision.
 ```
