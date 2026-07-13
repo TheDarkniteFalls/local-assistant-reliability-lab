@@ -2,6 +2,7 @@
   "name": "Local Assistant Reliability Lab",
   "purpose": "A public map of tiny, runnable examples for reviewable AI-assisted work.",
   "boundary": "Synthetic public examples only. Do not add private logs, connector exports, credentials, local paths, or personal data.",
+  "complete_workflow_command": "python3 -B run_complete_workflow.py",
   "repos": [
     {
       "slug": "public-repo-safety-kit",
