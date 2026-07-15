@@ -24,6 +24,7 @@ BLOCKED_TEXT = (
     "BEGIN PRIVATE KEY",
 )
 EVIDENCEGATE_REFERENCE_COMMAND = "python3 -B examples/run-v1-reference.py"
+COMPLETE_WORKFLOW_COMMAND = "python3 -B run_complete_workflow.py"
 
 
 def fail(message: str) -> None:
@@ -40,6 +41,8 @@ def load_index(path: Path) -> dict:
 
 
 def validate_index(index: dict) -> None:
+    if index.get("complete_workflow_command") != COMPLETE_WORKFLOW_COMMAND:
+        fail("complete workflow command is missing or stale")
     repos = index.get("repos")
     if not isinstance(repos, list) or not repos:
         fail("repos must be a non-empty list")
@@ -79,6 +82,7 @@ def main(argv: list[str]) -> int:
     index = load_index(path)
     validate_index(index)
     print("PASS toolkit_index")
+    print("PASS complete_workflow_entry")
     print("PASS required_repos")
     print("PASS evidencegate_v1_reference")
     print("PASS public_safe_text")
