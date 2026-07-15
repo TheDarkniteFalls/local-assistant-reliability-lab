@@ -3,31 +3,90 @@
   "purpose": "A public map of tiny, runnable examples for reviewable AI-assisted work.",
   "boundary": "Synthetic public examples only. Do not add private logs, connector exports, credentials, local paths, or personal data.",
   "complete_workflow_command": "python3 -B run_complete_workflow.py",
+  "journeys": [
+    {
+      "id": "start_and_direct",
+      "name": "Start and direct",
+      "description": "Describe the outcome, name trusted sources, set authority boundaries, and create a reviewable project shape."
+    },
+    {
+      "id": "bound_and_prove",
+      "name": "Bound and prove",
+      "description": "Keep proposed work inside evidence and authority boundaries, then leave inspectable proof."
+    },
+    {
+      "id": "evaluate_and_operate",
+      "name": "Evaluate and operate",
+      "description": "Test retrieval, generated systems, evaluation protocols, model workloads, and deterministic state."
+    }
+  ],
+  "maturity_definitions": {
+    "flagship": "The most complete public implementation in the toolkit, with a documented integration surface.",
+    "stable": "A focused example with deterministic checks and a deliberately narrow public contract.",
+    "experimental": "A tested teaching pattern whose contract may still change as outside use reveals better boundaries."
+  },
   "repos": [
     {
-      "slug": "public-repo-safety-kit",
-      "name": "Public Repo Safety Kit",
-      "url": "https://github.com/TheDarkniteFalls/public-repo-safety-kit",
-      "use_when": "Check a public-candidate repo before publishing.",
+      "slug": "agent-operator-handbook",
+      "name": "Agent Operator Handbook",
+      "url": "https://github.com/TheDarkniteFalls/agent-operator-handbook",
+      "journey": "start_and_direct",
+      "kind": "guide",
+      "maturity": "stable",
+      "audience": "People who want to direct AI-assisted work without reading all the code.",
+      "use_when": "Turn an idea or recurring job into bounded, reviewable work.",
+      "proof": "The starter bundle contains the declared source, authority, review, and handoff files and passes its structural checks.",
+      "limitation": "Guidance and templates do not enforce permissions or verify a live project.",
+      "ci_url": "https://github.com/TheDarkniteFalls/agent-operator-handbook/actions/workflows/checks.yml",
       "commands": [
-        "python3 public_repo_guard.py --self-test",
-        "python3 public_repo_guard.py ."
+        "python3 scripts/check_starter_bundle.py"
       ]
     },
     {
       "slug": "codex-project-instructions-starter",
       "name": "Codex Project Instructions Starter",
       "url": "https://github.com/TheDarkniteFalls/codex-project-instructions-starter",
+      "journey": "start_and_direct",
+      "kind": "guide",
+      "maturity": "stable",
+      "audience": "Repository owners who want clear rules for a coding agent before work begins.",
       "use_when": "Give a coding agent clear project rules before it works.",
+      "proof": "The required instruction templates and examples are present and structurally valid.",
+      "limitation": "Written instructions guide behavior but do not technically enforce it.",
+      "ci_url": "https://github.com/TheDarkniteFalls/codex-project-instructions-starter/actions/workflows/checks.yml",
       "commands": [
         "python3 check_templates.py"
+      ]
+    },
+    {
+      "slug": "public-repo-safety-kit",
+      "name": "Public Repo Safety Kit",
+      "url": "https://github.com/TheDarkniteFalls/public-repo-safety-kit",
+      "journey": "bound_and_prove",
+      "kind": "tool",
+      "maturity": "stable",
+      "audience": "People preparing a repository for public GitHub publication.",
+      "use_when": "Check a public-candidate repo before publishing.",
+      "proof": "The checked tree avoids the kit's known private-path, credential, identity, and publication-risk cases.",
+      "limitation": "A pass is not a complete security review and does not grant permission to publish.",
+      "ci_url": "https://github.com/TheDarkniteFalls/public-repo-safety-kit/actions/workflows/checks.yml",
+      "commands": [
+        "python3 public_repo_guard.py --self-test",
+        "python3 public_repo_guard.py ."
       ]
     },
     {
       "slug": "evidencegate",
       "name": "EvidenceGate",
       "url": "https://github.com/TheDarkniteFalls/evidencegate",
+      "journey": "bound_and_prove",
+      "kind": "tool",
+      "maturity": "flagship",
+      "audience": "Reviewers and integrators who need revision-bound evidence for AI-assisted changes.",
       "use_when": "Leave a compact review receipt for AI-assisted work.",
+      "proof": "Declared claims, checks, changed paths, review, and public-safety fields are tied to the exact Git revision supplied to the verifier.",
+      "limitation": "It does not authenticate a reviewer, prove semantic correctness, or approve publication.",
+      "ci_url": "https://github.com/TheDarkniteFalls/evidencegate/actions/workflows/checks.yml",
       "commands": [
         "python3 -B examples/run-v1-reference.py",
         "python3 -B evidencegate.py validate examples/v1-review-ready.json"
@@ -37,7 +96,14 @@
       "slug": "local-model-reliability-example",
       "name": "Local Model Reliability Example",
       "url": "https://github.com/TheDarkniteFalls/local-model-reliability-example",
+      "journey": "bound_and_prove",
+      "kind": "pattern",
+      "maturity": "stable",
+      "audience": "Builders placing deterministic validation around local or small-model output.",
       "use_when": "Validate structured local-model output before trusting it.",
+      "proof": "Synthetic outputs satisfy the declared shape, citation, confidence, and no-write contracts.",
+      "limitation": "The example calls no model and does not measure live-model quality.",
+      "ci_url": "https://github.com/TheDarkniteFalls/local-model-reliability-example/actions/workflows/checks.yml",
       "commands": [
         "python3 reliability_demo.py --self-test",
         "python3 structured_output_canary.py examples/canary_outputs.jsonl",
@@ -48,7 +114,14 @@
       "slug": "context-boundary-examples",
       "name": "Context Boundary Examples",
       "url": "https://github.com/TheDarkniteFalls/context-boundary-examples",
+      "journey": "bound_and_prove",
+      "kind": "pattern",
+      "maturity": "stable",
+      "audience": "Builders testing whether answers stay inside supplied evidence.",
       "use_when": "Check that answers stay inside supplied evidence.",
+      "proof": "Expected answers cite only allowed sources and known unsupported or uncited outputs fail.",
+      "limitation": "Grounding to supplied snippets does not establish that those snippets are true or current.",
+      "ci_url": "https://github.com/TheDarkniteFalls/context-boundary-examples/actions/workflows/checks.yml",
       "commands": [
         "python3 context_boundary_check.py --self-test",
         "python3 context_boundary_check.py examples/context_outputs.jsonl"
@@ -58,20 +131,114 @@
       "slug": "agent-action-authority-examples",
       "name": "Agent Action Authority Examples",
       "url": "https://github.com/TheDarkniteFalls/agent-action-authority-examples",
+      "journey": "bound_and_prove",
+      "kind": "pattern",
+      "maturity": "stable",
+      "audience": "Agent builders separating proposed actions from reusable execution authority.",
       "use_when": "Classify model or agent actions before execution.",
+      "proof": "Synthetic actions and scoped grants receive the expected allow, reject, or reapproval decisions.",
+      "limitation": "The classifier does not execute actions, provide a sandbox, or infer security-relevant scope.",
+      "ci_url": "https://github.com/TheDarkniteFalls/agent-action-authority-examples/actions/workflows/checks.yml",
       "commands": [
         "python3 action_authority_check.py --self-test",
-        "python3 action_authority_check.py examples/action_cases.jsonl"
+        "python3 scoped_approval_check.py --self-test"
       ]
     },
     {
       "slug": "green-spine-qa-pattern",
       "name": "Green-Spine QA Pattern",
       "url": "https://github.com/TheDarkniteFalls/green-spine-qa-pattern",
+      "journey": "evaluate_and_operate",
+      "kind": "pattern",
+      "maturity": "stable",
+      "audience": "Project owners who want one memorable check for an important workflow.",
       "use_when": "Keep one important workflow obviously healthy.",
+      "proof": "One representative synthetic path and its known-bad cases satisfy the named checkpoint.",
+      "limitation": "A green spine deliberately does not prove every feature, path, or experience quality.",
+      "ci_url": "https://github.com/TheDarkniteFalls/green-spine-qa-pattern/actions/workflows/checks.yml",
       "commands": [
         "python3 spine_green.py",
         "python3 browser_structure_check.py --self-test"
+      ]
+    },
+    {
+      "slug": "sqlite-context-retrieval-example",
+      "name": "SQLite Context Retrieval Example",
+      "url": "https://github.com/TheDarkniteFalls/sqlite-context-retrieval-example",
+      "journey": "evaluate_and_operate",
+      "kind": "pattern",
+      "maturity": "experimental",
+      "audience": "Builders evaluating deterministic metadata boundaries around SQLite FTS5 retrieval.",
+      "use_when": "Turn wrong-scope, stale-source, and authority retrieval failures into regression buckets.",
+      "proof": "The synthetic failure registry selects or refuses correctly and keeps critical buckets independently green.",
+      "limitation": "The fixtures are synthetic and natural-language-to-filter translation is outside the evaluated boundary.",
+      "ci_url": "https://github.com/TheDarkniteFalls/sqlite-context-retrieval-example/actions/workflows/checks.yml",
+      "commands": [
+        "python3 -B metadata_retrieval_demo.py failures"
+      ]
+    },
+    {
+      "slug": "sealed-evaluation-pattern",
+      "name": "Sealed Evaluation Pattern",
+      "url": "https://github.com/TheDarkniteFalls/sealed-evaluation-pattern",
+      "journey": "evaluate_and_operate",
+      "kind": "pattern",
+      "maturity": "experimental",
+      "audience": "Evaluators preserving a scarce holdout corpus across learning, calibration, and sealed zones.",
+      "use_when": "Check access order, frozen outputs, digests, and retirement of revealed calibration material.",
+      "proof": "The supplied record preserves the declared information zones, freeze order, digests, and retirement rule.",
+      "limitation": "The checker is not a sandbox and cannot prove an access log is complete or authentic.",
+      "ci_url": "https://github.com/TheDarkniteFalls/sealed-evaluation-pattern/actions/workflows/checks.yml",
+      "commands": [
+        "python3 -B sealed_eval.py --self-test"
+      ]
+    },
+    {
+      "slug": "generated-system-qa-pattern",
+      "name": "Generated-System QA Pattern",
+      "url": "https://github.com/TheDarkniteFalls/generated-system-qa-pattern",
+      "journey": "evaluate_and_operate",
+      "kind": "pattern",
+      "maturity": "experimental",
+      "audience": "Builders checking generated worlds, workflows, maps, or other graph-shaped systems.",
+      "use_when": "Check generated-data freshness, integrity, reachability, required services, and a representative journey.",
+      "proof": "The supplied artifact matches its blueprint and satisfies the declared structural and journey requirements.",
+      "limitation": "Structural readiness does not prove live UI freshness, domain quality, accessibility, or enjoyment.",
+      "ci_url": "https://github.com/TheDarkniteFalls/generated-system-qa-pattern/actions/workflows/checks.yml",
+      "commands": [
+        "python3 -B generated_system_qa.py --self-test"
+      ]
+    },
+    {
+      "slug": "model-workload-telemetry",
+      "name": "Model Workload Telemetry",
+      "url": "https://github.com/TheDarkniteFalls/model-workload-telemetry",
+      "journey": "evaluate_and_operate",
+      "kind": "tool",
+      "maturity": "experimental",
+      "audience": "Teams comparing model routes over shared task instances instead of raw aggregate token totals.",
+      "use_when": "Report completion, cost, time, quality, and revision burden within paired workload classes.",
+      "proof": "Only task instances attempted by every compared model contribute to each workload report.",
+      "limitation": "The report does not prove causal model superiority, cost efficiency, or statistical significance.",
+      "ci_url": "https://github.com/TheDarkniteFalls/model-workload-telemetry/actions/workflows/checks.yml",
+      "commands": [
+        "python3 -B model_workload_telemetry.py --self-test"
+      ]
+    },
+    {
+      "slug": "ai-game-state-machine-pattern",
+      "name": "AI Game State Machine Pattern",
+      "url": "https://github.com/TheDarkniteFalls/ai-game-state-machine-pattern",
+      "journey": "evaluate_and_operate",
+      "kind": "pattern",
+      "maturity": "experimental",
+      "audience": "Game builders protecting legal flow, persistence, and replay during AI-assisted development.",
+      "use_when": "Keep one authoritative set of legal commands and unresolved obligations across save and replay.",
+      "proof": "Illegal actions remain non-mutating, inspection is read-only, obligations persist, and seeded replay is deterministic.",
+      "limitation": "State-machine correctness does not prove that the game is understandable, balanced, emotional, or fun.",
+      "ci_url": "https://github.com/TheDarkniteFalls/ai-game-state-machine-pattern/actions/workflows/checks.yml",
+      "commands": [
+        "npm test"
       ]
     }
   ]

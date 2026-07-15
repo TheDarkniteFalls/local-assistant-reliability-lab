@@ -66,9 +66,15 @@ toolkit component proves and what it deliberately leaves open.
 
 | If this is getting in your way... | Start here | What you will see |
 | --- | --- | --- |
+| You want to build with Codex without becoming a developer first | [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook) | A Project Card, approval ladder, verification guide, and recurring-work starter |
 | An agent exceeds the authority it was given | `python3 -B run_complete_workflow.py` | Protected writes, grant replay, and changed scope are rejected |
 | A receipt describes the wrong revision or evidence | `python3 -B examples/run-v1-reference.py` in EvidenceGate | Stale heads, omitted paths, and protected paths fail |
 | An answer escapes the supplied evidence | `python3 context_boundary_check.py --self-test` in Context Boundary Examples | Unsupported answers and missing citations fail |
+| Retrieval returns the right words from the wrong scope or source | `python3 -B metadata_retrieval_demo.py failures` in SQLite Context Retrieval Example | Wrong-scope, stale-source, eligibility, and authority buckets are checked independently |
+| Generated content is stale, disconnected, or impossible to traverse | `python3 -B generated_system_qa.py --self-test` in Generated-System QA Pattern | Freshness, integrity, reachability, required services, and a representative journey are checked |
+| A scarce holdout may have leaked into generation or review | `python3 -B sealed_eval.py --self-test` in Sealed Evaluation Pattern | Access order, frozen outputs, digests, and retirement of revealed material are checked |
+| Model comparisons mix different kinds of work | `python3 -B model_workload_telemetry.py --self-test` in Model Workload Telemetry | Only shared task instances are compared inside each workload class |
+| AI-assisted game changes can violate the legal flow | `npm test` in AI Game State Machine Pattern | Illegal actions, read-only inspection, save/restore obligations, and deterministic replay are checked |
 
 ```mermaid
 flowchart LR
@@ -100,19 +106,23 @@ flowchart LR
 - [A model may suggest an action without owning the authority to execute it](https://github.com/TheDarkniteFalls/agent-action-authority-examples).
 - [Reliable harnesses validate model output before trusting or applying it](https://github.com/TheDarkniteFalls/local-model-reliability-example).
 
-## Which Repo Should I Use?
+## Complete Toolkit Map
 
-| If you need to... | Start with |
+The [complete public toolkit map](TOOLKIT_MAP.md) groups every current guide,
+tool, and runnable pattern into three visitor journeys:
+
+| Journey | Start here when you need to... |
 | --- | --- |
-| Check a repo before making it public | [Public Repo Safety Kit](https://github.com/TheDarkniteFalls/public-repo-safety-kit) |
-| Give a coding agent project rules | [Codex Project Instructions Starter](https://github.com/TheDarkniteFalls/codex-project-instructions-starter) |
-| Leave a reviewable receipt for AI-assisted work | [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) |
-| Validate structured local-model output | [Local Model Reliability Example](https://github.com/TheDarkniteFalls/local-model-reliability-example) |
-| Check that answers stay inside supplied evidence | [Context Boundary Examples](https://github.com/TheDarkniteFalls/context-boundary-examples) |
-| Classify agent actions before execution | [Agent Action Authority Examples](https://github.com/TheDarkniteFalls/agent-action-authority-examples) |
-| Keep one important workflow obviously healthy | [Green-Spine QA Pattern](https://github.com/TheDarkniteFalls/green-spine-qa-pattern) |
+| **Start and direct** | Describe the outcome, name trusted sources, and set authority and handoff rules |
+| **Bound and prove** | Keep work inside evidence and action boundaries, then leave inspectable proof |
+| **Evaluate and operate** | Test retrieval, generated systems, evaluation protocols, model workloads, or deterministic state |
 
-## 15-Minute Walkthrough
+The map makes the maturity, intended audience, first command, proof boundary,
+limitation, and CI workflow visible for every entry. It is generated from
+`toolkit_index.json`, so the public catalog and its validation use one source
+of truth.
+
+## Core 15-Minute Walkthrough
 
 1. Spend 2 minutes with Public Repo Safety Kit to see the public/private gate.
 2. Spend 2 minutes with Codex Project Instructions Starter to see the repo rules.
@@ -123,7 +133,7 @@ flowchart LR
 6. Spend 2 minutes with Agent Action Authority Examples to see action classification.
 7. Spend 2 minutes with Green-Spine QA Pattern to see one compact health check.
 
-## Command Matrix
+## Core Command Matrix
 
 | Repo | Runnable check |
 | --- | --- |
@@ -150,8 +160,11 @@ Expected result:
 PASS toolkit_index
 PASS complete_workflow_entry
 PASS required_repos
+PASS visitor_journeys
+PASS trust_signals
 PASS evidencegate_v1_reference
 PASS public_safe_text
+PASS toolkit_map
 ```
 
 ## Public/Private Boundary
@@ -170,6 +183,7 @@ instead of turning this repo into a framework.
 
 ```sh
 python3 check_toolkit_index.py
+python3 render_toolkit_map.py --check
 python3 -B run_complete_workflow.py --self-test
-python3 -m py_compile check_toolkit_index.py run_complete_workflow.py
+python3 -m py_compile check_toolkit_index.py render_toolkit_map.py run_complete_workflow.py
 ```
