@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Choose one reliable starting point for human-accountable AI-assisted work."
+    />
+    <title>Reliability Navigator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Reliability Navigator home">
+        Reliability Navigator
+      </a>
+      <a class="toolkit-link" href="https://github.com/TheDarkniteFalls/local-assistant-reliability-lab/blob/main/TOOLKIT_MAP.md">View complete toolkit</a>
+    </header>
+
+    <main class="page-shell">
+      <section class="chooser" aria-labelledby="page-title">
+        <div class="intro">
+          <h1 id="page-title">Find the smallest reliable starting point.</h1>
+          <p>
+            Answer four short questions. Get one route, one first action, and
+            an honest proof boundary.
+          </p>
+        </div>
+
+        <form id="navigator-form" class="question-flow">
+          <fieldset>
+            <legend><span aria-hidden="true">1</span>What are you trying to do?</legend>
+            <div class="choice-row">
+              <label class="choice">
+                <input type="radio" name="journey" value="start_and_direct" checked />
+                <span>Start and direct</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="journey" value="bound_and_prove" />
+                <span>Bound and prove</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="journey" value="evaluate_and_operate" />
+                <span>Evaluate and operate</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span aria-hidden="true">2</span>What kind of help do you want?</legend>
+            <div class="choice-row">
+              <label class="choice">
+                <input type="radio" name="help_type" value="guide" checked />
+                <span>Guide</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="help_type" value="starter" />
+                <span>Starter</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="help_type" value="runnable_check" />
+                <span>Runnable check</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span aria-hidden="true">3</span>What can you run?</legend>
+            <div class="choice-row">
+              <label class="choice">
+                <input type="radio" name="runtime" value="no_code" checked />
+                <span>No code</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="runtime" value="python" />
+                <span>Python</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="runtime" value="node" />
+                <span>Node</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span aria-hidden="true">4</span>Keep it…</legend>
+            <div class="choice-row">
+              <label class="choice check-choice">
+                <input type="checkbox" name="local" checked />
+                <span>Local</span>
+              </label>
+              <label class="choice check-choice">
+                <input type="checkbox" name="no_model" checked />
+                <span>No model call</span>
+              </label>
+              <label class="choice check-choice">
+                <input type="checkbox" name="read_only" checked />
+                <span>Read-only</span>
+              </label>
+            </div>
+          </fieldset>
+        </form>
+      </section>
+
+      <aside id="result" class="result-panel" aria-live="polite" aria-busy="true">
+        <div class="result-accent" aria-hidden="true"></div>
+        <p class="result-label">Your starting point</p>
+        <h2 id="result-name">Loading toolkit…</h2>
+        <p id="result-summary" class="result-summary"></p>
+
+        <div class="result-actions">
+          <a id="primary-action" class="button primary" href="#">Open recommendation</a>
+          <button
+            id="details-toggle"
+            class="button secondary"
+            type="button"
+            aria-expanded="false"
+            aria-controls="proof-details"
+          >
+            See proof and limits
+          </button>
+        </div>
+
+        <div id="proof-details" class="proof-details" hidden>
+          <h3>A pass establishes</h3>
+          <p id="result-proof"></p>
+          <h3>It does not establish</h3>
+          <p id="result-limit"></p>
+          <p class="first-command"><strong>First check:</strong> <code id="result-command"></code></p>
+        </div>
+
+        <ul class="trust-list" aria-label="Recommendation trust facts">
+          <li><span class="trust-icon" aria-hidden="true">✓</span><span id="fact-maturity">—</span></li>
+          <li><span class="trust-icon" aria-hidden="true">○</span>No model</li>
+          <li><span class="trust-icon" aria-hidden="true">⌁</span>No network</li>
+          <li><span class="trust-icon" aria-hidden="true">□</span><span id="fact-operation">—</span></li>
+        </ul>
+        <p id="boundary-note" class="boundary-note" hidden></p>
+      </aside>
+    </main>
+
+    <footer class="site-footer">Synthetic examples. You stay in control.</footer>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
