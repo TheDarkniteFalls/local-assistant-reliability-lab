@@ -10,6 +10,7 @@ from pathlib import Path
 
 REQUIRED_REPOS = {
     "agent-operator-handbook",
+    "reliable-ai-work-starter",
     "public-repo-safety-kit",
     "codex-project-instructions-starter",
     "evidencegate",
@@ -29,7 +30,7 @@ REQUIRED_JOURNEYS = {
     "bound_and_prove",
     "evaluate_and_operate",
 }
-ALLOWED_KINDS = {"guide", "tool", "pattern"}
+ALLOWED_KINDS = {"guide", "starter", "tool", "pattern"}
 ALLOWED_MATURITY = {"flagship", "stable", "experimental"}
 TRUST_FIELDS = {
     "audience",
@@ -95,12 +96,17 @@ def validate_index(index: dict) -> None:
             "journey",
             "kind",
             "maturity",
+            "minutes",
             "use_when",
             "commands",
             *sorted(TRUST_FIELDS),
         ):
             if field not in repo:
                 fail(f"missing {field}")
+            if field == "minutes":
+                if not isinstance(repo[field], int) or not 1 <= repo[field] <= 120:
+                    fail(f"minutes must be an integer from 1 to 120 for {repo.get('slug', 'unknown')}")
+                continue
             if field != "commands" and not isinstance(repo[field], str):
                 fail(f"{field} must be text for {repo.get('slug', 'unknown')}")
             if field != "commands" and not repo[field].strip():

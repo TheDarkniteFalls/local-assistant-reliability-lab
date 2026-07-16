@@ -7,6 +7,7 @@ import argparse
 from pathlib import Path
 
 from check_toolkit_index import load_index, validate_index
+from toolkit_contract import runtime_label
 
 
 ROOT = Path(__file__).resolve().parent
@@ -43,8 +44,8 @@ def render(index: dict) -> str:
                 "",
                 journey["description"],
                 "",
-                "| Project | Kind | Maturity | Use it when | First check |",
-                "| --- | --- | --- | --- | --- |",
+                "| Project | Kind | Maturity | Time | Runtime | Use it when | First check |",
+                "| --- | --- | --- | --- | --- | --- | --- |",
             ]
         )
         journey_repos = [
@@ -56,6 +57,7 @@ def render(index: dict) -> str:
                 "| "
                 f"[{cell(repo['name'])}]({repo['url']}) | "
                 f"{cell(repo['kind'])} | {cell(repo['maturity'])} | "
+                f"{repo['minutes']} min | {cell(runtime_label(repo))} | "
                 f"{cell(repo['use_when'])} | `{cell(command)}` |"
             )
 
@@ -66,6 +68,7 @@ def render(index: dict) -> str:
                     f"#### [{repo['name']}]({repo['url']})",
                     "",
                     f"- **For:** {repo['audience']}",
+                    f"- **First-use estimate:** {repo['minutes']} minutes; {runtime_label(repo)}.",
                     f"- **A pass establishes:** {repo['proof']}",
                     f"- **It does not establish:** {repo['limitation']}",
                     f"- **CI:** [checks workflow]({repo['ci_url']})",

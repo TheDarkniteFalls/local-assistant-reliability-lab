@@ -1,8 +1,8 @@
 {
-  "name": "Local Assistant Reliability Lab",
-  "purpose": "A public map of tiny, runnable examples for reviewable AI-assisted work.",
+  "site_name": "Reliability Navigator",
+  "generated_from": "toolkit_index.json",
   "boundary": "Synthetic public examples only. Do not add private logs, connector exports, credentials, local paths, or personal data.",
-  "complete_workflow_command": "python3 -B run_complete_workflow.py",
+  "template_create_url": "https://github.com/new?template_owner=TheDarkniteFalls&template_name=reliable-ai-work-starter&visibility=private",
   "journeys": [
     {
       "id": "start_and_direct",
@@ -32,16 +32,29 @@
       "url": "https://github.com/TheDarkniteFalls/agent-operator-handbook",
       "journey": "start_and_direct",
       "kind": "guide",
+      "help_type": "guide",
       "maturity": "stable",
       "minutes": 5,
-      "audience": "People who want to direct AI-assisted work without reading all the code.",
+      "runtimes": [
+        "no_code",
+        "python"
+      ],
+      "runtime_label": "No code; Python optional",
       "use_when": "Turn an idea or recurring job into bounded, reviewable work.",
       "proof": "The starter bundle contains the declared source, authority, review, and handoff files and passes its structural checks.",
       "limitation": "Guidance and templates do not enforce permissions or verify a live project.",
-      "ci_url": "https://github.com/TheDarkniteFalls/agent-operator-handbook/actions/workflows/checks.yml",
-      "commands": [
-        "python3 scripts/check_starter_bundle.py"
-      ]
+      "command": "python3 scripts/check_starter_bundle.py",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Guidance only",
+      "action": {
+        "label": "Read the handbook",
+        "url": "https://github.com/TheDarkniteFalls/agent-operator-handbook"
+      }
     },
     {
       "slug": "reliable-ai-work-starter",
@@ -49,16 +62,29 @@
       "url": "https://github.com/TheDarkniteFalls/reliable-ai-work-starter",
       "journey": "start_and_direct",
       "kind": "starter",
+      "help_type": "starter",
       "maturity": "experimental",
       "minutes": 10,
-      "audience": "People who want one private, bounded recurring workflow without building an app first.",
+      "runtimes": [
+        "no_code",
+        "python"
+      ],
+      "runtime_label": "No code; Python optional",
       "use_when": "Create a private file-based workspace with explicit sources, authority, review, and handoff state.",
       "proof": "The declared starter files, setup boundary, template links, and public-safety text pass deterministic structural checks.",
       "limitation": "The starter does not run an agent, enforce permissions, inspect sources, or prove that a live workflow is useful.",
-      "ci_url": "https://github.com/TheDarkniteFalls/reliable-ai-work-starter/actions/workflows/checks.yml",
-      "commands": [
-        "python3 -B check_starter.py"
-      ]
+      "command": "python3 -B check_starter.py",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": false
+      },
+      "operation": "Edits three named local files after approval",
+      "action": {
+        "label": "Create a private starter",
+        "url": "https://github.com/new?template_owner=TheDarkniteFalls&template_name=reliable-ai-work-starter&visibility=private"
+      }
     },
     {
       "slug": "codex-project-instructions-starter",
@@ -66,16 +92,29 @@
       "url": "https://github.com/TheDarkniteFalls/codex-project-instructions-starter",
       "journey": "start_and_direct",
       "kind": "guide",
+      "help_type": "guide",
       "maturity": "stable",
       "minutes": 10,
-      "audience": "Repository owners who want clear rules for a coding agent before work begins.",
+      "runtimes": [
+        "no_code",
+        "python"
+      ],
+      "runtime_label": "No code; Python optional",
       "use_when": "Give a coding agent clear project rules before it works.",
       "proof": "The required instruction templates and examples are present and structurally valid.",
       "limitation": "Written instructions guide behavior but do not technically enforce it.",
-      "ci_url": "https://github.com/TheDarkniteFalls/codex-project-instructions-starter/actions/workflows/checks.yml",
-      "commands": [
-        "python3 check_templates.py"
-      ]
+      "command": "python3 check_templates.py",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Guidance only",
+      "action": {
+        "label": "Open Codex Project Instructions Starter",
+        "url": "https://github.com/TheDarkniteFalls/codex-project-instructions-starter"
+      }
     },
     {
       "slug": "public-repo-safety-kit",
@@ -83,17 +122,28 @@
       "url": "https://github.com/TheDarkniteFalls/public-repo-safety-kit",
       "journey": "bound_and_prove",
       "kind": "tool",
+      "help_type": "runnable_check",
       "maturity": "stable",
       "minutes": 5,
-      "audience": "People preparing a repository for public GitHub publication.",
+      "runtimes": [
+        "python"
+      ],
+      "runtime_label": "Python 3",
       "use_when": "Check a public-candidate repo before publishing.",
       "proof": "The checked tree avoids the kit's known private-path, credential, identity, and publication-risk cases.",
       "limitation": "A pass is not a complete security review and does not grant permission to publish.",
-      "ci_url": "https://github.com/TheDarkniteFalls/public-repo-safety-kit/actions/workflows/checks.yml",
-      "commands": [
-        "python3 public_repo_guard.py --self-test",
-        "python3 public_repo_guard.py ."
-      ]
+      "command": "python3 public_repo_guard.py --self-test",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Read-only check; examples may use temporary files",
+      "action": {
+        "label": "Open Public Repo Safety Kit",
+        "url": "https://github.com/TheDarkniteFalls/public-repo-safety-kit"
+      }
     },
     {
       "slug": "evidencegate",
@@ -101,17 +151,28 @@
       "url": "https://github.com/TheDarkniteFalls/evidencegate",
       "journey": "bound_and_prove",
       "kind": "tool",
+      "help_type": "runnable_check",
       "maturity": "flagship",
       "minutes": 5,
-      "audience": "Reviewers and integrators who need revision-bound evidence for AI-assisted changes.",
+      "runtimes": [
+        "python"
+      ],
+      "runtime_label": "Python 3",
       "use_when": "Leave a compact review receipt for AI-assisted work.",
       "proof": "Declared claims, checks, changed paths, review, and public-safety fields are tied to the exact Git revision supplied to the verifier.",
       "limitation": "It does not authenticate a reviewer, prove semantic correctness, or approve publication.",
-      "ci_url": "https://github.com/TheDarkniteFalls/evidencegate/actions/workflows/checks.yml",
-      "commands": [
-        "python3 -B examples/run-v1-reference.py",
-        "python3 -B evidencegate.py validate examples/v1-review-ready.json"
-      ]
+      "command": "python3 -B examples/run-v1-reference.py",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Read-only check; examples may use temporary files",
+      "action": {
+        "label": "Open EvidenceGate",
+        "url": "https://github.com/TheDarkniteFalls/evidencegate"
+      }
     },
     {
       "slug": "local-model-reliability-example",
@@ -119,18 +180,28 @@
       "url": "https://github.com/TheDarkniteFalls/local-model-reliability-example",
       "journey": "bound_and_prove",
       "kind": "pattern",
+      "help_type": "runnable_check",
       "maturity": "stable",
       "minutes": 5,
-      "audience": "Builders placing deterministic validation around local or small-model output.",
+      "runtimes": [
+        "python"
+      ],
+      "runtime_label": "Python 3",
       "use_when": "Validate structured local-model output before trusting it.",
       "proof": "Synthetic outputs satisfy the declared shape, citation, confidence, and no-write contracts.",
       "limitation": "The example calls no model and does not measure live-model quality.",
-      "ci_url": "https://github.com/TheDarkniteFalls/local-model-reliability-example/actions/workflows/checks.yml",
-      "commands": [
-        "python3 reliability_demo.py --self-test",
-        "python3 structured_output_canary.py examples/canary_outputs.jsonl",
-        "python3 protected_path_proof.py examples/protected_path_cases.jsonl"
-      ]
+      "command": "python3 reliability_demo.py --self-test",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Read-only check; examples may use temporary files",
+      "action": {
+        "label": "Open Local Model Reliability Example",
+        "url": "https://github.com/TheDarkniteFalls/local-model-reliability-example"
+      }
     },
     {
       "slug": "context-boundary-examples",
@@ -138,17 +209,28 @@
       "url": "https://github.com/TheDarkniteFalls/context-boundary-examples",
       "journey": "bound_and_prove",
       "kind": "pattern",
+      "help_type": "runnable_check",
       "maturity": "stable",
       "minutes": 5,
-      "audience": "Builders testing whether answers stay inside supplied evidence.",
+      "runtimes": [
+        "python"
+      ],
+      "runtime_label": "Python 3",
       "use_when": "Check that answers stay inside supplied evidence.",
       "proof": "Expected answers cite only allowed sources and known unsupported or uncited outputs fail.",
       "limitation": "Grounding to supplied snippets does not establish that those snippets are true or current.",
-      "ci_url": "https://github.com/TheDarkniteFalls/context-boundary-examples/actions/workflows/checks.yml",
-      "commands": [
-        "python3 context_boundary_check.py --self-test",
-        "python3 context_boundary_check.py examples/context_outputs.jsonl"
-      ]
+      "command": "python3 context_boundary_check.py --self-test",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Read-only check; examples may use temporary files",
+      "action": {
+        "label": "Open Context Boundary Examples",
+        "url": "https://github.com/TheDarkniteFalls/context-boundary-examples"
+      }
     },
     {
       "slug": "agent-action-authority-examples",
@@ -156,17 +238,28 @@
       "url": "https://github.com/TheDarkniteFalls/agent-action-authority-examples",
       "journey": "bound_and_prove",
       "kind": "pattern",
+      "help_type": "runnable_check",
       "maturity": "stable",
       "minutes": 5,
-      "audience": "Agent builders separating proposed actions from reusable execution authority.",
+      "runtimes": [
+        "python"
+      ],
+      "runtime_label": "Python 3",
       "use_when": "Classify model or agent actions before execution.",
       "proof": "Synthetic actions and scoped grants receive the expected allow, reject, or reapproval decisions.",
       "limitation": "The classifier does not execute actions, provide a sandbox, or infer security-relevant scope.",
-      "ci_url": "https://github.com/TheDarkniteFalls/agent-action-authority-examples/actions/workflows/checks.yml",
-      "commands": [
-        "python3 action_authority_check.py --self-test",
-        "python3 scoped_approval_check.py --self-test"
-      ]
+      "command": "python3 action_authority_check.py --self-test",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Read-only check; examples may use temporary files",
+      "action": {
+        "label": "Open Agent Action Authority Examples",
+        "url": "https://github.com/TheDarkniteFalls/agent-action-authority-examples"
+      }
     },
     {
       "slug": "green-spine-qa-pattern",
@@ -174,17 +267,28 @@
       "url": "https://github.com/TheDarkniteFalls/green-spine-qa-pattern",
       "journey": "evaluate_and_operate",
       "kind": "pattern",
+      "help_type": "runnable_check",
       "maturity": "stable",
       "minutes": 5,
-      "audience": "Project owners who want one memorable check for an important workflow.",
+      "runtimes": [
+        "python"
+      ],
+      "runtime_label": "Python 3",
       "use_when": "Keep one important workflow obviously healthy.",
       "proof": "One representative synthetic path and its known-bad cases satisfy the named checkpoint.",
       "limitation": "A green spine deliberately does not prove every feature, path, or experience quality.",
-      "ci_url": "https://github.com/TheDarkniteFalls/green-spine-qa-pattern/actions/workflows/checks.yml",
-      "commands": [
-        "python3 spine_green.py",
-        "python3 browser_structure_check.py --self-test"
-      ]
+      "command": "python3 spine_green.py",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Read-only check; examples may use temporary files",
+      "action": {
+        "label": "Open Green-Spine QA Pattern",
+        "url": "https://github.com/TheDarkniteFalls/green-spine-qa-pattern"
+      }
     },
     {
       "slug": "sqlite-context-retrieval-example",
@@ -192,16 +296,28 @@
       "url": "https://github.com/TheDarkniteFalls/sqlite-context-retrieval-example",
       "journey": "evaluate_and_operate",
       "kind": "pattern",
+      "help_type": "runnable_check",
       "maturity": "experimental",
       "minutes": 15,
-      "audience": "Builders evaluating deterministic metadata boundaries around SQLite FTS5 retrieval.",
+      "runtimes": [
+        "python"
+      ],
+      "runtime_label": "Python 3",
       "use_when": "Turn wrong-scope, stale-source, and authority retrieval failures into regression buckets.",
       "proof": "The synthetic failure registry selects or refuses correctly and keeps critical buckets independently green.",
       "limitation": "The fixtures are synthetic and natural-language-to-filter translation is outside the evaluated boundary.",
-      "ci_url": "https://github.com/TheDarkniteFalls/sqlite-context-retrieval-example/actions/workflows/checks.yml",
-      "commands": [
-        "python3 -B metadata_retrieval_demo.py failures"
-      ]
+      "command": "python3 -B metadata_retrieval_demo.py failures",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Read-only check; examples may use temporary files",
+      "action": {
+        "label": "Open SQLite Context Retrieval Example",
+        "url": "https://github.com/TheDarkniteFalls/sqlite-context-retrieval-example"
+      }
     },
     {
       "slug": "sealed-evaluation-pattern",
@@ -209,16 +325,28 @@
       "url": "https://github.com/TheDarkniteFalls/sealed-evaluation-pattern",
       "journey": "evaluate_and_operate",
       "kind": "pattern",
+      "help_type": "runnable_check",
       "maturity": "experimental",
       "minutes": 10,
-      "audience": "Evaluators preserving a scarce holdout corpus across learning, calibration, and sealed zones.",
+      "runtimes": [
+        "python"
+      ],
+      "runtime_label": "Python 3",
       "use_when": "Check access order, frozen outputs, digests, and retirement of revealed calibration material.",
       "proof": "The supplied record preserves the declared information zones, freeze order, digests, and retirement rule.",
       "limitation": "The checker is not a sandbox and cannot prove an access log is complete or authentic.",
-      "ci_url": "https://github.com/TheDarkniteFalls/sealed-evaluation-pattern/actions/workflows/checks.yml",
-      "commands": [
-        "python3 -B sealed_eval.py --self-test"
-      ]
+      "command": "python3 -B sealed_eval.py --self-test",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Read-only check; examples may use temporary files",
+      "action": {
+        "label": "Open Sealed Evaluation Pattern",
+        "url": "https://github.com/TheDarkniteFalls/sealed-evaluation-pattern"
+      }
     },
     {
       "slug": "generated-system-qa-pattern",
@@ -226,16 +354,28 @@
       "url": "https://github.com/TheDarkniteFalls/generated-system-qa-pattern",
       "journey": "evaluate_and_operate",
       "kind": "pattern",
+      "help_type": "runnable_check",
       "maturity": "experimental",
       "minutes": 10,
-      "audience": "Builders checking generated worlds, workflows, maps, or other graph-shaped systems.",
+      "runtimes": [
+        "python"
+      ],
+      "runtime_label": "Python 3",
       "use_when": "Check generated-data freshness, integrity, reachability, required services, and a representative journey.",
       "proof": "The supplied artifact matches its blueprint and satisfies the declared structural and journey requirements.",
       "limitation": "Structural readiness does not prove live UI freshness, domain quality, accessibility, or enjoyment.",
-      "ci_url": "https://github.com/TheDarkniteFalls/generated-system-qa-pattern/actions/workflows/checks.yml",
-      "commands": [
-        "python3 -B generated_system_qa.py --self-test"
-      ]
+      "command": "python3 -B generated_system_qa.py --self-test",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Read-only check; examples may use temporary files",
+      "action": {
+        "label": "Open Generated-System QA Pattern",
+        "url": "https://github.com/TheDarkniteFalls/generated-system-qa-pattern"
+      }
     },
     {
       "slug": "model-workload-telemetry",
@@ -243,16 +383,28 @@
       "url": "https://github.com/TheDarkniteFalls/model-workload-telemetry",
       "journey": "evaluate_and_operate",
       "kind": "tool",
+      "help_type": "runnable_check",
       "maturity": "experimental",
       "minutes": 10,
-      "audience": "Teams comparing model routes over shared task instances instead of raw aggregate token totals.",
+      "runtimes": [
+        "python"
+      ],
+      "runtime_label": "Python 3",
       "use_when": "Report completion, cost, time, quality, and revision burden within paired workload classes.",
       "proof": "Only task instances attempted by every compared model contribute to each workload report.",
       "limitation": "The report does not prove causal model superiority, cost efficiency, or statistical significance.",
-      "ci_url": "https://github.com/TheDarkniteFalls/model-workload-telemetry/actions/workflows/checks.yml",
-      "commands": [
-        "python3 -B model_workload_telemetry.py --self-test"
-      ]
+      "command": "python3 -B model_workload_telemetry.py --self-test",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Read-only check; examples may use temporary files",
+      "action": {
+        "label": "Open Model Workload Telemetry",
+        "url": "https://github.com/TheDarkniteFalls/model-workload-telemetry"
+      }
     },
     {
       "slug": "ai-game-state-machine-pattern",
@@ -260,16 +412,28 @@
       "url": "https://github.com/TheDarkniteFalls/ai-game-state-machine-pattern",
       "journey": "evaluate_and_operate",
       "kind": "pattern",
+      "help_type": "runnable_check",
       "maturity": "experimental",
       "minutes": 10,
-      "audience": "Game builders protecting legal flow, persistence, and replay during AI-assisted development.",
+      "runtimes": [
+        "node"
+      ],
+      "runtime_label": "Node.js 20+",
       "use_when": "Keep one authoritative set of legal commands and unresolved obligations across save and replay.",
       "proof": "Illegal actions remain non-mutating, inspection is read-only, obligations persist, and seeded replay is deterministic.",
       "limitation": "State-machine correctness does not prove that the game is understandable, balanced, emotional, or fun.",
-      "ci_url": "https://github.com/TheDarkniteFalls/ai-game-state-machine-pattern/actions/workflows/checks.yml",
-      "commands": [
-        "npm test"
-      ]
+      "command": "npm test",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Read-only check; examples may use temporary files",
+      "action": {
+        "label": "Open AI Game State Machine Pattern",
+        "url": "https://github.com/TheDarkniteFalls/ai-game-state-machine-pattern"
+      }
     }
   ]
 }

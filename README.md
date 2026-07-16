@@ -3,15 +3,20 @@
 Start here for public, runnable examples of practical harnesses for reliable,
 human-accountable AI work.
 
+**Choose in two minutes:** use the
+[Toolkit Navigator](https://thedarknitefalls.github.io/local-assistant-reliability-lab/)
+for one recommendation, or scan the [complete toolkit map](TOOLKIT_MAP.md) when
+you want all 14 public contracts at once.
+
 This is an overview repo, not a platform. EvidenceGate is the flagship pattern
 for leaving a revision-bound, human-reviewed receipt, while the wider toolkit
 explores small models, coding-agent boundaries, structured output, context,
 action authority, repeatable QA, and public-safe publishing.
 
-**Not a coder?** Start with the [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook).
-It shows how to point an agent at the current source of truth, set a few stop
-signs, review evidence without reading code, and carry one tested lesson into
-the next task.
+**Not a coder?** [Create a private Reliable AI Work Starter](https://github.com/new?template_owner=TheDarkniteFalls&template_name=reliable-ai-work-starter&visibility=private),
+or read the [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook)
+first. Both keep important state outside chat and consequential actions behind
+clear approval boundaries.
 
 ## See It All Come Together
 
@@ -66,7 +71,8 @@ toolkit component proves and what it deliberately leaves open.
 
 | If this is getting in your way... | Start here | What you will see |
 | --- | --- | --- |
-| You want to build with Codex without becoming a developer first | [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook) | A Project Card, approval ladder, verification guide, and recurring-work starter |
+| You want one useful private workflow without building an app | [Reliable AI Work Starter](https://github.com/TheDarkniteFalls/reliable-ai-work-starter) | Named sources, bounded authority, durable state, review evidence, and a clean handoff |
+| You want to build with Codex without becoming a developer first | [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook) | A Project Card, approval ladder, verification guide, and plain-English operating method |
 | An agent exceeds the authority it was given | `python3 -B run_complete_workflow.py` | Protected writes, grant replay, and changed scope are rejected |
 | A receipt describes the wrong revision or evidence | `python3 -B examples/run-v1-reference.py` in EvidenceGate | Stale heads, omitted paths, and protected paths fail |
 | An answer escapes the supplied evidence | `python3 context_boundary_check.py --self-test` in Context Boundary Examples | Unsupported answers and missing citations fail |
@@ -89,6 +95,9 @@ flowchart LR
 
 ## Start Here
 
+- Use the [Toolkit Navigator](https://thedarknitefalls.github.io/local-assistant-reliability-lab/)
+  when you want one recommendation based on your goal, experience, runtime,
+  and operating constraints.
 - Begin with the [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook)
   if you mostly want the agent to do the work and need a plain-language way to
   stay in control.
@@ -165,6 +174,12 @@ PASS trust_signals
 PASS evidencegate_v1_reference
 PASS public_safe_text
 PASS toolkit_map
+PASS navigator_data
+PASS navigator_ranking
+PASS navigator_structure
+PASS navigator_accessibility
+PASS navigator_responsive
+PASS navigator_failure_path
 ```
 
 ## Public/Private Boundary
@@ -175,15 +190,19 @@ customer/user data to these public repos.
 
 ## Scope
 
-This lab is a visitor-facing map. Each linked repo owns its own runnable example.
-If this README gets too long, move the tables into a separate `TOOLKIT_MAP.md`
-instead of turning this repo into a framework.
+This lab is a visitor-facing map and static Navigator. Each linked repo owns
+its own runnable example. `toolkit_index.json` remains the only catalog source;
+the Markdown map and browser data are generated from it instead of becoming
+separate stores.
 
 ## Quality Checks
 
 ```sh
 python3 check_toolkit_index.py
 python3 render_toolkit_map.py --check
+python3 render_navigator.py --check
+python3 check_navigator.py
+node tests/test_navigator.mjs
 python3 -B run_complete_workflow.py --self-test
-python3 -m py_compile check_toolkit_index.py render_toolkit_map.py run_complete_workflow.py
+python3 -m py_compile check_toolkit_index.py check_navigator.py render_toolkit_map.py render_navigator.py toolkit_contract.py run_complete_workflow.py
 ```
