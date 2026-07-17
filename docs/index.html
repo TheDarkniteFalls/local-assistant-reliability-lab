@@ -5,10 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Choose one reliable starting point for human-accountable AI-assisted work."
+      content="Answer four questions to find one small, public, human-accountable AI workflow, guide, or runnable reliability check."
     />
-    <title>Reliability Navigator</title>
-    <link rel="stylesheet" href="styles.css" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0757e8" />
+    <link rel="canonical" href="https://thedarknitefalls.github.io/local-assistant-reliability-lab/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Reliability Navigator" />
+    <meta property="og:title" content="Reliability Navigator — find a reliable AI workflow starting point" />
+    <meta property="og:description" content="Choose one small guide, starter, or runnable check for human-accountable AI work. No sign-up or analytics." />
+    <meta property="og:url" content="https://thedarknitefalls.github.io/local-assistant-reliability-lab/" />
+    <meta name="twitter:card" content="summary" />
+    <title>Reliability Navigator — find a reliable AI workflow starting point</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css?v=20260717" />
   </head>
   <body>
     <header class="site-header">
@@ -26,9 +36,13 @@
             Answer four short questions. Get one route, one first action, and
             an honest proof boundary.
           </p>
+          <p id="privacy-note" class="privacy-note">
+            This is a static guide: no sign-up, analytics, saved answers, or
+            data sent anywhere.
+          </p>
         </div>
 
-        <form id="navigator-form" class="question-flow">
+        <form id="navigator-form" class="question-flow" aria-describedby="privacy-note">
           <fieldset>
             <legend><span aria-hidden="true">1</span>What are you trying to do?</legend>
             <div class="choice-row">
@@ -100,8 +114,30 @@
               </label>
             </div>
           </fieldset>
+
+          <a class="mobile-result-link" href="#result">See your recommendation ↓</a>
         </form>
       </section>
+
+      <noscript>
+        <style>
+          .result-panel { display: none; }
+          .no-script-routes { display: block; }
+        </style>
+        <section class="no-script-routes" aria-labelledby="no-script-title">
+          <p class="result-label">Choose without JavaScript</p>
+          <h2 id="no-script-title">Three useful starting routes</h2>
+          <p>
+            The chooser needs JavaScript, but every linked resource works
+            independently on GitHub.
+          </p>
+          <ul>
+            <li><a href="https://github.com/TheDarkniteFalls/agent-operator-handbook">Read the plain-English handbook</a></li>
+            <li><a href="https://github.com/new?template_owner=TheDarkniteFalls&amp;template_name=reliable-ai-work-starter&amp;visibility=private">Create a private starter</a></li>
+            <li><a href="https://github.com/TheDarkniteFalls/local-assistant-reliability-lab/blob/main/TOOLKIT_MAP.md">View the complete toolkit map</a></li>
+          </ul>
+        </section>
+      </noscript>
 
       <aside id="result" class="result-panel" aria-live="polite" aria-busy="true">
         <div class="result-accent" aria-hidden="true"></div>
@@ -140,7 +176,13 @@
       </aside>
     </main>
 
-    <footer class="site-footer">Synthetic examples. You stay in control.</footer>
+    <footer class="site-footer">
+      <span>Synthetic examples. You stay in control.</span>
+      <nav aria-label="More about this project">
+        <a href="https://github.com/TheDarkniteFalls">More from Mike</a>
+        <a href="https://github.com/TheDarkniteFalls/local-assistant-reliability-lab">View source</a>
+      </nav>
+    </footer>
 
     <script type="module" src="app.js"></script>
   </body>

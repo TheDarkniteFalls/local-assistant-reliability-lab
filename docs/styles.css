@@ -89,8 +89,24 @@ a {
   line-height: 1.55;
 }
 
+.intro .privacy-note {
+  max-width: max-content;
+  margin-top: 16px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  background: var(--blue-wash);
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
 .question-flow {
   margin-top: 36px;
+}
+
+.mobile-result-link {
+  display: none;
 }
 
 fieldset {
@@ -368,6 +384,39 @@ legend span {
   line-height: 1.45;
 }
 
+.no-script-routes {
+  display: none;
+  max-width: 720px;
+  padding: 38px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: white;
+  box-shadow: var(--shadow);
+}
+
+.no-script-routes h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.05;
+}
+
+.no-script-routes p:not(.result-label) {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.no-script-routes li + li {
+  margin-top: 12px;
+}
+
+.no-script-routes a,
+.site-footer a {
+  color: var(--blue);
+  font-weight: 620;
+  text-underline-offset: 4px;
+}
+
 .site-footer {
   width: min(100% - 80px, 1440px);
   margin: 0 auto;
@@ -376,6 +425,13 @@ legend span {
   color: var(--muted);
   font-size: 0.95rem;
   text-align: center;
+}
+
+.site-footer nav {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
 @media (max-width: 1040px) {
@@ -422,6 +478,12 @@ legend span {
     font-size: 1.05rem;
   }
 
+  .intro .privacy-note {
+    max-width: none;
+    border-radius: var(--radius);
+    font-size: 0.88rem;
+  }
+
   .question-flow {
     margin-top: 25px;
   }
@@ -459,6 +521,19 @@ legend span {
     min-height: 58px;
   }
 
+  .mobile-result-link {
+    min-height: 52px;
+    margin-top: 22px;
+    border: 2px solid var(--blue);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--blue);
+    font-weight: 760;
+    text-decoration: none;
+  }
+
   .result-panel {
     padding: 31px 28px 25px;
     box-shadow: none;
@@ -489,6 +564,20 @@ legend span {
 
   .site-footer {
     width: min(100% - 36px, 560px);
+  }
+}
+
+@media (max-width: 380px) {
+  .site-header {
+    padding-block: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+  }
+
+  .site-footer nav {
+    flex-direction: column;
+    gap: 8px;
   }
 }
 

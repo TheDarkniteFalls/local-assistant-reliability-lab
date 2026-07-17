@@ -43,6 +43,8 @@ def main() -> int:
     html = (DOCS / "index.html").read_text(encoding="utf-8")
     css = (DOCS / "styles.css").read_text(encoding="utf-8")
     app = (DOCS / "app.js").read_text(encoding="utf-8")
+    robots = (DOCS / "robots.txt").read_text(encoding="utf-8")
+    sitemap = (DOCS / "sitemap.xml").read_text(encoding="utf-8")
     parser = NavigatorParser()
     parser.feed(html)
 
@@ -66,6 +68,22 @@ def main() -> int:
     require(types["local"] == types["no_model"] == types["read_only"] == "checkbox", "constraints must be checkboxes")
     print("PASS navigator_structure")
 
+    canonical = next(attrs for tag, attrs, _ in tags if tag == "link" and attrs.get("rel") == "canonical")
+    require(
+        canonical.get("href") == "https://thedarknitefalls.github.io/local-assistant-reliability-lab/",
+        "canonical Navigator URL is missing or stale",
+    )
+    require('name="robots" content="index, follow"' in html, "search indexing metadata missing")
+    require('property="og:title"' in html, "social discovery title missing")
+    require('rel="icon" href="favicon.svg"' in html, "Navigator favicon missing")
+    require("no sign-up, analytics, saved answers" in html, "passive privacy explanation missing")
+    require("Choose without JavaScript" in html, "no-JavaScript routes missing")
+    require("More from Mike" in html and "View source" in html, "project discovery links missing")
+    require("Allow: /" in robots and "sitemap.xml" in robots, "search crawler routes missing")
+    require(canonical["href"] in sitemap, "sitemap canonical URL is missing or stale")
+    require((DOCS / "favicon.svg").is_file(), "favicon asset missing")
+    print("PASS navigator_discovery")
+
     require(not parser.inputs_outside_labels, "every input must have a visible wrapping label")
     result = next(attrs for tag, attrs, _ in tags if attrs.get("id") == "result")
     toggle = next(attrs for tag, attrs, _ in tags if attrs.get("id") == "details-toggle")
@@ -81,6 +99,7 @@ def main() -> int:
     require("@media (max-width: 1040px)" in css, "tablet breakpoint missing")
     require("@media (max-width: 680px)" in css, "mobile breakpoint missing")
     require("@media (max-width: 420px)" in css, "narrow-mobile breakpoint missing")
+    require("@media (max-width: 380px)" in css, "small-phone header breakpoint missing")
     require(".choice input:focus-visible + span" in css, "keyboard focus style missing")
     require("@media (prefers-reduced-motion: reduce)" in css, "reduced-motion path missing")
     print("PASS navigator_responsive")

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://thedarknitefalls.github.io/local-assistant-reliability-lab/sitemap.xml
