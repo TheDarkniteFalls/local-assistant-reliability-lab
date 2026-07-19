@@ -76,7 +76,7 @@ toolkit component proves and what it deliberately leaves open.
 | An agent exceeds the authority it was given | `python3 -B run_complete_workflow.py` | Protected writes, grant replay, and changed scope are rejected |
 | A receipt describes the wrong revision or evidence | `python3 -B examples/run-v1-reference.py` in EvidenceGate | Stale heads, omitted paths, and protected paths fail |
 | An answer escapes the supplied evidence | `python3 context_boundary_check.py --self-test` in Context Boundary Examples | Unsupported answers and missing citations fail |
-| Retrieval returns the right words from the wrong scope or source | `python3 -B metadata_retrieval_demo.py failures` in SQLite Context Retrieval Example | Wrong-scope, stale-source, eligibility, and authority buckets are checked independently |
+| An agent may continue from illegal or stale context | `python3 -B contextgate.py check` in ContextGate | Required records, explicit exclusions, fail-closed obligations, and stale receipts are checked deterministically |
 | Generated content is stale, disconnected, or impossible to traverse | `python3 -B generated_system_qa.py --self-test` in Generated-System QA Pattern | Freshness, integrity, reachability, required services, and a representative journey are checked |
 | A scarce holdout may have leaked into generation or review | `python3 -B sealed_eval.py --self-test` in Sealed Evaluation Pattern | Access order, frozen outputs, digests, and retirement of revealed material are checked |
 | Model comparisons mix different kinds of work | `python3 -B model_workload_telemetry.py --self-test` in Model Workload Telemetry | Only shared task instances are compared inside each workload class |
