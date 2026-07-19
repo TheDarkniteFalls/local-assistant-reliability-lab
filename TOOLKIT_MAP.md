@@ -111,7 +111,7 @@ Test retrieval, generated systems, evaluation protocols, model workloads, and de
 | Project | Kind | Maturity | Time | Runtime | Use it when | First check |
 | --- | --- | --- | --- | --- | --- | --- |
 | [Green-Spine QA Pattern](https://github.com/TheDarkniteFalls/green-spine-qa-pattern) | pattern | stable | 5 min | Python 3 | Keep one important workflow obviously healthy. | `python3 spine_green.py` |
-| [SQLite Context Retrieval Example](https://github.com/TheDarkniteFalls/sqlite-context-retrieval-example) | pattern | experimental | 15 min | Python 3 | Turn wrong-scope, stale-source, and authority retrieval failures into regression buckets. | `python3 -B metadata_retrieval_demo.py failures` |
+| [Context Contract Compiler](https://github.com/TheDarkniteFalls/context-contract-compiler) | pattern | experimental | 10 min | Python 3 | Compile a minimal legal context packet and prove when a declared late change requires recompilation. | `python3 -B context_compiler.py check` |
 | [Sealed Evaluation Pattern](https://github.com/TheDarkniteFalls/sealed-evaluation-pattern) | pattern | experimental | 10 min | Python 3 | Check access order, frozen outputs, digests, and retirement of revealed calibration material. | `python3 -B sealed_eval.py --self-test` |
 | [Generated-System QA Pattern](https://github.com/TheDarkniteFalls/generated-system-qa-pattern) | pattern | experimental | 10 min | Python 3 | Check generated-data freshness, integrity, reachability, required services, and a representative journey. | `python3 -B generated_system_qa.py --self-test` |
 | [Model Workload Telemetry](https://github.com/TheDarkniteFalls/model-workload-telemetry) | tool | experimental | 10 min | Python 3 | Report completion, cost, time, quality, and revision burden within paired workload classes. | `python3 -B model_workload_telemetry.py --self-test` |
@@ -127,13 +127,13 @@ Test retrieval, generated systems, evaluation protocols, model workloads, and de
 - **It does not establish:** A green spine deliberately does not prove every feature, path, or experience quality.
 - **CI:** [checks workflow](https://github.com/TheDarkniteFalls/green-spine-qa-pattern/actions/workflows/checks.yml)
 
-#### [SQLite Context Retrieval Example](https://github.com/TheDarkniteFalls/sqlite-context-retrieval-example)
+#### [Context Contract Compiler](https://github.com/TheDarkniteFalls/context-contract-compiler)
 
-- **For:** Builders evaluating deterministic metadata boundaries around SQLite FTS5 retrieval.
-- **First-use estimate:** 15 minutes; Python 3.
-- **A pass establishes:** The synthetic failure registry selects or refuses correctly and keeps critical buckets independently green.
-- **It does not establish:** The fixtures are synthetic and natural-language-to-filter translation is outside the evaluated boundary.
-- **CI:** [checks workflow](https://github.com/TheDarkniteFalls/sqlite-context-retrieval-example/actions/workflows/checks.yml)
+- **For:** AI-agent builders evaluating deterministic context-selection boundaries, receipts, and stale-context handling.
+- **First-use estimate:** 10 minutes; Python 3.
+- **A pass establishes:** The synthetic compiler protects required records before ranking, explains every inclusion and exclusion, fails closed on invalid obligations, and rejects stale receipts deterministically.
+- **It does not establish:** Structured metadata and changes are supplied; the project does not discover runtime changes, authorize actions, verify truth, or prove downstream model safety.
+- **CI:** [checks workflow](https://github.com/TheDarkniteFalls/context-contract-compiler/actions/workflows/checks.yml)
 
 #### [Sealed Evaluation Pattern](https://github.com/TheDarkniteFalls/sealed-evaluation-pattern)
 

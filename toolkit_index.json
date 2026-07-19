@@ -187,20 +187,21 @@
       ]
     },
     {
-      "slug": "sqlite-context-retrieval-example",
-      "name": "SQLite Context Retrieval Example",
-      "url": "https://github.com/TheDarkniteFalls/sqlite-context-retrieval-example",
+      "slug": "context-contract-compiler",
+      "name": "Context Contract Compiler",
+      "url": "https://github.com/TheDarkniteFalls/context-contract-compiler",
       "journey": "evaluate_and_operate",
       "kind": "pattern",
       "maturity": "experimental",
-      "minutes": 15,
-      "audience": "Builders evaluating deterministic metadata boundaries around SQLite FTS5 retrieval.",
-      "use_when": "Turn wrong-scope, stale-source, and authority retrieval failures into regression buckets.",
-      "proof": "The synthetic failure registry selects or refuses correctly and keeps critical buckets independently green.",
-      "limitation": "The fixtures are synthetic and natural-language-to-filter translation is outside the evaluated boundary.",
-      "ci_url": "https://github.com/TheDarkniteFalls/sqlite-context-retrieval-example/actions/workflows/checks.yml",
+      "minutes": 10,
+      "audience": "AI-agent builders evaluating deterministic context-selection boundaries, receipts, and stale-context handling.",
+      "use_when": "Compile a minimal legal context packet and prove when a declared late change requires recompilation.",
+      "proof": "The synthetic compiler protects required records before ranking, explains every inclusion and exclusion, fails closed on invalid obligations, and rejects stale receipts deterministically.",
+      "limitation": "Structured metadata and changes are supplied; the project does not discover runtime changes, authorize actions, verify truth, or prove downstream model safety.",
+      "ci_url": "https://github.com/TheDarkniteFalls/context-contract-compiler/actions/workflows/checks.yml",
       "commands": [
-        "python3 -B metadata_retrieval_demo.py failures"
+        "python3 -B context_compiler.py check",
+        "python3 -B context_compiler.py serve --open"
       ]
     },
     {
