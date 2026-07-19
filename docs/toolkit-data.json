@@ -291,9 +291,9 @@
       }
     },
     {
-      "slug": "sqlite-context-retrieval-example",
-      "name": "ContextGate — Deterministic Context Contract Compiler",
-      "url": "https://github.com/TheDarkniteFalls/sqlite-context-retrieval-example",
+      "slug": "context-contract-compiler",
+      "name": "Context Contract Compiler",
+      "url": "https://github.com/TheDarkniteFalls/context-contract-compiler",
       "journey": "evaluate_and_operate",
       "kind": "pattern",
       "help_type": "runnable_check",
@@ -306,7 +306,7 @@
       "use_when": "Compile a minimal legal context packet and prove when a declared late change requires recompilation.",
       "proof": "The synthetic compiler protects required records before ranking, explains every inclusion and exclusion, fails closed on invalid obligations, and rejects stale receipts deterministically.",
       "limitation": "Structured metadata and changes are supplied; the project does not discover runtime changes, authorize actions, verify truth, or prove downstream model safety.",
-      "command": "python3 -B contextgate.py check",
+      "command": "python3 -B context_compiler.py check",
       "constraints": {
         "local": true,
         "no_model": true,
@@ -315,8 +315,8 @@
       },
       "operation": "Read-only check; examples may use temporary files",
       "action": {
-        "label": "Open ContextGate — Deterministic Context Contract Compiler",
-        "url": "https://github.com/TheDarkniteFalls/sqlite-context-retrieval-example"
+        "label": "Open Context Contract Compiler",
+        "url": "https://github.com/TheDarkniteFalls/context-contract-compiler"
       }
     },
     {

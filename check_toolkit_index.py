@@ -18,7 +18,7 @@ REQUIRED_REPOS = {
     "context-boundary-examples",
     "agent-action-authority-examples",
     "green-spine-qa-pattern",
-    "sqlite-context-retrieval-example",
+    "context-contract-compiler",
     "sealed-evaluation-pattern",
     "generated-system-qa-pattern",
     "model-workload-telemetry",
