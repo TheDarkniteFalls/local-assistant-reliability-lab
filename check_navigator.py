@@ -73,15 +73,32 @@ def main() -> int:
         canonical.get("href") == "https://thedarknitefalls.github.io/local-assistant-reliability-lab/",
         "canonical Navigator URL is missing or stale",
     )
+    catalog = next(
+        attrs
+        for tag, attrs, _ in tags
+        if tag == "link" and attrs.get("rel") == "alternate"
+    )
+    require(
+        catalog.get("type") == "application/json"
+        and catalog.get("href") == "toolkit-data.json"
+        and catalog.get("title") == "Machine-readable toolkit catalog",
+        "machine-readable catalog metadata is missing or stale",
+    )
     require('name="robots" content="index, follow"' in html, "search indexing metadata missing")
     require('property="og:title"' in html, "social discovery title missing")
     require('rel="icon" href="favicon.svg"' in html, "Navigator favicon missing")
     require("no sign-up, analytics, saved answers" in html, "passive privacy explanation missing")
     require("Choose without JavaScript" in html, "no-JavaScript routes missing")
-    require("More from Mike" in html and "View source" in html, "project discovery links missing")
+    require(
+        "More from Mike" in html
+        and "View source" in html
+        and "Machine-readable catalog" in html,
+        "project discovery links missing",
+    )
     require("Allow: /" in robots and "sitemap.xml" in robots, "search crawler routes missing")
     require(canonical["href"] in sitemap, "sitemap canonical URL is missing or stale")
     require((DOCS / "favicon.svg").is_file(), "favicon asset missing")
+    require((DOCS / "toolkit-data.json").is_file(), "machine-readable catalog missing")
     print("PASS navigator_discovery")
 
     require(not parser.inputs_outside_labels, "every input must have a visible wrapping label")
@@ -101,6 +118,7 @@ def main() -> int:
     require("@media (max-width: 420px)" in css, "narrow-mobile breakpoint missing")
     require("@media (max-width: 380px)" in css, "small-phone header breakpoint missing")
     require(".choice input:focus-visible + span" in css, "keyboard focus style missing")
+    require("flex-wrap: wrap;" in css, "footer discovery links must wrap")
     require("@media (prefers-reduced-motion: reduce)" in css, "reduced-motion path missing")
     print("PASS navigator_responsive")
 
