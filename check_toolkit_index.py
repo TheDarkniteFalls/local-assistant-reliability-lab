@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -46,6 +47,10 @@ BLOCKED_TEXT = (
 )
 EVIDENCEGATE_REFERENCE_COMMAND = "python3 -B examples/run-v1-reference.py"
 COMPLETE_WORKFLOW_COMMAND = "python3 -B run_complete_workflow.py"
+ROOT = Path(__file__).resolve().parent
+FIRST_PARTY_REPO_LINK = re.compile(
+    r"https://github\.com/TheDarkniteFalls/([A-Za-z0-9_.-]+)"
+)
 
 
 def fail(message: str) -> None:
@@ -111,7 +116,8 @@ def validate_index(index: dict) -> None:
                 fail(f"{field} must be text for {repo.get('slug', 'unknown')}")
             if field != "commands" and not repo[field].strip():
                 fail(f"{field} must not be empty for {repo.get('slug', 'unknown')}")
-        if not repo["url"].startswith("https://github.com/TheDarkniteFalls/"):
+        expected_url = f"https://github.com/TheDarkniteFalls/{repo['slug']}"
+        if repo["url"] != expected_url:
             fail(f"unexpected url for {repo['slug']}")
         if repo["journey"] not in REQUIRED_JOURNEYS:
             fail(f"unexpected journey for {repo['slug']}")
@@ -150,13 +156,43 @@ def validate_index(index: dict) -> None:
         fail("public-safety review text found: " + ", ".join(blocked))
 
 
+def first_party_surfaces() -> list[Path]:
+    surfaces = [ROOT / "README.md", ROOT / "docs" / "index.html"]
+    for candidate in (
+        ROOT.parent / "TheDarkniteFalls-profile" / "README.md",
+        ROOT.parent / "TheDarkniteFalls" / "README.md",
+    ):
+        if candidate.is_file():
+            surfaces.append(candidate)
+            break
+    return surfaces
+
+
+def validate_first_party_repository_links(index: dict) -> list[Path]:
+    allowed = {repo["slug"] for repo in index["repos"]}
+    allowed.update({"local-assistant-reliability-lab", "TheDarkniteFalls"})
+    surfaces = first_party_surfaces()
+    for surface in surfaces:
+        try:
+            text = surface.read_text(encoding="utf-8")
+        except OSError as exc:
+            fail(f"cannot read {surface}: {exc}")
+        unexpected = sorted(set(FIRST_PARTY_REPO_LINK.findall(text)) - allowed)
+        if unexpected:
+            names = ", ".join(unexpected)
+            fail(f"unexpected first-party repository link in {surface}: {names}")
+    return surfaces
+
+
 def main(argv: list[str]) -> int:
     path = Path(argv[1]) if len(argv) > 1 else Path(__file__).with_name("toolkit_index.json")
     index = load_index(path)
     validate_index(index)
+    validate_first_party_repository_links(index)
     print("PASS toolkit_index")
     print("PASS complete_workflow_entry")
     print("PASS required_repos")
+    print("PASS first_party_repository_links")
     print("PASS visitor_journeys")
     print("PASS trust_signals")
     print("PASS evidencegate_v1_reference")

@@ -7,6 +7,8 @@ human-accountable AI work.
 [Toolkit Navigator](https://thedarknitefalls.github.io/local-assistant-reliability-lab/)
 for one recommendation, or scan the [complete toolkit map](TOOLKIT_MAP.md) when
 you want all 14 public contracts at once.
+Agents and tools can read the same catalog from the
+[machine-readable toolkit index](toolkit_index.json).
 
 This is an overview repo, not a platform. EvidenceGate is the flagship pattern
 for leaving a revision-bound, human-reviewed receipt, while the wider toolkit
@@ -169,6 +171,7 @@ Expected result:
 PASS toolkit_index
 PASS complete_workflow_entry
 PASS required_repos
+PASS first_party_repository_links
 PASS visitor_journeys
 PASS trust_signals
 PASS evidencegate_v1_reference
