@@ -24,6 +24,7 @@ REQUIRED_REPOS = {
     "generated-system-qa-pattern",
     "model-workload-telemetry",
     "ai-game-state-machine-pattern",
+    "earned-confidence",
 }
 
 REQUIRED_JOURNEYS = {
@@ -125,6 +126,11 @@ def validate_index(index: dict) -> None:
             fail(f"unexpected kind for {repo['slug']}")
         if repo["maturity"] not in ALLOWED_MATURITY:
             fail(f"unexpected maturity for {repo['slug']}")
+        runtime_label = repo.get("runtime_label")
+        if runtime_label is not None and (
+            not isinstance(runtime_label, str) or not runtime_label.strip()
+        ):
+            fail(f"runtime_label must be non-empty text for {repo['slug']}")
         expected_ci = (
             f"https://github.com/TheDarkniteFalls/{repo['slug']}/"
             "actions/workflows/checks.yml"

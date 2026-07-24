@@ -56,6 +56,7 @@ Keep proposed work inside evidence and authority boundaries, then leave inspecta
 | Project | Kind | Maturity | Time | Runtime | Use it when | First check |
 | --- | --- | --- | --- | --- | --- | --- |
 | [Public Repo Safety Kit](https://github.com/TheDarkniteFalls/public-repo-safety-kit) | tool | stable | 5 min | Python 3 | Check a public-candidate repo before publishing. | `python3 public_repo_guard.py --self-test` |
+| [Earned Confidence](https://github.com/TheDarkniteFalls/earned-confidence) | pattern | experimental | 5 min | Node.js 22.6+ | Preserve uncertainty, evidence scope, and what was known when a decision was made. | `npm run check` |
 | [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) | tool | flagship | 5 min | Python 3 | Leave a compact review receipt for AI-assisted work. | `python3 -B examples/run-v1-reference.py` |
 | [Local Model Reliability Example](https://github.com/TheDarkniteFalls/local-model-reliability-example) | pattern | stable | 5 min | Python 3 | Validate structured local-model output before trusting it. | `python3 reliability_demo.py --self-test` |
 | [Context Boundary Examples](https://github.com/TheDarkniteFalls/context-boundary-examples) | pattern | stable | 5 min | Python 3 | Check that answers stay inside supplied evidence. | `python3 context_boundary_check.py --self-test` |
@@ -70,6 +71,14 @@ Keep proposed work inside evidence and authority boundaries, then leave inspecta
 - **A pass establishes:** The checked tree avoids the kit's known private-path, credential, identity, and publication-risk cases.
 - **It does not establish:** A pass is not a complete security review and does not grant permission to publish.
 - **CI:** [checks workflow](https://github.com/TheDarkniteFalls/public-repo-safety-kit/actions/workflows/checks.yml)
+
+#### [Earned Confidence](https://github.com/TheDarkniteFalls/earned-confidence)
+
+- **For:** Builders who need decisions from incomplete evidence without turning unknown values into false certainty.
+- **First-use estimate:** 5 minutes; Node.js 22.6+.
+- **A pass establishes:** Type checking, behavioral tests, and the synthetic example preserve unknown state, evidence-key isolation, policy-defined bands, immutable snapshots, and deterministic serialization.
+- **It does not establish:** Observations are not authenticated, bands are not statistical, and the package supplies no persistence or authorization.
+- **CI:** [checks workflow](https://github.com/TheDarkniteFalls/earned-confidence/actions/workflows/checks.yml)
 
 #### [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate)
 
