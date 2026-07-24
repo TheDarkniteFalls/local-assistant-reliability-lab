@@ -55,7 +55,7 @@ Keep proposed work inside evidence and authority boundaries, then leave inspecta
 
 | Project | Kind | Maturity | Time | Runtime | Use it when | First check |
 | --- | --- | --- | --- | --- | --- | --- |
-| [Public Repo Safety Kit](https://github.com/TheDarkniteFalls/public-repo-safety-kit) | tool | stable | 5 min | Python 3 | Check a public-candidate repo before publishing. | `python3 public_repo_guard.py --self-test` |
+| [Public Repo Safety Kit](https://github.com/TheDarkniteFalls/public-repo-safety-kit) | tool | stable | 5 min | Python 3; Git for repository checks | Check a public-candidate repo before publishing. | `python3 public_repo_guard.py --self-test` |
 | [Earned Confidence](https://github.com/TheDarkniteFalls/earned-confidence) | pattern | experimental | 5 min | Node.js 22.6+ | Preserve uncertainty, evidence scope, and what was known when a decision was made. | `npm run check` |
 | [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) | tool | flagship | 5 min | Python 3 | Leave a compact review receipt for AI-assisted work. | `python3 -B examples/run-v1-reference.py` |
 | [Local Model Reliability Example](https://github.com/TheDarkniteFalls/local-model-reliability-example) | pattern | stable | 5 min | Python 3 | Validate structured local-model output before trusting it. | `python3 reliability_demo.py --self-test` |
@@ -67,9 +67,9 @@ Keep proposed work inside evidence and authority boundaries, then leave inspecta
 #### [Public Repo Safety Kit](https://github.com/TheDarkniteFalls/public-repo-safety-kit)
 
 - **For:** People preparing a repository for public GitHub publication.
-- **First-use estimate:** 5 minutes; Python 3.
-- **A pass establishes:** The checked tree avoids the kit's known private-path, credential, identity, and publication-risk cases.
-- **It does not establish:** A pass is not a complete security review and does not grant permission to publish.
+- **First-use estimate:** 5 minutes; Python 3; Git for repository checks.
+- **A pass establishes:** The ordinary scan checks the supplied tree; Git-aware mode checks tracked and nonignored untracked candidates plus reachable commit author and committer email identities.
+- **It does not establish:** It does not scan historical file contents, replace a dedicated secret scanner or manual review, or grant permission to publish.
 - **CI:** [checks workflow](https://github.com/TheDarkniteFalls/public-repo-safety-kit/actions/workflows/checks.yml)
 
 #### [Earned Confidence](https://github.com/TheDarkniteFalls/earned-confidence)
