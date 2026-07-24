@@ -146,6 +146,35 @@
       }
     },
     {
+      "slug": "earned-confidence",
+      "name": "Earned Confidence",
+      "url": "https://github.com/TheDarkniteFalls/earned-confidence",
+      "journey": "bound_and_prove",
+      "kind": "pattern",
+      "help_type": "runnable_check",
+      "maturity": "experimental",
+      "minutes": 5,
+      "runtimes": [
+        "node"
+      ],
+      "runtime_label": "Node.js 22.6+",
+      "use_when": "Preserve uncertainty, evidence scope, and what was known when a decision was made.",
+      "proof": "Type checking, behavioral tests, and the synthetic example preserve unknown state, evidence-key isolation, policy-defined bands, immutable snapshots, and deterministic serialization.",
+      "limitation": "Observations are not authenticated, bands are not statistical, and the package supplies no persistence or authorization.",
+      "command": "npm run check",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Read-only check; examples may use temporary files",
+      "action": {
+        "label": "Open Earned Confidence",
+        "url": "https://github.com/TheDarkniteFalls/earned-confidence"
+      }
+    },
+    {
       "slug": "evidencegate",
       "name": "EvidenceGate",
       "url": "https://github.com/TheDarkniteFalls/evidencegate",

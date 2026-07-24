@@ -23,6 +23,9 @@ def runtime_tokens(repo: dict) -> list[str]:
 
 
 def runtime_label(repo: dict) -> str:
+    explicit_label = repo.get("runtime_label")
+    if explicit_label:
+        return explicit_label
     tokens = runtime_tokens(repo)
     if tokens == ["node"]:
         return "Node.js 20+"

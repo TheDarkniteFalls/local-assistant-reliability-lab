@@ -25,6 +25,15 @@ assert.equal(
     ...defaults,
     journey: "bound_and_prove",
     help_type: "runnable_check",
+    runtime: "node",
+  }).slug,
+  "earned-confidence",
+);
+assert.equal(
+  rankRepos(toolkit.repos, {
+    ...defaults,
+    journey: "bound_and_prove",
+    help_type: "runnable_check",
     runtime: "python",
   }).slug,
   "evidencegate",

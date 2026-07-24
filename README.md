@@ -6,7 +6,7 @@ human-accountable AI work.
 **Choose in two minutes:** use the
 [Toolkit Navigator](https://thedarknitefalls.github.io/local-assistant-reliability-lab/)
 for one recommendation, or scan the [complete toolkit map](TOOLKIT_MAP.md) when
-you want all 14 public contracts at once.
+you want every indexed public contract at once.
 Agents and tools can read the same catalog from the
 [machine-readable toolkit index](toolkit_index.json).
 
