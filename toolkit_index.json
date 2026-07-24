@@ -85,10 +85,11 @@
       "kind": "tool",
       "maturity": "stable",
       "minutes": 5,
+      "runtime_label": "Python 3; Git for repository checks",
       "audience": "People preparing a repository for public GitHub publication.",
       "use_when": "Check a public-candidate repo before publishing.",
-      "proof": "The checked tree avoids the kit's known private-path, credential, identity, and publication-risk cases.",
-      "limitation": "A pass is not a complete security review and does not grant permission to publish.",
+      "proof": "The ordinary scan checks the supplied tree; Git-aware mode checks tracked and nonignored untracked candidates plus reachable commit author and committer email identities.",
+      "limitation": "It does not scan historical file contents, replace a dedicated secret scanner or manual review, or grant permission to publish.",
       "ci_url": "https://github.com/TheDarkniteFalls/public-repo-safety-kit/actions/workflows/checks.yml",
       "commands": [
         "python3 public_repo_guard.py --self-test",
