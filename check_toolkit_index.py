@@ -150,6 +150,12 @@ def validate_index(index: dict) -> None:
             fail(f"missing commands for {repo['slug']}")
         if not all(isinstance(command, str) and command.strip() for command in repo["commands"]):
             fail(f"commands must be non-empty strings for {repo['slug']}")
+        if repo["kind"] in {"guide", "starter"}:
+            no_code_action = repo.get("no_code_first_action")
+            if not isinstance(no_code_action, str) or not no_code_action.strip():
+                fail(f"no_code_first_action is required for {repo['slug']}")
+            if re.search(r"\b(?:python|node|npm)\b", no_code_action, re.IGNORECASE):
+                fail(f"no_code_first_action must not require code for {repo['slug']}")
         slugs.append(repo["slug"])
 
     if len(slugs) != len(set(slugs)):

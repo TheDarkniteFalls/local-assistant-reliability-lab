@@ -128,9 +128,9 @@ tool, and runnable pattern into three visitor journeys:
 
 | Journey | Start here when you need to... |
 | --- | --- |
-| **Start and direct** | Describe the outcome, name trusted sources, and set authority and handoff rules |
-| **Bound and prove** | Keep work inside evidence and action boundaries, then leave inspectable proof |
-| **Evaluate and operate** | Test retrieval, generated systems, evaluation protocols, model workloads, or deterministic state |
+| **Plan work or set rules** | Define an AI-assisted task, private workspace, or coding-agent instructions before work begins |
+| **Check boundaries or evidence** | Check publication safety, evidence scope, model output, or action authority and leave inspectable proof |
+| **Test or run a workflow** | Exercise repeatable QA, evaluation, telemetry, generated systems, or deterministic state |
 
 The map makes the maturity, intended audience, first command, proof boundary,
 limitation, and CI workflow visible for every entry. It is generated from

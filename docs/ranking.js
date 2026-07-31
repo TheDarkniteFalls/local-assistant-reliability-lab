@@ -17,10 +17,12 @@ const RUNTIME_LABEL = {
 };
 
 const JOURNEY_LABEL = {
-  start_and_direct: "Start and direct",
-  bound_and_prove: "Bound and prove",
-  evaluate_and_operate: "Evaluate and operate",
+  start_and_direct: "Plan work or set rules",
+  bound_and_prove: "Check boundaries or evidence",
+  evaluate_and_operate: "Test or run a workflow",
 };
+
+export const NOT_LISTED_PROBLEM = "need_not_listed";
 
 export function eligibleReposForJourney(repos, journey) {
   return repos.filter(
@@ -87,17 +89,65 @@ function rankEligibleRepos(repos, state) {
 }
 
 export function recommendRepos(repos, state) {
+  if (state.problem === NOT_LISTED_PROBLEM) {
+    return {
+      selectedRepo: null,
+      match: "semantic_mismatch",
+      semanticMatch: false,
+      technicalMatch: null,
+      exact: false,
+      issues: [
+        {
+          code: "semantic_fit",
+          message: "None of the listed outcomes describes this need.",
+        },
+      ],
+      alternatives: rankEligibleRepos(repos, state).slice(0, 3),
+    };
+  }
+
   const selectedRepo = repos.find((repo) => repo.slug === state.problem);
   const issues = compatibilityIssues(selectedRepo, state);
+  if (!selectedRepo) {
+    return {
+      selectedRepo,
+      match: "unavailable",
+      semanticMatch: null,
+      technicalMatch: null,
+      exact: false,
+      issues,
+      alternatives: [],
+    };
+  }
   const alternatives = rankEligibleRepos(
     repos.filter((repo) => repo.slug !== selectedRepo?.slug),
     state,
   ).slice(0, 3);
+  const exact = issues.length === 0;
 
   return {
     selectedRepo,
-    exact: issues.length === 0,
+    match: exact ? "exact" : "requirements_mismatch",
+    semanticMatch: true,
+    technicalMatch: exact,
+    exact,
     issues,
     alternatives,
+  };
+}
+
+export function proofPresentation(repo, state) {
+  const selectedNoCode = state.runtime === "no_code";
+  const supportsNoCode = repo.runtimes.includes("no_code");
+  const showNoCodeFirstAction = selectedNoCode && supportsNoCode;
+
+  return {
+    showNoCodeFirstAction,
+    noCodeFirstAction: showNoCodeFirstAction ? repo.no_code_first_action : "",
+    commandLabel: showNoCodeFirstAction
+      ? "Optional automated check"
+      : selectedNoCode
+        ? "Required automated check"
+        : "First runnable check",
   };
 }

@@ -114,6 +114,7 @@ def main() -> int:
     shortlist = next(attrs for tag, attrs, _ in tags if attrs.get("id") == "shortlist")
     require(result.get("aria-live") == "polite", "result must announce changes politely")
     require(result.get("aria-busy") == "true", "loading state must be explicit")
+    require(result.get("tabindex") == "-1", "mobile result target must accept focus")
     require(toggle.get("type") == "button", "details toggle must not submit the form")
     require(toggle.get("aria-controls") == "proof-details", "details relationship missing")
     require(toggle.get("aria-expanded") == "false", "details must start collapsed")
@@ -128,6 +129,7 @@ def main() -> int:
     require("@media (max-width: 380px)" in css, "small-phone header breakpoint missing")
     require(".choice input:focus-visible + span" in css, "keyboard focus style missing")
     require(".problem-select:focus-visible" in css, "problem selector focus style missing")
+    require("[hidden]" in css and "display: none !important;" in css, "hidden controls must stay hidden")
     require("flex-wrap: wrap;" in css, "footer discovery links must wrap")
     require("@media (prefers-reduced-motion: reduce)" in css, "reduced-motion path missing")
     print("PASS navigator_responsive")
@@ -135,6 +137,17 @@ def main() -> int:
     require('await fetch("toolkit-data.json")' in app, "generated data is not loaded")
     require("recommendRepos(toolkit.repos, state)" in app, "explicit recommendation contract is missing")
     require("recommendation.issues" in app, "mismatch disclosure is missing")
+    require("NOT_LISTED_PROBLEM" in app, "explicit need-not-listed path is missing")
+    require("showNoPurposeMatch" in app, "semantic mismatch state is missing")
+    require(
+        "Purpose and requirements match" in app
+        and "Purpose matches; requirements differ" in app,
+        "semantic and technical match states must be distinct",
+    )
+    require("Start without code" in html, "no-code first action is missing")
+    require("result-command-label" in html, "optional command label is missing")
+    require("result.focus({ preventScroll: true })" in app, "mobile result focus handoff is missing")
+    require("AI workflow" in html, "newcomer-facing AI scope is missing")
     require('setText("#result-name", "Toolkit unavailable")' in app, "failure state missing")
     require("local-assistant-reliability-lab/blob/main/TOOLKIT_MAP.md" in app, "failure fallback must remain usable")
     print("PASS navigator_failure_path")

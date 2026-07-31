@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import {
+  NOT_LISTED_PROBLEM,
   compatibilityIssues,
   eligibleReposForJourney,
+  proofPresentation,
   recommendRepos,
 } from "../docs/ranking.js";
 
@@ -46,6 +48,9 @@ for (const repo of toolkit.repos.filter((entry) => entry.navigator_eligible)) {
   const recommendation = recommendRepos(toolkit.repos, exactState(repo));
   assert.equal(recommendation.selectedRepo.slug, repo.slug);
   assert.equal(recommendation.exact, true, `${repo.slug} must have an exact state`);
+  assert.equal(recommendation.match, "exact");
+  assert.equal(recommendation.semanticMatch, true);
+  assert.equal(recommendation.technicalMatch, true);
   assert.deepEqual(recommendation.issues, []);
   reachable.add(repo.slug);
 }
@@ -72,6 +77,12 @@ for (const repo of toolkit.repos.filter((entry) => entry.navigator_eligible)) {
             const expectedIssues = compatibilityIssues(repo, state);
             assert.equal(recommendation.selectedRepo.slug, repo.slug);
             assert.equal(recommendation.exact, expectedIssues.length === 0);
+            assert.equal(
+              recommendation.match,
+              expectedIssues.length === 0 ? "exact" : "requirements_mismatch",
+            );
+            assert.equal(recommendation.semanticMatch, true);
+            assert.equal(recommendation.technicalMatch, expectedIssues.length === 0);
             assert.deepEqual(recommendation.issues, expectedIssues);
             assert.ok(recommendation.alternatives.length <= 3);
             assert.ok(
@@ -96,8 +107,70 @@ for (const repo of toolkit.repos.filter((entry) => entry.navigator_eligible)) {
 assert.equal(exhaustiveStates, 1080);
 assert.ok(mismatchStates > 0);
 
+let semanticMismatchStates = 0;
+for (const journey of toolkit.journeys.map((entry) => entry.id)) {
+  for (const help_type of helpTypes) {
+    for (const runtime of runtimes) {
+      for (const local of flags) {
+        for (const no_model of flags) {
+          for (const read_only of flags) {
+            const state = {
+              journey,
+              problem: NOT_LISTED_PROBLEM,
+              help_type,
+              runtime,
+              local,
+              no_model,
+              read_only,
+            };
+            const recommendation = recommendRepos(toolkit.repos, state);
+            assert.equal(recommendation.selectedRepo, null);
+            assert.equal(recommendation.match, "semantic_mismatch");
+            assert.equal(recommendation.semanticMatch, false);
+            assert.equal(recommendation.technicalMatch, null);
+            assert.equal(recommendation.exact, false);
+            assert.deepEqual(
+              recommendation.issues.map((issue) => issue.code),
+              ["semantic_fit"],
+            );
+            assert.ok(
+              recommendation.alternatives.every(
+                (repo) => compatibilityIssues(repo, state).length === 0,
+              ),
+            );
+            semanticMismatchStates += 1;
+          }
+        }
+      }
+    }
+  }
+}
+assert.equal(semanticMismatchStates, 216);
+
 const publicSafety = toolkit.repos.find((repo) => repo.slug === "public-repo-safety-kit");
 assert.equal(recommendRepos(toolkit.repos, exactState(publicSafety)).exact, true);
+
+const projectInstructions = toolkit.repos.find(
+  (repo) => repo.slug === "codex-project-instructions-starter",
+);
+assert.equal(projectInstructions.kind, "starter");
+assert.equal(projectInstructions.help_type, "starter");
+assert.equal(projectInstructions.constraints.read_only, true);
+assert.equal(recommendRepos(toolkit.repos, exactState(projectInstructions)).exact, true);
+
+const noCodeRepos = toolkit.repos.filter((repo) => repo.runtimes.includes("no_code"));
+assert.equal(noCodeRepos.length, 3);
+for (const repo of noCodeRepos) {
+  assert.ok(repo.no_code_first_action?.trim(), `${repo.slug} needs a no-code first action`);
+  assert.doesNotMatch(repo.no_code_first_action, /\b(?:python|node|npm)\b/i);
+  const presentation = proofPresentation(repo, {
+    ...exactState(repo),
+    runtime: "no_code",
+  });
+  assert.equal(presentation.showNoCodeFirstAction, true);
+  assert.equal(presentation.noCodeFirstAction, repo.no_code_first_action);
+  assert.equal(presentation.commandLabel, "Optional automated check");
+}
 
 const localModel = toolkit.repos.find(
   (repo) => repo.slug === "local-model-reliability-example",
@@ -116,6 +189,13 @@ const noCodeEvidence = recommendRepos(toolkit.repos, {
 });
 assert.equal(noCodeEvidence.exact, false);
 assert.deepEqual(noCodeEvidence.issues.map((issue) => issue.code), ["runtime"]);
+assert.equal(
+  proofPresentation(evidenceGate, {
+    ...exactState(evidenceGate),
+    runtime: "no_code",
+  }).commandLabel,
+  "Required automated check",
+);
 
 const earnedConfidence = toolkit.repos.find(
   (repo) => repo.slug === "earned-confidence",
@@ -135,6 +215,7 @@ const invalidProblem = recommendRepos(toolkit.repos, {
   problem: "not-in-the-catalog",
 });
 assert.equal(invalidProblem.exact, false);
+assert.equal(invalidProblem.match, "unavailable");
 assert.deepEqual(invalidProblem.issues.map((issue) => issue.code), ["problem"]);
 
 const intentionallyIneligible = {
@@ -159,6 +240,9 @@ assert.deepEqual(
 
 console.log("PASS navigator_reachability_15_of_15");
 console.log(`PASS navigator_exhaustive_states_${exhaustiveStates}`);
+console.log(`PASS navigator_semantic_mismatch_states_${semanticMismatchStates}`);
 console.log("PASS navigator_explicit_mismatch_contract");
 console.log("PASS navigator_compatible_shortlists");
 console.log("PASS navigator_explicit_ineligibility_contract");
+console.log("PASS navigator_no_code_first_action_contract");
+console.log("PASS navigator_starter_taxonomy_contract");
