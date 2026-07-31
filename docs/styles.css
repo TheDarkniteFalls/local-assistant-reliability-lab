@@ -20,6 +20,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 html {
   background: var(--page);
   color: var(--ink);
@@ -193,7 +197,7 @@ legend span {
   cursor: pointer;
 }
 
-.choice span {
+.choice > span {
   height: 100%;
   min-height: 64px;
   padding: 14px 18px;
@@ -210,7 +214,7 @@ legend span {
   transition: border-color 150ms ease, background 150ms ease, box-shadow 150ms ease;
 }
 
-.choice span::before {
+.choice > span::before {
   width: 22px;
   height: 22px;
   flex: 0 0 22px;
@@ -233,7 +237,7 @@ legend span {
   background: var(--blue);
 }
 
-.check-choice span::before {
+.check-choice > span::before {
   border-radius: 4px;
 }
 
@@ -257,8 +261,29 @@ legend span {
   outline-offset: 3px;
 }
 
-.choice:hover span {
+.choice:hover > span {
   border-color: var(--line-strong);
+}
+
+.choice-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.choice-copy strong {
+  font-size: 0.98rem;
+  font-weight: 680;
+}
+
+.choice-copy small {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 450;
+  line-height: 1.35;
+}
+
+.choice input:checked + span .choice-copy small {
+  color: #304f86;
 }
 
 .result-panel {
@@ -271,6 +296,11 @@ legend span {
   border-radius: var(--radius);
   background: white;
   box-shadow: var(--shadow);
+}
+
+.result-panel:focus-visible {
+  outline: 3px solid rgb(11 92 255 / 32%);
+  outline-offset: 4px;
 }
 
 .result-accent {
@@ -372,6 +402,18 @@ legend span {
   overflow-wrap: anywhere;
   color: var(--ink);
   font-size: 0.84rem;
+}
+
+.no-code-first-action {
+  margin: 4px 0 16px;
+  padding: 14px;
+  border-radius: 8px;
+  background: var(--blue-wash);
+}
+
+.proof-details .no-code-first-action p {
+  margin-bottom: 0;
+  color: var(--ink);
 }
 
 .trust-list {
@@ -597,7 +639,7 @@ legend span {
   }
 
   .choice,
-  .choice span {
+  .choice > span {
     min-height: 58px;
   }
 

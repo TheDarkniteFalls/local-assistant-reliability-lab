@@ -45,12 +45,14 @@ def help_type(repo: dict) -> str:
 
 
 def is_read_only(repo: dict) -> bool:
-    return repo["kind"] != "starter"
+    return repo["slug"] != "reliable-ai-work-starter"
 
 
 def operation_label(repo: dict) -> str:
-    if repo["kind"] == "starter":
+    if repo["slug"] == "reliable-ai-work-starter":
         return "Edits three named local files after approval"
+    if repo["kind"] == "starter":
+        return "Starter files; copying is optional"
     if repo["kind"] == "guide":
         return "Guidance only"
     return "Read-only check; examples may use temporary files"
@@ -65,7 +67,7 @@ def action(repo: dict) -> dict[str, str]:
 
 
 def navigator_entry(repo: dict) -> dict:
-    return {
+    entry = {
         "slug": repo["slug"],
         "name": repo["name"],
         "url": repo["url"],
@@ -91,3 +93,6 @@ def navigator_entry(repo: dict) -> dict:
         "operation": operation_label(repo),
         "action": action(repo),
     }
+    if "no_code_first_action" in repo:
+        entry["no_code_first_action"] = repo["no_code_first_action"]
+    return entry

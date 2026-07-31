@@ -24,7 +24,7 @@
     <meta name="twitter:card" content="summary" />
     <title>Reliability Navigator — find a reliable AI workflow starting point</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=20260801" />
+    <link rel="stylesheet" href="styles.css?v=20260801-2" />
   </head>
   <body>
     <header class="site-header">
@@ -37,10 +37,10 @@
     <main class="page-shell">
       <section class="chooser" aria-labelledby="page-title">
         <div class="intro">
-          <h1 id="page-title">Find the smallest reliable starting point.</h1>
+          <h1 id="page-title">Find a reliable starting point for your AI workflow.</h1>
           <p>
-            Answer five short questions. Get one exact route—or an honest
-            shortlist—with a first action and proof boundary.
+            Answer five short questions. The Navigator checks whether a listed
+            purpose fits first, then checks runtime and safety requirements.
           </p>
           <p id="privacy-note" class="privacy-note">
             This is a static guide: no sign-up, analytics, saved answers, or
@@ -50,28 +50,34 @@
 
         <form id="navigator-form" class="question-flow" aria-describedby="privacy-note">
           <fieldset>
-            <legend><span aria-hidden="true">1</span>What are you trying to do?</legend>
+            <legend><span aria-hidden="true">1</span>Where are you in the work?</legend>
             <div class="choice-row">
               <label class="choice">
                 <input type="radio" name="journey" value="start_and_direct" checked />
-                <span>Start and direct</span>
+                <span class="choice-card">
+                  <span class="choice-copy"><strong>Plan work or set rules</strong><small>Define the task, workspace, or instructions before an agent starts.</small></span>
+                </span>
               </label>
               <label class="choice">
                 <input type="radio" name="journey" value="bound_and_prove" />
-                <span>Bound and prove</span>
+                <span class="choice-card">
+                  <span class="choice-copy"><strong>Check boundaries or evidence</strong><small>Verify safety, evidence scope, output, or action authority.</small></span>
+                </span>
               </label>
               <label class="choice">
                 <input type="radio" name="journey" value="evaluate_and_operate" />
-                <span>Evaluate and operate</span>
+                <span class="choice-card">
+                  <span class="choice-copy"><strong>Test or run a workflow</strong><small>Exercise repeatable QA, evaluation, telemetry, or state.</small></span>
+                </span>
               </label>
             </div>
           </fieldset>
 
           <fieldset>
-            <legend><span aria-hidden="true">2</span>Which outcome is closest?</legend>
-            <label class="select-label" for="problem-select">Choose the problem you need to solve</label>
+            <legend><span aria-hidden="true">2</span>Which outcome fits your need?</legend>
+            <label class="select-label" for="problem-select">Choose the outcome that genuinely describes your need</label>
             <select id="problem-select" name="problem" class="problem-select"></select>
-            <p class="field-help">The options change with the journey above.</p>
+            <p class="field-help">Choose “My need is not listed” rather than forcing a nearby match. Options change with the stage above.</p>
           </fieldset>
 
           <fieldset>
@@ -79,15 +85,21 @@
             <div class="choice-row">
               <label class="choice">
                 <input type="radio" name="help_type" value="guide" checked />
-                <span>Guide</span>
+                <span class="choice-card">
+                  <span class="choice-copy"><strong>Guide</strong><small>Advice to read and apply yourself.</small></span>
+                </span>
               </label>
               <label class="choice">
                 <input type="radio" name="help_type" value="starter" />
-                <span>Starter</span>
+                <span class="choice-card">
+                  <span class="choice-copy"><strong>Starter</strong><small>Files or a template to begin with.</small></span>
+                </span>
               </label>
               <label class="choice">
                 <input type="radio" name="help_type" value="runnable_check" />
-                <span>Runnable check</span>
+                <span class="choice-card">
+                  <span class="choice-copy"><strong>Runnable check</strong><small>A command that produces a result.</small></span>
+                </span>
               </label>
             </div>
           </fieldset>
@@ -97,15 +109,21 @@
             <div class="choice-row">
               <label class="choice">
                 <input type="radio" name="runtime" value="no_code" checked />
-                <span>No code</span>
+                <span class="choice-card">
+                  <span class="choice-copy"><strong>No code</strong><small>Read or set up without running a command.</small></span>
+                </span>
               </label>
               <label class="choice">
                 <input type="radio" name="runtime" value="python" />
-                <span>Python</span>
+                <span class="choice-card">
+                  <span class="choice-copy"><strong>Python</strong><small>Run a Python check locally.</small></span>
+                </span>
               </label>
               <label class="choice">
                 <input type="radio" name="runtime" value="node" />
-                <span>Node</span>
+                <span class="choice-card">
+                  <span class="choice-copy"><strong>Node.js</strong><small>Run a Node.js check locally.</small></span>
+                </span>
               </label>
             </div>
           </fieldset>
@@ -152,7 +170,7 @@
         </section>
       </noscript>
 
-      <aside id="result" class="result-panel" aria-live="polite" aria-busy="true">
+      <aside id="result" class="result-panel" tabindex="-1" aria-live="polite" aria-busy="true">
         <div class="result-accent" aria-hidden="true"></div>
         <p id="result-label" class="result-label">Your starting point</p>
         <h2 id="result-name">Loading toolkit…</h2>
@@ -177,7 +195,11 @@
           <p id="result-proof"></p>
           <h3>It does not establish</h3>
           <p id="result-limit"></p>
-          <p class="first-command"><strong>First check:</strong> <code id="result-command"></code></p>
+          <section id="no-code-first-action" class="no-code-first-action" hidden>
+            <h3>Start without code</h3>
+            <p id="result-no-code-action"></p>
+          </section>
+          <p class="first-command"><strong id="result-command-label">First runnable check:</strong> <code id="result-command"></code></p>
         </div>
 
         <ul class="trust-list" aria-label="Recommendation trust facts">
@@ -203,6 +225,6 @@
       </nav>
     </footer>
 
-    <script type="module" src="app.js?v=20260801"></script>
+    <script type="module" src="app.js?v=20260801-2"></script>
   </body>
 </html>

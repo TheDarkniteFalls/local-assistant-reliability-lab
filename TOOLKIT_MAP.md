@@ -12,15 +12,15 @@ of the public guides, tools, and teaching patterns in this toolkit.
 - **Stable:** A focused example with deterministic checks and a deliberately narrow public contract.
 - **Experimental:** A tested teaching pattern whose contract may still change as outside use reveals better boundaries.
 
-## Start and direct
+## Plan work or set rules
 
-Describe the outcome, name trusted sources, set authority boundaries, and create a reviewable project shape.
+Define an AI-assisted task, private workspace, or coding-agent instructions before work begins.
 
 | Project | Kind | Maturity | Time | Runtime | Use it when | First check |
 | --- | --- | --- | --- | --- | --- | --- |
 | [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook) | guide | stable | 5 min | No code; Python optional | Turn an idea or recurring job into bounded, reviewable work. | `python3 scripts/check_starter_bundle.py` |
-| [Reliable AI Work Starter](https://github.com/TheDarkniteFalls/reliable-ai-work-starter) | starter | experimental | 10 min | No code; Python optional | Create a private file-based workspace with explicit sources, authority, review, and handoff state. | `python3 -B check_starter.py` |
-| [Codex Project Instructions Starter](https://github.com/TheDarkniteFalls/codex-project-instructions-starter) | guide | stable | 10 min | No code; Python optional | Give a coding agent clear project rules before it works. | `python3 check_templates.py` |
+| [Reliable AI Work Starter](https://github.com/TheDarkniteFalls/reliable-ai-work-starter) | starter | experimental | 10 min | No code; Python optional | Set up a private AI-work folder with clear sources, permissions, review, and handoff state. | `python3 -B check_starter.py` |
+| [Codex Project Instructions Starter](https://github.com/TheDarkniteFalls/codex-project-instructions-starter) | starter | stable | 10 min | No code; Python optional | Give a coding agent clear project rules before it starts. | `python3 check_templates.py` |
 
 ### Trust boundaries
 
@@ -49,18 +49,18 @@ Describe the outcome, name trusted sources, set authority boundaries, and create
 - **CI:** [checks workflow](https://github.com/TheDarkniteFalls/codex-project-instructions-starter/actions/workflows/checks.yml)
 
 
-## Bound and prove
+## Check boundaries or evidence
 
-Keep proposed work inside evidence and authority boundaries, then leave inspectable proof.
+Check publication safety, evidence scope, model output, or action authority and leave inspectable proof.
 
 | Project | Kind | Maturity | Time | Runtime | Use it when | First check |
 | --- | --- | --- | --- | --- | --- | --- |
-| [Public Repo Safety Kit](https://github.com/TheDarkniteFalls/public-repo-safety-kit) | tool | stable | 5 min | Python 3; Git for repository checks | Check a public-candidate repo before publishing. | `python3 public_repo_guard.py --self-test` |
-| [Earned Confidence](https://github.com/TheDarkniteFalls/earned-confidence) | pattern | experimental | 5 min | Node.js 22.6+ | Preserve uncertainty, evidence scope, and what was known when a decision was made. | `npm run check` |
-| [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) | tool | flagship | 5 min | Python 3 | Leave a compact review receipt for AI-assisted work. | `python3 -B examples/run-v1-reference.py` |
-| [Local Model Reliability Example](https://github.com/TheDarkniteFalls/local-model-reliability-example) | pattern | stable | 5 min | Python 3 | Validate structured local-model output before trusting it. | `python3 reliability_demo.py --self-test` |
-| [Context Boundary Examples](https://github.com/TheDarkniteFalls/context-boundary-examples) | pattern | stable | 5 min | Python 3 | Check that answers stay inside supplied evidence. | `python3 context_boundary_check.py --self-test` |
-| [Agent Action Authority Examples](https://github.com/TheDarkniteFalls/agent-action-authority-examples) | pattern | stable | 5 min | Python 3 | Classify model or agent actions before execution. | `python3 action_authority_check.py --self-test` |
+| [Public Repo Safety Kit](https://github.com/TheDarkniteFalls/public-repo-safety-kit) | tool | stable | 5 min | Python 3; Git for repository checks | Check a repository for publication risks before making it public. | `python3 public_repo_guard.py --self-test` |
+| [Earned Confidence](https://github.com/TheDarkniteFalls/earned-confidence) | pattern | experimental | 5 min | Node.js 22.6+ | Record available evidence, remaining uncertainty, and what was known when a decision was made. | `npm run check` |
+| [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) | tool | flagship | 5 min | Python 3 | Create a compact review receipt for AI-assisted work. | `python3 -B examples/run-v1-reference.py` |
+| [Local Model Reliability Example](https://github.com/TheDarkniteFalls/local-model-reliability-example) | pattern | stable | 5 min | Python 3 | Validate structured output from a local model before trusting it. | `python3 reliability_demo.py --self-test` |
+| [Context Boundary Examples](https://github.com/TheDarkniteFalls/context-boundary-examples) | pattern | stable | 5 min | Python 3 | Check that an answer stays within the evidence you supplied. | `python3 context_boundary_check.py --self-test` |
+| [Agent Action Authority Examples](https://github.com/TheDarkniteFalls/agent-action-authority-examples) | pattern | stable | 5 min | Python 3 | Classify a model or agent action before allowing it to run. | `python3 action_authority_check.py --self-test` |
 
 ### Trust boundaries
 
@@ -113,18 +113,18 @@ Keep proposed work inside evidence and authority boundaries, then leave inspecta
 - **CI:** [checks workflow](https://github.com/TheDarkniteFalls/agent-action-authority-examples/actions/workflows/checks.yml)
 
 
-## Evaluate and operate
+## Test or run a workflow
 
-Test retrieval, generated systems, evaluation protocols, model workloads, and deterministic state.
+Exercise repeatable QA, evaluation, telemetry, generated systems, or deterministic state.
 
 | Project | Kind | Maturity | Time | Runtime | Use it when | First check |
 | --- | --- | --- | --- | --- | --- | --- |
-| [Green-Spine QA Pattern](https://github.com/TheDarkniteFalls/green-spine-qa-pattern) | pattern | stable | 5 min | Python 3 | Keep one important workflow obviously healthy. | `python3 spine_green.py` |
-| [Context Contract Compiler](https://github.com/TheDarkniteFalls/context-contract-compiler) | pattern | experimental | 10 min | Python 3 | Compile a minimal legal context packet and prove when a declared late change requires recompilation. | `python3 -B context_compiler.py check` |
-| [Sealed Evaluation Pattern](https://github.com/TheDarkniteFalls/sealed-evaluation-pattern) | pattern | experimental | 10 min | Python 3 | Check access order, frozen outputs, digests, and retirement of revealed calibration material. | `python3 -B sealed_eval.py --self-test` |
-| [Generated-System QA Pattern](https://github.com/TheDarkniteFalls/generated-system-qa-pattern) | pattern | experimental | 10 min | Python 3 | Check generated-data freshness, integrity, reachability, required services, and a representative journey. | `python3 -B generated_system_qa.py --self-test` |
-| [Model Workload Telemetry](https://github.com/TheDarkniteFalls/model-workload-telemetry) | tool | experimental | 10 min | Python 3 | Use for shared-task comparison, synthetic route receipts, and exact provenance replay. | `python3 -B model_workload_telemetry.py --self-test` |
-| [AI Game State Machine Pattern](https://github.com/TheDarkniteFalls/ai-game-state-machine-pattern) | pattern | experimental | 10 min | Node.js 20+ | Keep one authoritative set of legal commands and unresolved obligations across save and replay. | `npm test` |
+| [Green-Spine QA Pattern](https://github.com/TheDarkniteFalls/green-spine-qa-pattern) | pattern | stable | 5 min | Python 3 | Keep one important automated workflow visibly healthy. | `python3 spine_green.py` |
+| [Context Contract Compiler](https://github.com/TheDarkniteFalls/context-contract-compiler) | pattern | experimental | 10 min | Python 3 | Build only the allowed context for an AI task and detect when a late change makes it stale. | `python3 -B context_compiler.py check` |
+| [Sealed Evaluation Pattern](https://github.com/TheDarkniteFalls/sealed-evaluation-pattern) | pattern | experimental | 10 min | Python 3 | Keep evaluation answers hidden until scoring and retire calibration material after it is revealed. | `python3 -B sealed_eval.py --self-test` |
+| [Generated-System QA Pattern](https://github.com/TheDarkniteFalls/generated-system-qa-pattern) | pattern | experimental | 10 min | Python 3 | Check generated data, required services, reachable content, and one representative user journey. | `python3 -B generated_system_qa.py --self-test` |
+| [Model Workload Telemetry](https://github.com/TheDarkniteFalls/model-workload-telemetry) | tool | experimental | 10 min | Python 3 | Compare models on the same task while preserving provenance for every run. | `python3 -B model_workload_telemetry.py --self-test` |
+| [AI Game State Machine Pattern](https://github.com/TheDarkniteFalls/ai-game-state-machine-pattern) | pattern | experimental | 10 min | Node.js 20+ | Keep valid actions and unresolved obligations consistent when an AI game is saved and replayed. | `npm test` |
 
 ### Trust boundaries
 
