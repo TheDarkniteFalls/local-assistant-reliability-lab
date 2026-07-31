@@ -69,6 +69,8 @@ def navigator_entry(repo: dict) -> dict:
         "slug": repo["slug"],
         "name": repo["name"],
         "url": repo["url"],
+        "navigator_eligible": repo["navigator_eligible"],
+        "problem_label": repo["use_when"].removesuffix("."),
         "journey": repo["journey"],
         "kind": repo["kind"],
         "help_type": help_type(repo),

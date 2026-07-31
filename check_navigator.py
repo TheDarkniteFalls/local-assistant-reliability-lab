@@ -56,8 +56,8 @@ def main() -> int:
     ids = [attrs["id"] for _, attrs, _ in tags if attrs.get("id")]
 
     require(sum(tag == "h1" for tag, _, _ in tags) == 1, "expected one H1")
-    require(sum(tag == "fieldset" for tag, _, _ in tags) == 4, "expected four fieldsets")
-    require(sum(tag == "legend" for tag, _, _ in tags) == 4, "expected four legends")
+    require(sum(tag == "fieldset" for tag, _, _ in tags) == 5, "expected five fieldsets")
+    require(sum(tag == "legend" for tag, _, _ in tags) == 5, "expected five legends")
     require(len(ids) == len(set(ids)), "element ids must be unique")
     require(
         {"journey", "help_type", "runtime", "local", "no_model", "read_only"}
@@ -66,6 +66,12 @@ def main() -> int:
     )
     require(types["journey"] == types["help_type"] == types["runtime"] == "radio", "choice groups must be radios")
     require(types["local"] == types["no_model"] == types["read_only"] == "checkbox", "constraints must be checkboxes")
+    problem = next(attrs for tag, attrs, _ in tags if tag == "select" and attrs.get("name") == "problem")
+    require(problem.get("id") == "problem-select", "problem selector is missing")
+    require(
+        any(tag == "label" and attrs.get("for") == "problem-select" for tag, attrs, _ in tags),
+        "problem selector needs a visible label",
+    )
     print("PASS navigator_structure")
 
     canonical = next(attrs for tag, attrs, _ in tags if tag == "link" and attrs.get("rel") == "canonical")
@@ -105,12 +111,15 @@ def main() -> int:
     result = next(attrs for tag, attrs, _ in tags if attrs.get("id") == "result")
     toggle = next(attrs for tag, attrs, _ in tags if attrs.get("id") == "details-toggle")
     details = next(attrs for tag, attrs, _ in tags if attrs.get("id") == "proof-details")
+    shortlist = next(attrs for tag, attrs, _ in tags if attrs.get("id") == "shortlist")
     require(result.get("aria-live") == "polite", "result must announce changes politely")
     require(result.get("aria-busy") == "true", "loading state must be explicit")
     require(toggle.get("type") == "button", "details toggle must not submit the form")
     require(toggle.get("aria-controls") == "proof-details", "details relationship missing")
     require(toggle.get("aria-expanded") == "false", "details must start collapsed")
     require("hidden" in details, "proof detail must start hidden")
+    require(shortlist.get("aria-labelledby") == "shortlist-title", "shortlist heading relationship missing")
+    require("hidden" in shortlist, "shortlist must start hidden")
     print("PASS navigator_accessibility")
 
     require("@media (max-width: 1040px)" in css, "tablet breakpoint missing")
@@ -118,11 +127,14 @@ def main() -> int:
     require("@media (max-width: 420px)" in css, "narrow-mobile breakpoint missing")
     require("@media (max-width: 380px)" in css, "small-phone header breakpoint missing")
     require(".choice input:focus-visible + span" in css, "keyboard focus style missing")
+    require(".problem-select:focus-visible" in css, "problem selector focus style missing")
     require("flex-wrap: wrap;" in css, "footer discovery links must wrap")
     require("@media (prefers-reduced-motion: reduce)" in css, "reduced-motion path missing")
     print("PASS navigator_responsive")
 
     require('await fetch("toolkit-data.json")' in app, "generated data is not loaded")
+    require("recommendRepos(toolkit.repos, state)" in app, "explicit recommendation contract is missing")
+    require("recommendation.issues" in app, "mismatch disclosure is missing")
     require('setText("#result-name", "Toolkit unavailable")' in app, "failure state missing")
     require("local-assistant-reliability-lab/blob/main/TOOLKIT_MAP.md" in app, "failure fallback must remain usable")
     print("PASS navigator_failure_path")

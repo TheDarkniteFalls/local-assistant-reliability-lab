@@ -149,6 +149,34 @@ legend span {
   gap: 16px;
 }
 
+.select-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 650;
+}
+
+.problem-select {
+  width: 100%;
+  min-height: 58px;
+  padding: 13px 44px 13px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  color: var(--ink);
+  background: white;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.field-help {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
 .choice {
   position: relative;
   min-height: 64px;
@@ -220,7 +248,9 @@ legend span {
 }
 
 .choice input:focus-visible + span,
+.problem-select:focus-visible,
 .button:focus-visible,
+.mobile-result-link:focus-visible,
 .toolkit-link:focus-visible,
 .brand:focus-visible {
   outline: 3px solid rgb(11 92 255 / 32%);
@@ -252,7 +282,7 @@ legend span {
 
 .result-label {
   margin: 0 0 18px;
-  color: #b56e00;
+  color: #925500;
   font-size: 0.84rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -375,13 +405,62 @@ legend span {
 }
 
 .boundary-note {
-  margin: 18px 0 0;
+  margin: -7px 0 22px;
   padding: 13px 14px;
   border-left: 3px solid var(--amber);
   color: var(--muted);
   background: #fffaf0;
   font-size: 0.88rem;
   line-height: 1.45;
+}
+
+.shortlist {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.shortlist h3 {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.shortlist > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.shortlist ul {
+  margin: 14px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 9px;
+  list-style: none;
+}
+
+.shortlist a {
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: grid;
+  gap: 3px;
+  color: var(--blue-dark);
+  background: var(--blue-wash);
+  text-decoration: none;
+}
+
+.shortlist a:hover {
+  border-color: var(--blue);
+}
+
+.shortlist a span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.35;
 }
 
 .no-script-routes {
