@@ -5,8 +5,9 @@ human-accountable AI work.
 
 **Choose in two minutes:** use the
 [Toolkit Navigator](https://thedarknitefalls.github.io/local-assistant-reliability-lab/)
-for one recommendation, or scan the [complete toolkit map](TOOLKIT_MAP.md) when
-you want every indexed public contract at once.
+for one exact route or a disclosed compatible shortlist, or scan the
+[complete toolkit map](TOOLKIT_MAP.md) when you want every indexed public
+contract at once.
 Agents and tools can read the same catalog from the
 [machine-readable toolkit index](toolkit_index.json).
 
@@ -98,8 +99,9 @@ flowchart LR
 ## Start Here
 
 - Use the [Toolkit Navigator](https://thedarknitefalls.github.io/local-assistant-reliability-lab/)
-  when you want one recommendation based on your goal, experience, runtime,
-  and operating constraints.
+  when you want an exact route—or an honest explanation and compatible
+  alternatives—based on your goal, outcome, runtime, and operating
+  constraints.
 - Begin with the [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook)
   if you mostly want the agent to do the work and need a plain-language way to
   stay in control.

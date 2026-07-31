@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Answer four questions to find one small, public, human-accountable AI workflow, guide, or runnable reliability check."
+      content="Answer five questions to find one small, public, human-accountable AI workflow, guide, or runnable reliability check."
     />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0757e8" />
@@ -24,7 +24,7 @@
     <meta name="twitter:card" content="summary" />
     <title>Reliability Navigator — find a reliable AI workflow starting point</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=20260717" />
+    <link rel="stylesheet" href="styles.css?v=20260801" />
   </head>
   <body>
     <header class="site-header">
@@ -39,8 +39,8 @@
         <div class="intro">
           <h1 id="page-title">Find the smallest reliable starting point.</h1>
           <p>
-            Answer four short questions. Get one route, one first action, and
-            an honest proof boundary.
+            Answer five short questions. Get one exact route—or an honest
+            shortlist—with a first action and proof boundary.
           </p>
           <p id="privacy-note" class="privacy-note">
             This is a static guide: no sign-up, analytics, saved answers, or
@@ -68,7 +68,14 @@
           </fieldset>
 
           <fieldset>
-            <legend><span aria-hidden="true">2</span>What kind of help do you want?</legend>
+            <legend><span aria-hidden="true">2</span>Which outcome is closest?</legend>
+            <label class="select-label" for="problem-select">Choose the problem you need to solve</label>
+            <select id="problem-select" name="problem" class="problem-select"></select>
+            <p class="field-help">The options change with the journey above.</p>
+          </fieldset>
+
+          <fieldset>
+            <legend><span aria-hidden="true">3</span>What kind of help do you want?</legend>
             <div class="choice-row">
               <label class="choice">
                 <input type="radio" name="help_type" value="guide" checked />
@@ -86,7 +93,7 @@
           </fieldset>
 
           <fieldset>
-            <legend><span aria-hidden="true">3</span>What can you run?</legend>
+            <legend><span aria-hidden="true">4</span>What can you run?</legend>
             <div class="choice-row">
               <label class="choice">
                 <input type="radio" name="runtime" value="no_code" checked />
@@ -104,7 +111,7 @@
           </fieldset>
 
           <fieldset>
-            <legend><span aria-hidden="true">4</span>Keep it…</legend>
+            <legend><span aria-hidden="true">5</span>Keep it…</legend>
             <div class="choice-row">
               <label class="choice check-choice">
                 <input type="checkbox" name="local" checked />
@@ -147,9 +154,10 @@
 
       <aside id="result" class="result-panel" aria-live="polite" aria-busy="true">
         <div class="result-accent" aria-hidden="true"></div>
-        <p class="result-label">Your starting point</p>
+        <p id="result-label" class="result-label">Your starting point</p>
         <h2 id="result-name">Loading toolkit…</h2>
         <p id="result-summary" class="result-summary"></p>
+        <p id="boundary-note" class="boundary-note" hidden></p>
 
         <div class="result-actions">
           <a id="primary-action" class="button primary" href="#">Open recommendation</a>
@@ -178,7 +186,11 @@
           <li><span class="trust-icon" aria-hidden="true">⌁</span>No network</li>
           <li><span class="trust-icon" aria-hidden="true">□</span><span id="fact-operation">—</span></li>
         </ul>
-        <p id="boundary-note" class="boundary-note" hidden></p>
+        <section id="shortlist" class="shortlist" aria-labelledby="shortlist-title" hidden>
+          <h3 id="shortlist-title">Eligible alternatives</h3>
+          <p id="shortlist-summary"></p>
+          <ul id="shortlist-list"></ul>
+        </section>
       </aside>
     </main>
 
@@ -191,6 +203,6 @@
       </nav>
     </footer>
 
-    <script type="module" src="app.js"></script>
+    <script type="module" src="app.js?v=20260801"></script>
   </body>
 </html>

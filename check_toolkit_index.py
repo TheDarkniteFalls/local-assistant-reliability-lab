@@ -98,6 +98,12 @@ def validate_index(index: dict) -> None:
     for repo in repos:
         if not isinstance(repo, dict):
             fail("repo entries must be objects")
+        if not isinstance(repo.get("navigator_eligible"), bool):
+            fail(f"navigator_eligible must be true or false for {repo.get('slug', 'unknown')}")
+        if not repo["navigator_eligible"]:
+            reason = repo.get("navigator_ineligible_reason")
+            if not isinstance(reason, str) or not reason.strip():
+                fail(f"navigator_ineligible_reason is required for {repo.get('slug', 'unknown')}")
         for field in (
             "slug",
             "name",
