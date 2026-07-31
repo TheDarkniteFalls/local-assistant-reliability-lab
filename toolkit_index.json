@@ -265,10 +265,10 @@
       "kind": "tool",
       "maturity": "experimental",
       "minutes": 10,
-      "audience": "Teams comparing model routes over shared task instances instead of raw aggregate token totals.",
-      "use_when": "Report completion, cost, time, quality, and revision burden within paired workload classes.",
-      "proof": "Only task instances attempted by every compared model contribute to each workload report.",
-      "limitation": "The report does not prove causal model superiority, cost efficiency, or statistical significance.",
+      "audience": "Teams auditing model-route evidence and decision-to-receipt provenance.",
+      "use_when": "Use for shared-task comparison, synthetic route receipts, and exact provenance replay.",
+      "proof": "The declared synthetic shared-task, receipt, and Phase 3 provenance checks pass.",
+      "limitation": "The checks do not prove live-routing safety, production reliability, causal model superiority, cost efficiency, or statistical significance.",
       "ci_url": "https://github.com/TheDarkniteFalls/model-workload-telemetry/actions/workflows/checks.yml",
       "commands": [
         "python3 -B model_workload_telemetry.py --self-test"
