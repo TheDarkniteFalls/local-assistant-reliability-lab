@@ -81,7 +81,7 @@ toolkit component proves and what it deliberately leaves open.
 | An agent may continue from illegal or stale context | `python3 -B context_compiler.py check` in Context Contract Compiler | Required records, explicit exclusions, fail-closed obligations, and stale receipts are checked deterministically |
 | Generated content is stale, disconnected, or impossible to traverse | `python3 -B generated_system_qa.py --self-test` in Generated-System QA Pattern | Freshness, integrity, reachability, required services, and a representative journey are checked |
 | A scarce holdout may have leaked into generation or review | `python3 -B sealed_eval.py --self-test` in Sealed Evaluation Pattern | Access order, frozen outputs, digests, and retirement of revealed material are checked |
-| Model comparisons mix different kinds of work | `python3 -B model_workload_telemetry.py --self-test` in Model Workload Telemetry | Only shared task instances are compared inside each workload class |
+| Model comparisons mix different kinds of work, or a route receipt loses its decision provenance | `python3 -B model_workload_telemetry.py --self-test` in Model Workload Telemetry | Shared tasks stay paired, and the declared synthetic shadow decision is replayed and linked to its receipt |
 | AI-assisted game changes can violate the legal flow | `npm test` in AI Game State Machine Pattern | Illegal actions, read-only inspection, save/restore obligations, and deterministic replay are checked |
 
 ```mermaid
@@ -116,6 +116,8 @@ flowchart LR
   not just a chat history or an ungrounded summary.
 - [A model may suggest an action without owning the authority to execute it](https://github.com/TheDarkniteFalls/agent-action-authority-examples).
 - [Reliable harnesses validate model output before trusting or applying it](https://github.com/TheDarkniteFalls/local-model-reliability-example).
+- [A route receipt should remain traceable to the exact evidence and policy that produced its candidate decision](https://github.com/TheDarkniteFalls/model-workload-telemetry),
+  without granting authority to execute or promote that route.
 
 ## Complete Toolkit Map
 

@@ -52,6 +52,9 @@ ROOT = Path(__file__).resolve().parent
 FIRST_PARTY_REPO_LINK = re.compile(
     r"https://github\.com/TheDarkniteFalls/([A-Za-z0-9_.-]+)"
 )
+PROFILE_OPEN_WORK_HEADING = re.compile(
+    r"^## Open Work and Contributions\s*$", re.MULTILINE
+)
 
 
 def fail(message: str) -> None:
@@ -162,32 +165,51 @@ def validate_index(index: dict) -> None:
         fail("public-safety review text found: " + ", ".join(blocked))
 
 
-def first_party_surfaces() -> list[Path]:
-    surfaces = [ROOT / "README.md", ROOT / "docs" / "index.html"]
+def first_party_surfaces() -> list[tuple[Path, bool]]:
+    surfaces = [
+        (ROOT / "README.md", False),
+        (ROOT / "docs" / "index.html", False),
+    ]
     for candidate in (
         ROOT.parent / "TheDarkniteFalls-profile" / "README.md",
         ROOT.parent / "TheDarkniteFalls" / "README.md",
     ):
         if candidate.is_file():
-            surfaces.append(candidate)
+            surfaces.append((candidate, True))
             break
     return surfaces
+
+
+def unexpected_first_party_repository_links(text: str, allowed: set[str]) -> list[str]:
+    return sorted(set(FIRST_PARTY_REPO_LINK.findall(text)) - allowed)
+
+
+def stable_profile_text(text: str) -> str:
+    open_work = PROFILE_OPEN_WORK_HEADING.search(text)
+    return text if open_work is None else text[: open_work.start()]
+
+
+def unexpected_stable_profile_links(text: str, allowed: set[str]) -> list[str]:
+    return unexpected_first_party_repository_links(stable_profile_text(text), allowed)
 
 
 def validate_first_party_repository_links(index: dict) -> list[Path]:
     allowed = {repo["slug"] for repo in index["repos"]}
     allowed.update({"local-assistant-reliability-lab", "TheDarkniteFalls"})
     surfaces = first_party_surfaces()
-    for surface in surfaces:
+    for surface, stable_only in surfaces:
         try:
             text = surface.read_text(encoding="utf-8")
         except OSError as exc:
             fail(f"cannot read {surface}: {exc}")
-        unexpected = sorted(set(FIRST_PARTY_REPO_LINK.findall(text)) - allowed)
+        if stable_only:
+            unexpected = unexpected_stable_profile_links(text, allowed)
+        else:
+            unexpected = unexpected_first_party_repository_links(text, allowed)
         if unexpected:
             names = ", ".join(unexpected)
             fail(f"unexpected first-party repository link in {surface}: {names}")
-    return surfaces
+    return [surface for surface, _ in surfaces]
 
 
 def main(argv: list[str]) -> int:

@@ -123,7 +123,7 @@ Test retrieval, generated systems, evaluation protocols, model workloads, and de
 | [Context Contract Compiler](https://github.com/TheDarkniteFalls/context-contract-compiler) | pattern | experimental | 10 min | Python 3 | Compile a minimal legal context packet and prove when a declared late change requires recompilation. | `python3 -B context_compiler.py check` |
 | [Sealed Evaluation Pattern](https://github.com/TheDarkniteFalls/sealed-evaluation-pattern) | pattern | experimental | 10 min | Python 3 | Check access order, frozen outputs, digests, and retirement of revealed calibration material. | `python3 -B sealed_eval.py --self-test` |
 | [Generated-System QA Pattern](https://github.com/TheDarkniteFalls/generated-system-qa-pattern) | pattern | experimental | 10 min | Python 3 | Check generated-data freshness, integrity, reachability, required services, and a representative journey. | `python3 -B generated_system_qa.py --self-test` |
-| [Model Workload Telemetry](https://github.com/TheDarkniteFalls/model-workload-telemetry) | tool | experimental | 10 min | Python 3 | Report completion, cost, time, quality, and revision burden within paired workload classes. | `python3 -B model_workload_telemetry.py --self-test` |
+| [Model Workload Telemetry](https://github.com/TheDarkniteFalls/model-workload-telemetry) | tool | experimental | 10 min | Python 3 | Use for shared-task comparison, synthetic route receipts, and exact provenance replay. | `python3 -B model_workload_telemetry.py --self-test` |
 | [AI Game State Machine Pattern](https://github.com/TheDarkniteFalls/ai-game-state-machine-pattern) | pattern | experimental | 10 min | Node.js 20+ | Keep one authoritative set of legal commands and unresolved obligations across save and replay. | `npm test` |
 
 ### Trust boundaries
@@ -162,10 +162,10 @@ Test retrieval, generated systems, evaluation protocols, model workloads, and de
 
 #### [Model Workload Telemetry](https://github.com/TheDarkniteFalls/model-workload-telemetry)
 
-- **For:** Teams comparing model routes over shared task instances instead of raw aggregate token totals.
+- **For:** Teams auditing model-route evidence and decision-to-receipt provenance.
 - **First-use estimate:** 10 minutes; Python 3.
-- **A pass establishes:** Only task instances attempted by every compared model contribute to each workload report.
-- **It does not establish:** The report does not prove causal model superiority, cost efficiency, or statistical significance.
+- **A pass establishes:** The declared synthetic shared-task, receipt, and Phase 3 provenance checks pass.
+- **It does not establish:** The checks do not prove live-routing safety, production reliability, causal model superiority, cost efficiency, or statistical significance.
 - **CI:** [checks workflow](https://github.com/TheDarkniteFalls/model-workload-telemetry/actions/workflows/checks.yml)
 
 #### [AI Game State Machine Pattern](https://github.com/TheDarkniteFalls/ai-game-state-machine-pattern)

@@ -419,9 +419,9 @@
         "python"
       ],
       "runtime_label": "Python 3",
-      "use_when": "Report completion, cost, time, quality, and revision burden within paired workload classes.",
-      "proof": "Only task instances attempted by every compared model contribute to each workload report.",
-      "limitation": "The report does not prove causal model superiority, cost efficiency, or statistical significance.",
+      "use_when": "Use for shared-task comparison, synthetic route receipts, and exact provenance replay.",
+      "proof": "The declared synthetic shared-task, receipt, and Phase 3 provenance checks pass.",
+      "limitation": "The checks do not prove live-routing safety, production reliability, causal model superiority, cost efficiency, or statistical significance.",
       "command": "python3 -B model_workload_telemetry.py --self-test",
       "constraints": {
         "local": true,
