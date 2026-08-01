@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Answer five questions to find one small, public, human-accountable AI workflow, guide, or runnable reliability check."
+      content="Answer five quick questions to find one reliable AI guide, starter, or runnable check—with mismatches and limits made clear."
     />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0757e8" />
@@ -19,12 +19,12 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Reliability Navigator" />
     <meta property="og:title" content="Reliability Navigator — find a reliable AI workflow starting point" />
-    <meta property="og:description" content="Choose one small guide, starter, or runnable check for human-accountable AI work. No sign-up or analytics." />
+    <meta property="og:description" content="Answer five quick questions to find one reliable AI guide, starter, or runnable check. Nothing is saved or sent." />
     <meta property="og:url" content="https://thedarknitefalls.github.io/local-assistant-reliability-lab/" />
     <meta name="twitter:card" content="summary" />
     <title>Reliability Navigator — find a reliable AI workflow starting point</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=20260801-2" />
+    <link rel="stylesheet" href="styles.css?v=20260801-3" />
   </head>
   <body>
     <header class="site-header">
@@ -37,20 +37,25 @@
     <main class="page-shell">
       <section class="chooser" aria-labelledby="page-title">
         <div class="intro">
-          <h1 id="page-title">Find a reliable starting point for your AI workflow.</h1>
-          <p>
-            Answer five short questions. The Navigator checks whether a listed
-            purpose fits first, then checks runtime and safety requirements.
-          </p>
+          <h1 id="page-title">Find a reliable AI starting point.</h1>
+          <div id="intro-guide" class="intro-guide">
+            <p>
+              <strong>What to do</strong>
+              Answer five quick questions about your goal and what you can run.
+            </p>
+            <p>
+              <strong>What to expect</strong>
+              One best-fit guide, starter, or check—or a clear mismatch with nearby options.
+            </p>
+          </div>
           <p id="privacy-note" class="privacy-note">
-            This is a static guide: no sign-up, analytics, saved answers, or
-            data sent anywhere.
+            Nothing is saved or sent. No sign-up or analytics.
           </p>
         </div>
 
-        <form id="navigator-form" class="question-flow" aria-describedby="privacy-note">
+        <form id="navigator-form" class="question-flow" aria-describedby="intro-guide privacy-note">
           <fieldset>
-            <legend><span aria-hidden="true">1</span>Where are you in the work?</legend>
+            <legend><span aria-hidden="true">1</span>What are you doing?</legend>
             <div class="choice-row">
               <label class="choice">
                 <input type="radio" name="journey" value="start_and_direct" checked />
@@ -74,10 +79,10 @@
           </fieldset>
 
           <fieldset>
-            <legend><span aria-hidden="true">2</span>Which outcome fits your need?</legend>
-            <label class="select-label" for="problem-select">Choose the outcome that genuinely describes your need</label>
+            <legend><span aria-hidden="true">2</span>What outcome do you need?</legend>
+            <label class="select-label" for="problem-select">Choose the closest description</label>
             <select id="problem-select" name="problem" class="problem-select"></select>
-            <p class="field-help">Choose “My need is not listed” rather than forcing a nearby match. Options change with the stage above.</p>
+            <p class="field-help">Can't find it? Choose “My need is not listed.” We won't force a match.</p>
           </fieldset>
 
           <fieldset>
@@ -129,7 +134,7 @@
           </fieldset>
 
           <fieldset>
-            <legend><span aria-hidden="true">5</span>Keep it…</legend>
+            <legend><span aria-hidden="true">5</span>Which limits matter?</legend>
             <div class="choice-row">
               <label class="choice check-choice">
                 <input type="checkbox" name="local" checked />
@@ -225,6 +230,6 @@
       </nav>
     </footer>
 
-    <script type="module" src="app.js?v=20260801-2"></script>
+    <script type="module" src="app.js?v=20260801-3"></script>
   </body>
 </html>
