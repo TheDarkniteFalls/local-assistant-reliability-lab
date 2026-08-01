@@ -112,8 +112,8 @@ function updateResult() {
   }
 
   resultLabel.textContent = recommendation.exact
-    ? "Purpose and requirements match"
-    : "Purpose matches; requirements differ";
+    ? "Good fit for your choices"
+    : "Your goal fits; your setup differs";
   setText("#result-name", repo.name);
   setText("#result-summary", `${repo.use_when} About ${repo.minutes} minutes to start.`);
   setText("#result-proof", repo.proof);
@@ -148,7 +148,7 @@ function updateResult() {
 
 function showNoPurposeMatch(alternatives) {
   result.setAttribute("aria-busy", "false");
-  resultLabel.textContent = "Need not listed";
+  resultLabel.textContent = "Your need is not listed";
   setText("#result-name", "No purpose match");
   setText(
     "#result-summary",

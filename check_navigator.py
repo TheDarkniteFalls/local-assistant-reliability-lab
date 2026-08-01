@@ -93,7 +93,12 @@ def main() -> int:
     require('name="robots" content="index, follow"' in html, "search indexing metadata missing")
     require('property="og:title"' in html, "social discovery title missing")
     require('rel="icon" href="favicon.svg"' in html, "Navigator favicon missing")
-    require("no sign-up, analytics, saved answers" in html, "passive privacy explanation missing")
+    require("Nothing is saved or sent" in html, "passive privacy explanation missing")
+    require("What to do" in html and "five quick questions" in html, "newcomer action guidance missing")
+    require(
+        "What to expect" in html and "One best-fit guide, starter, or check" in html,
+        "newcomer result expectation missing",
+    )
     require("Choose without JavaScript" in html, "no-JavaScript routes missing")
     require(
         "More from Mike" in html
@@ -140,8 +145,8 @@ def main() -> int:
     require("NOT_LISTED_PROBLEM" in app, "explicit need-not-listed path is missing")
     require("showNoPurposeMatch" in app, "semantic mismatch state is missing")
     require(
-        "Purpose and requirements match" in app
-        and "Purpose matches; requirements differ" in app,
+        "Good fit for your choices" in app
+        and "Your goal fits; your setup differs" in app,
         "semantic and technical match states must be distinct",
     )
     require("Start without code" in html, "no-code first action is missing")
