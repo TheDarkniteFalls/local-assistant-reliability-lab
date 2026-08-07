@@ -61,6 +61,7 @@ Check publication safety, evidence scope, model output, or action authority and 
 | [Local Model Reliability Example](https://github.com/TheDarkniteFalls/local-model-reliability-example) | pattern | stable | 5 min | Python 3 | Validate structured output from a local model before trusting it. | `python3 reliability_demo.py --self-test` |
 | [Context Boundary Examples](https://github.com/TheDarkniteFalls/context-boundary-examples) | pattern | stable | 5 min | Python 3 | Check that an answer stays within the evidence you supplied. | `python3 context_boundary_check.py --self-test` |
 | [Agent Action Authority Examples](https://github.com/TheDarkniteFalls/agent-action-authority-examples) | pattern | stable | 5 min | Python 3 | Classify a model or agent action before allowing it to run. | `python3 action_authority_check.py --self-test` |
+| [Agent Evidence Catalog](https://github.com/TheDarkniteFalls/agent-evidence-catalog) | tool | experimental | 10 min | Node.js 20+ | Compare exact agent versions, authority boundaries, publisher claims, and known gaps. | `node scripts/catalog.mjs test` |
 
 ### Trust boundaries
 
@@ -111,6 +112,14 @@ Check publication safety, evidence scope, model output, or action authority and 
 - **A pass establishes:** Synthetic actions and scoped grants receive the expected allow, reject, or reapproval decisions.
 - **It does not establish:** The classifier does not execute actions, provide a sandbox, or infer security-relevant scope.
 - **CI:** [checks workflow](https://github.com/TheDarkniteFalls/agent-action-authority-examples/actions/workflows/checks.yml)
+
+#### [Agent Evidence Catalog](https://github.com/TheDarkniteFalls/agent-evidence-catalog)
+
+- **For:** Researchers, builders, and maintainers comparing exact coding-agent versions and publisher claims.
+- **First-use estimate:** 10 minutes; Node.js 20+.
+- **A pass establishes:** The synthetic catalog validates its exact-version profiles and receipts and rejects deliberate version, arithmetic, and unsupported-verification errors.
+- **It does not establish:** The check does not fetch publisher sources, run agents, verify live behavior, rank products, or establish suitability.
+- **CI:** [checks workflow](https://github.com/TheDarkniteFalls/agent-evidence-catalog/actions/workflows/checks.yml)
 
 
 ## Test or run a workflow
