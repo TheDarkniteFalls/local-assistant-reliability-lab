@@ -312,6 +312,37 @@
       }
     },
     {
+      "slug": "agent-evidence-catalog",
+      "name": "Agent Evidence Catalog",
+      "url": "https://github.com/TheDarkniteFalls/agent-evidence-catalog",
+      "navigator_eligible": true,
+      "problem_label": "Compare exact agent versions, authority boundaries, publisher claims, and known gaps",
+      "journey": "bound_and_prove",
+      "kind": "tool",
+      "help_type": "runnable_check",
+      "maturity": "experimental",
+      "minutes": 10,
+      "runtimes": [
+        "node"
+      ],
+      "runtime_label": "Node.js 20+",
+      "use_when": "Compare exact agent versions, authority boundaries, publisher claims, and known gaps.",
+      "proof": "The synthetic catalog validates its exact-version profiles and receipts and rejects deliberate version, arithmetic, and unsupported-verification errors.",
+      "limitation": "The check does not fetch publisher sources, run agents, verify live behavior, rank products, or establish suitability.",
+      "command": "node scripts/catalog.mjs test",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Read-only check; examples may use temporary files",
+      "action": {
+        "label": "Open Agent Evidence Catalog",
+        "url": "https://github.com/TheDarkniteFalls/agent-evidence-catalog"
+      }
+    },
+    {
       "slug": "green-spine-qa-pattern",
       "name": "Green-Spine QA Pattern",
       "url": "https://github.com/TheDarkniteFalls/green-spine-qa-pattern",

@@ -28,7 +28,7 @@ function exactState(repo) {
   };
 }
 
-assert.equal(toolkit.repos.length, 15);
+assert.equal(toolkit.repos.length, 16);
 assert.ok(toolkit.repos.every((repo) => typeof repo.navigator_eligible === "boolean"));
 assert.ok(
   toolkit.repos
@@ -54,7 +54,7 @@ for (const repo of toolkit.repos.filter((entry) => entry.navigator_eligible)) {
   assert.deepEqual(recommendation.issues, []);
   reachable.add(repo.slug);
 }
-assert.equal(reachable.size, 15, "all eligible projects must be exactly reachable");
+assert.equal(reachable.size, 16, "all eligible projects must be exactly reachable");
 
 let exhaustiveStates = 0;
 let mismatchStates = 0;
@@ -104,7 +104,7 @@ for (const repo of toolkit.repos.filter((entry) => entry.navigator_eligible)) {
     }
   }
 }
-assert.equal(exhaustiveStates, 1080);
+assert.equal(exhaustiveStates, 1152);
 assert.ok(mismatchStates > 0);
 
 let semanticMismatchStates = 0;
@@ -238,7 +238,7 @@ assert.deepEqual(
   ["eligibility"],
 );
 
-console.log("PASS navigator_reachability_15_of_15");
+console.log("PASS navigator_reachability_16_of_16");
 console.log(`PASS navigator_exhaustive_states_${exhaustiveStates}`);
 console.log(`PASS navigator_semantic_mismatch_states_${semanticMismatchStates}`);
 console.log("PASS navigator_explicit_mismatch_contract");
