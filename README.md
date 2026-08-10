@@ -16,6 +16,15 @@ for leaving a revision-bound, human-reviewed receipt, while the wider toolkit
 explores small models, coding-agent boundaries, structured output, context,
 action authority, repeatable QA, and public-safe publishing.
 
+## Citeglass Learning Programme
+
+[Citeglass](CITEGLASS_ROADMAP.md) turns recurring local-assistant reliability
+problems into small, runnable, model-neutral application boundaries. It begins
+inside this Lab rather than as a standalone framework. The first published
+component is the Grounded Answer Gate: typed evidence and one unchanged
+model-authored answer enter; a deterministic receipt decides whether that
+wording may enter trusted downstream context.
+
 **Not a coder?** [Create a private Reliable AI Work Starter](https://github.com/new?template_owner=TheDarkniteFalls&template_name=reliable-ai-work-starter&visibility=private),
 or read the [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook)
 first. Both keep important state outside chat and consequential actions behind
@@ -77,6 +86,7 @@ toolkit component proves and what it deliberately leaves open.
 | You want one useful private workflow without building an app | [Reliable AI Work Starter](https://github.com/TheDarkniteFalls/reliable-ai-work-starter) | Named sources, bounded authority, durable state, review evidence, and a clean handoff |
 | You want to build with Codex without becoming a developer first | [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook) | A Project Card, approval ladder, verification guide, and plain-English operating method |
 | An agent exceeds the authority it was given | `python3 -B run_complete_workflow.py` | Protected writes, grant replay, and changed scope are rejected |
+| A web-backed model answer may enter trusted context without adequate support | `python3 grounded_answer_gate.py examples/grounded_answer_cases.json` in Local Model Reliability Example | One valid answer is accepted; unsupported citations, facts, metadata, hostile echoes, and malformed outputs fail closed |
 | A receipt describes the wrong revision or evidence | `python3 -B examples/run-v1-reference.py` in EvidenceGate | Stale heads, omitted paths, and protected paths fail |
 | An answer escapes the supplied evidence | `python3 context_boundary_check.py --self-test` in Context Boundary Examples | Unsupported answers and missing citations fail |
 | An agent may continue from illegal or stale context | `python3 -B context_compiler.py check` in Context Contract Compiler | Required records, explicit exclusions, fail-closed obligations, and stale receipts are checked deterministically |
@@ -118,6 +128,7 @@ flowchart LR
   not just a chat history or an ungrounded summary.
 - [A model may suggest an action without owning the authority to execute it](https://github.com/TheDarkniteFalls/agent-action-authority-examples).
 - [Reliable harnesses validate model output before trusting or applying it](https://github.com/TheDarkniteFalls/local-model-reliability-example).
+- [A completed web-backed answer should enter trusted context only after a deterministic source-bound acceptance receipt](https://github.com/TheDarkniteFalls/local-model-reliability-example).
 - [A route receipt should remain traceable to the exact evidence and policy that produced its candidate decision](https://github.com/TheDarkniteFalls/model-workload-telemetry),
   without granting authority to execute or promote that route.
 
@@ -143,7 +154,7 @@ of truth.
 2. Spend 2 minutes with Codex Project Instructions Starter to see the repo rules.
 3. Spend 2 minutes with EvidenceGate to run a detached v1 receipt against real
    temporary Git revisions.
-4. Spend 3 minutes with Local Model Reliability Example to see validation before trust.
+4. Spend 3 minutes with Local Model Reliability Example to see an ungrounded answer fail before trusted context.
 5. Spend 2 minutes with Context Boundary Examples to see evidence-only answers.
 6. Spend 2 minutes with Agent Action Authority Examples to see action classification.
 7. Spend 2 minutes with Green-Spine QA Pattern to see one compact health check.
@@ -155,7 +166,7 @@ of truth.
 | Public Repo Safety Kit | `python3 public_repo_guard.py --self-test` |
 | Codex Project Instructions Starter | `python3 check_templates.py` |
 | EvidenceGate | `python3 -B examples/run-v1-reference.py` |
-| Local Model Reliability Example | `python3 reliability_demo.py --self-test` |
+| Local Model Reliability Example | `python3 grounded_answer_gate.py examples/grounded_answer_cases.json` |
 | Context Boundary Examples | `python3 context_boundary_check.py --self-test` |
 | Agent Action Authority Examples | `python3 action_authority_check.py --self-test` |
 | Green-Spine QA Pattern | `python3 spine_green.py` |

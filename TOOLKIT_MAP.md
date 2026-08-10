@@ -58,7 +58,7 @@ Check publication safety, evidence scope, model output, or action authority and 
 | [Public Repo Safety Kit](https://github.com/TheDarkniteFalls/public-repo-safety-kit) | tool | stable | 5 min | Python 3; Git for repository checks | Check a repository for publication risks before making it public. | `python3 public_repo_guard.py --self-test` |
 | [Earned Confidence](https://github.com/TheDarkniteFalls/earned-confidence) | pattern | experimental | 5 min | Node.js 22.6+ | Record available evidence, remaining uncertainty, and what was known when a decision was made. | `npm run check` |
 | [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) | tool | flagship | 5 min | Python 3 | Create a compact review receipt for AI-assisted work. | `python3 -B examples/run-v1-reference.py` |
-| [Local Model Reliability Example](https://github.com/TheDarkniteFalls/local-model-reliability-example) | pattern | stable | 5 min | Python 3 | Validate structured output from a local model before trusting it. | `python3 reliability_demo.py --self-test` |
+| [Local Model Reliability Example](https://github.com/TheDarkniteFalls/local-model-reliability-example) | pattern | experimental | 5 min | Python 3 | Prevent an ungrounded web answer from entering trusted agent context. | `python3 grounded_answer_gate.py examples/grounded_answer_cases.json` |
 | [Context Boundary Examples](https://github.com/TheDarkniteFalls/context-boundary-examples) | pattern | stable | 5 min | Python 3 | Check that an answer stays within the evidence you supplied. | `python3 context_boundary_check.py --self-test` |
 | [Agent Action Authority Examples](https://github.com/TheDarkniteFalls/agent-action-authority-examples) | pattern | stable | 5 min | Python 3 | Classify a model or agent action before allowing it to run. | `python3 action_authority_check.py --self-test` |
 | [Agent Evidence Catalog](https://github.com/TheDarkniteFalls/agent-evidence-catalog) | tool | experimental | 10 min | Node.js 20+ | Compare exact agent versions, authority boundaries, publisher claims, and known gaps. | `node scripts/catalog.mjs test` |
@@ -91,10 +91,10 @@ Check publication safety, evidence scope, model output, or action authority and 
 
 #### [Local Model Reliability Example](https://github.com/TheDarkniteFalls/local-model-reliability-example)
 
-- **For:** Builders placing deterministic validation around local or small-model output.
+- **For:** Builders preventing unsupported local or small-model answers from entering trusted agent context.
 - **First-use estimate:** 5 minutes; Python 3.
-- **A pass establishes:** Synthetic outputs satisfy the declared shape, citation, confidence, and no-write contracts.
-- **It does not establish:** The example calls no model and does not measure live-model quality.
+- **A pass establishes:** The frozen synthetic cases accept only the source-bound answer and reject missing or unapproved citations, unsupported release facts, false metadata, hostile echoes, raw source content, and malformed shapes before downstream context is allowed.
+- **It does not establish:** The gate calls no model or network, covers only the declared software-release fact profile and canaries, and does not establish source truth, general semantic correctness, live-model quality, or external adoption.
 - **CI:** [checks workflow](https://github.com/TheDarkniteFalls/local-model-reliability-example/actions/workflows/checks.yml)
 
 #### [Context Boundary Examples](https://github.com/TheDarkniteFalls/context-boundary-examples)
