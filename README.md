@@ -16,15 +16,6 @@ for leaving a revision-bound, human-reviewed receipt, while the wider toolkit
 explores small models, coding-agent boundaries, structured output, context,
 action authority, repeatable QA, and public-safe publishing.
 
-## Citeglass Learning Programme
-
-[Citeglass](CITEGLASS_ROADMAP.md) turns recurring local-assistant reliability
-problems into small, runnable, model-neutral application boundaries. It begins
-inside this Lab rather than as a standalone framework. The first published
-component is the Grounded Answer Gate: typed evidence and one unchanged
-model-authored answer enter; a deterministic receipt decides whether that
-wording may enter trusted downstream context.
-
 **Not a coder?** [Create a private Reliable AI Work Starter](https://github.com/new?template_owner=TheDarkniteFalls&template_name=reliable-ai-work-starter&visibility=private),
 or read the [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook)
 first. Both keep important state outside chat and consequential actions behind
