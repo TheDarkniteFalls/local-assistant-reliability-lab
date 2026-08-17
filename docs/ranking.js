@@ -24,6 +24,17 @@ const JOURNEY_LABEL = {
 
 export const NOT_LISTED_PROBLEM = "need_not_listed";
 
+const DEEP_LINK_KEYS = [
+  "journey",
+  "problem",
+  "help_type",
+  "runtime",
+  "local",
+  "no_model",
+  "read_only",
+  "path",
+];
+
 export function eligibleReposForJourney(repos, journey) {
   return repos.filter(
     (repo) => repo.navigator_eligible && repo.journey === journey,
@@ -150,4 +161,71 @@ export function proofPresentation(repo, state) {
         ? "Required automated check"
         : "First runnable check",
   };
+}
+
+export function connectedPathsForRepo(paths, slug) {
+  return paths.filter((path) => path.steps.some((step) => step.slug === slug));
+}
+
+export function resolveConnectedPath(paths, slug, requestedPathId = null) {
+  const available = connectedPathsForRepo(paths, slug);
+  if (available.length === 0) return null;
+  return available.find((path) => path.id === requestedPathId) ?? available[0];
+}
+
+export function serializeNavigatorState(state, pathId) {
+  const params = new URLSearchParams();
+  params.set("journey", state.journey);
+  params.set("problem", state.problem);
+  params.set("help_type", state.help_type);
+  params.set("runtime", state.runtime);
+  params.set("local", state.local ? "1" : "0");
+  params.set("no_model", state.no_model ? "1" : "0");
+  params.set("read_only", state.read_only ? "1" : "0");
+  params.set("path", pathId);
+  return params.toString();
+}
+
+export function parseNavigatorState(params, repos, paths) {
+  const presentKeys = [...params.keys()];
+  if (presentKeys.length === 0) return null;
+  if (
+    presentKeys.length !== DEEP_LINK_KEYS.length ||
+    DEEP_LINK_KEYS.some((key) => params.getAll(key).length !== 1) ||
+    presentKeys.some((key) => !DEEP_LINK_KEYS.includes(key))
+  ) {
+    return null;
+  }
+
+  const state = {
+    journey: params.get("journey"),
+    problem: params.get("problem"),
+    help_type: params.get("help_type"),
+    runtime: params.get("runtime"),
+    local: params.get("local") === "1",
+    no_model: params.get("no_model") === "1",
+    read_only: params.get("read_only") === "1",
+  };
+  if (
+    !["start_and_direct", "bound_and_prove", "evaluate_and_operate"].includes(state.journey) ||
+    !["guide", "starter", "runnable_check"].includes(state.help_type) ||
+    !["no_code", "python", "node"].includes(state.runtime) ||
+    ["local", "no_model", "read_only"].some(
+      (key) => !["0", "1"].includes(params.get(key)),
+    )
+  ) {
+    return null;
+  }
+
+  const repo = repos.find(
+    (entry) =>
+      entry.slug === state.problem &&
+      entry.navigator_eligible &&
+      entry.journey === state.journey,
+  );
+  const pathId = params.get("path");
+  if (!repo || !connectedPathsForRepo(paths, repo.slug).some((path) => path.id === pathId)) {
+    return null;
+  }
+  return { state, pathId };
 }

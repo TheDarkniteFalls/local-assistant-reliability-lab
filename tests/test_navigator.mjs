@@ -3,9 +3,13 @@ import { readFile } from "node:fs/promises";
 import {
   NOT_LISTED_PROBLEM,
   compatibilityIssues,
+  connectedPathsForRepo,
   eligibleReposForJourney,
+  parseNavigatorState,
   proofPresentation,
   recommendRepos,
+  resolveConnectedPath,
+  serializeNavigatorState,
 } from "../docs/ranking.js";
 
 const toolkit = JSON.parse(
@@ -55,6 +59,72 @@ for (const repo of toolkit.repos.filter((entry) => entry.navigator_eligible)) {
   reachable.add(repo.slug);
 }
 assert.equal(reachable.size, 16, "all eligible projects must be exactly reachable");
+
+const connectedCoverage = new Set();
+for (const path of toolkit.connected_paths) {
+  assert.ok(path.id?.trim());
+  assert.ok(path.name?.trim());
+  assert.ok(path.description?.trim());
+  assert.ok(path.steps.length >= 3 && path.steps.length <= 5);
+  assert.equal(new Set(path.steps.map((step) => step.slug)).size, path.steps.length);
+  for (const step of path.steps) {
+    assert.ok(step.role?.trim());
+    assert.ok(step.proof?.trim());
+    assert.ok(step.limitation?.trim());
+    assert.match(step.url, new RegExp(`/TheDarkniteFalls/${step.slug}$`));
+    connectedCoverage.add(step.slug);
+  }
+}
+assert.deepEqual(connectedCoverage, reachable);
+
+for (const repo of toolkit.repos.filter((entry) => entry.navigator_eligible)) {
+  const paths = connectedPathsForRepo(toolkit.connected_paths, repo.slug);
+  assert.ok(paths.length > 0, `${repo.slug} needs a connected path`);
+  const selected = resolveConnectedPath(toolkit.connected_paths, repo.slug);
+  assert.equal(selected.id, paths[0].id);
+  assert.ok(selected.steps.some((step) => step.slug === repo.slug));
+
+  const query = serializeNavigatorState(exactState(repo), selected.id);
+  const parsed = parseNavigatorState(
+    new URLSearchParams(query),
+    toolkit.repos,
+    toolkit.connected_paths,
+  );
+  assert.deepEqual(parsed, { state: exactState(repo), pathId: selected.id });
+}
+
+assert.equal(
+  parseNavigatorState(new URLSearchParams(), toolkit.repos, toolkit.connected_paths),
+  null,
+  "the default URL must retain the current default behavior",
+);
+
+const validEvidenceState = exactState(
+  toolkit.repos.find((repo) => repo.slug === "evidencegate"),
+);
+const validEvidencePath = resolveConnectedPath(
+  toolkit.connected_paths,
+  "evidencegate",
+).id;
+const validEvidenceQuery = serializeNavigatorState(validEvidenceState, validEvidencePath);
+for (const invalidQuery of [
+  validEvidenceQuery.replace("local=1", "local=yes"),
+  validEvidenceQuery.replace(`path=${validEvidencePath}`, "path=missing-path"),
+  validEvidenceQuery.replace("problem=evidencegate", "problem=missing-repo"),
+  `${validEvidenceQuery}&path=${validEvidencePath}`,
+  validEvidenceQuery.replace(/&read_only=[01]/, ""),
+  `${validEvidenceQuery}&campaign=example`,
+]) {
+  assert.equal(
+    parseNavigatorState(
+      new URLSearchParams(invalidQuery),
+      toolkit.repos,
+      toolkit.connected_paths,
+    ),
+    null,
+    `invalid deep link must fail closed: ${invalidQuery}`,
+  );
+}
 
 let exhaustiveStates = 0;
 let mismatchStates = 0;
@@ -246,3 +316,6 @@ console.log("PASS navigator_compatible_shortlists");
 console.log("PASS navigator_explicit_ineligibility_contract");
 console.log("PASS navigator_no_code_first_action_contract");
 console.log("PASS navigator_starter_taxonomy_contract");
+console.log("PASS navigator_connected_paths_16_of_16");
+console.log("PASS navigator_deep_link_round_trip");
+console.log("PASS navigator_invalid_deep_links_fail_closed");

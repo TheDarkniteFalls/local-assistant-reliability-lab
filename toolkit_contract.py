@@ -96,3 +96,22 @@ def navigator_entry(repo: dict) -> dict:
     if "no_code_first_action" in repo:
         entry["no_code_first_action"] = repo["no_code_first_action"]
     return entry
+
+
+def connected_path_entry(path: dict, repos_by_slug: dict[str, dict]) -> dict:
+    return {
+        "id": path["id"],
+        "name": path["name"],
+        "description": path["description"],
+        "steps": [
+            {
+                "slug": step["slug"],
+                "name": repos_by_slug[step["slug"]]["name"],
+                "url": repos_by_slug[step["slug"]]["url"],
+                "role": step["role"],
+                "proof": repos_by_slug[step["slug"]]["proof"],
+                "limitation": repos_by_slug[step["slug"]]["limitation"],
+            }
+            for step in path["steps"]
+        ],
+    }

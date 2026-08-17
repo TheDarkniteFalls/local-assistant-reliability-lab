@@ -12,6 +12,74 @@ of the public guides, tools, and teaching patterns in this toolkit.
 - **Stable:** A focused example with deterministic checks and a deliberately narrow public contract.
 - **Experimental:** A tested teaching pattern whose contract may still change as outside use reveals better boundaries.
 
+## Connected paths
+
+Each path shows how several focused assets can support one workflow. The
+role is connective guidance, not a guarantee that the tools integrate
+automatically or establish the whole workflow safe.
+
+### Guide bounded AI work
+
+Turn an idea into a private, authority-aware workflow with an inspectable review receipt.
+
+1. [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook) — Define the task, evidence, approval points, and human decision boundary.
+2. [Reliable AI Work Starter](https://github.com/TheDarkniteFalls/reliable-ai-work-starter) — Keep the working sources, authority, review, and handoff state in a private folder.
+3. [Agent Action Authority Examples](https://github.com/TheDarkniteFalls/agent-action-authority-examples) — Classify proposed actions before execution and require a fresh grant when scope changes.
+4. [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) — Bind the claims, checks, changed paths, and review to the exact Git revision.
+
+### Govern coding-agent work
+
+Set repository rules, compile only allowed context, test one important path, and leave revision-bound evidence.
+
+1. [Codex Project Instructions Starter](https://github.com/TheDarkniteFalls/codex-project-instructions-starter) — Write clear repository rules before a coding agent starts.
+2. [Context Contract Compiler](https://github.com/TheDarkniteFalls/context-contract-compiler) — Select only allowed context and detect when a later change makes the receipt stale.
+3. [Green-Spine QA Pattern](https://github.com/TheDarkniteFalls/green-spine-qa-pattern) — Exercise one representative workflow with a memorable deterministic check.
+4. [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) — Tie the review claim and check results to the exact change under review.
+
+### Ground model output
+
+Keep an answer inside supplied evidence, reject unsupported output, and record uncertainty without overstating it.
+
+1. [Context Boundary Examples](https://github.com/TheDarkniteFalls/context-boundary-examples) — Check that the answer cites only the evidence supplied for the task.
+2. [Local Model Reliability Example](https://github.com/TheDarkniteFalls/local-model-reliability-example) — Reject unsupported, malformed, or hostile output before it enters trusted context.
+3. [Earned Confidence](https://github.com/TheDarkniteFalls/earned-confidence) — Preserve the available evidence, unknowns, and policy-defined decision band.
+4. [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) — Leave a revision-bound receipt for the checks and human review.
+
+### Prepare a public release
+
+Review public-candidate material, run a meaningful product check, and preserve what was reviewed.
+
+1. [Public Repo Safety Kit](https://github.com/TheDarkniteFalls/public-repo-safety-kit) — Inspect the candidate tree and Git metadata for common public-safety risks.
+2. [Green-Spine QA Pattern](https://github.com/TheDarkniteFalls/green-spine-qa-pattern) — Run one named check that exercises the release's most important workflow.
+3. [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) — Record the checked revision and the human publication review without granting publication authority.
+
+### Evaluate model routes
+
+Protect scarce evaluation material, compare like-for-like workloads, and retain uncertainty and provenance.
+
+1. [Sealed Evaluation Pattern](https://github.com/TheDarkniteFalls/sealed-evaluation-pattern) — Separate learning, calibration, and sealed material and retire revealed holdouts.
+2. [Model Workload Telemetry](https://github.com/TheDarkniteFalls/model-workload-telemetry) — Compare model runs only within shared workload classes and preserve route provenance.
+3. [Earned Confidence](https://github.com/TheDarkniteFalls/earned-confidence) — Record what the evaluation supports, what remains unknown, and the decision snapshot.
+4. [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) — Bind the evaluation claims, checks, and review to the exact revision.
+
+### Verify a generated workflow
+
+Check generated structure, preserve legal state transitions, and exercise a representative journey.
+
+1. [Generated-System QA Pattern](https://github.com/TheDarkniteFalls/generated-system-qa-pattern) — Check freshness, integrity, reachability, services, and one declared journey.
+2. [AI Game State Machine Pattern](https://github.com/TheDarkniteFalls/ai-game-state-machine-pattern) — Keep legal actions, obligations, save state, and replay deterministic.
+3. [Green-Spine QA Pattern](https://github.com/TheDarkniteFalls/green-spine-qa-pattern) — Expose the most important end-to-end journey as one memorable health check.
+4. [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) — Preserve the exact revision, check evidence, and human review boundary.
+
+### Compare agent options
+
+Compare publisher-scoped agent evidence, frame a bounded decision, and gate any resulting action.
+
+1. [Agent Evidence Catalog](https://github.com/TheDarkniteFalls/agent-evidence-catalog) — Compare exact versions, publisher claims, authority boundaries, and explicit unknowns.
+2. [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook) — Turn the comparison into a bounded task with named evidence and human decisions.
+3. [Agent Action Authority Examples](https://github.com/TheDarkniteFalls/agent-action-authority-examples) — Separate a proposed tool or agent action from permission to execute it.
+4. [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) — Record what was compared, checked, and reviewed at the exact revision.
+
 ## Plan work or set rules
 
 Define an AI-assisted task, private workspace, or coding-agent instructions before work begins.

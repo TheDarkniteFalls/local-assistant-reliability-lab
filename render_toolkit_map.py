@@ -35,6 +35,25 @@ def render(index: dict) -> str:
     for maturity, description in index["maturity_definitions"].items():
         lines.append(f"- **{maturity.title()}:** {description}")
 
+    repos_by_slug = {repo["slug"]: repo for repo in index["repos"]}
+    lines.extend(
+        [
+            "",
+            "## Connected paths",
+            "",
+            "Each path shows how several focused assets can support one workflow. The",
+            "role is connective guidance, not a guarantee that the tools integrate",
+            "automatically or establish the whole workflow safe.",
+        ]
+    )
+    for path in index["connected_paths"]:
+        lines.extend(["", f"### {path['name']}", "", path["description"], ""])
+        for position, step in enumerate(path["steps"], start=1):
+            repo = repos_by_slug[step["slug"]]
+            lines.append(
+                f"{position}. [{repo['name']}]({repo['url']}) — {step['role']}"
+            )
+
     repos = index["repos"]
     for journey in index["journeys"]:
         lines.extend(

@@ -24,7 +24,7 @@
     <meta name="twitter:card" content="summary" />
     <title>Reliability Navigator — find a reliable AI workflow starting point</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=20260801-3" />
+    <link rel="stylesheet" href="styles.css?v=20260816-1" />
   </head>
   <body>
     <header class="site-header">
@@ -213,6 +213,23 @@
           <li><span class="trust-icon" aria-hidden="true">⌁</span>No network</li>
           <li><span class="trust-icon" aria-hidden="true">□</span><span id="fact-operation">—</span></li>
         </ul>
+        <section id="connected-path" class="connected-path" aria-labelledby="connected-path-title" hidden>
+          <div class="connected-path-heading">
+            <div>
+              <p class="connected-path-label">How this fits</p>
+              <h3 id="connected-path-title">Connected path</h3>
+            </div>
+            <label class="path-select-label" for="path-select">
+              Workflow
+              <select id="path-select" class="path-select"></select>
+            </label>
+          </div>
+          <p id="connected-path-description" class="connected-path-description"></p>
+          <ol id="connected-path-steps" class="connected-path-steps"></ol>
+          <p class="connected-path-boundary">
+            These roles connect focused examples; they do not make the tools integrate automatically or prove the whole workflow safe.
+          </p>
+        </section>
         <section id="shortlist" class="shortlist" aria-labelledby="shortlist-title" hidden>
           <h3 id="shortlist-title">Eligible alternatives</h3>
           <p id="shortlist-summary"></p>
@@ -230,6 +247,6 @@
       </nav>
     </footer>
 
-    <script type="module" src="app.js?v=20260801-3"></script>
+    <script type="module" src="app.js?v=20260816-1"></script>
   </body>
 </html>
