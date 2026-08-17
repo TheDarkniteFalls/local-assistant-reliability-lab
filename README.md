@@ -5,7 +5,7 @@ human-accountable AI work.
 
 **Choose in two minutes:** use the
 [Toolkit Navigator](https://thedarknitefalls.github.io/local-assistant-reliability-lab/)
-for one exact route or a disclosed compatible shortlist, or scan the
+for one exact route, its connected end-to-end path, or a disclosed compatible shortlist, or scan the
 [complete toolkit map](TOOLKIT_MAP.md) when you want every indexed public
 contract at once.
 Agents and tools can read the same catalog from the
@@ -137,7 +137,9 @@ tool, and runnable pattern into three visitor journeys:
 The map makes the maturity, intended audience, first command, proof boundary,
 limitation, and CI workflow visible for every entry. It is generated from
 `toolkit_index.json`, so the public catalog and its validation use one source
-of truth.
+of truth. The same index defines seven short connected paths that explain how
+focused assets can support one workflow without implying automatic integration
+or whole-system safety.
 
 ## Core 15-Minute Walkthrough
 
@@ -180,6 +182,7 @@ PASS required_repos
 PASS first_party_repository_links
 PASS visitor_journeys
 PASS trust_signals
+PASS connected_paths
 PASS evidencegate_v1_reference
 PASS public_safe_text
 PASS toolkit_map
@@ -201,8 +204,10 @@ customer/user data to these public repos.
 
 This lab is a visitor-facing map and static Navigator. Each linked repo owns
 its own runnable example. `toolkit_index.json` remains the only catalog source;
-the Markdown map and browser data are generated from it instead of becoming
-separate stores.
+the Markdown map, browser data, and connected-path relationships are generated
+from it instead of becoming separate stores. Navigator choices can be copied as
+a deterministic URL; invalid or incomplete URL state is ignored and the
+ordinary default remains unchanged. Nothing is stored or sent.
 
 ## Quality Checks
 

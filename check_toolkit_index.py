@@ -18,6 +18,7 @@ REQUIRED_REPOS = {
     "local-model-reliability-example",
     "context-boundary-examples",
     "agent-action-authority-examples",
+    "agent-evidence-catalog",
     "green-spine-qa-pattern",
     "context-contract-compiler",
     "sealed-evaluation-pattern",
@@ -55,6 +56,7 @@ FIRST_PARTY_REPO_LINK = re.compile(
 PROFILE_OPEN_WORK_HEADING = re.compile(
     r"^## Open Work and Contributions\s*$", re.MULTILINE
 )
+CONNECTED_PATH_ID = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 
 
 def fail(message: str) -> None:
@@ -68,6 +70,55 @@ def load_index(path: Path) -> dict:
         fail(f"cannot read {path}: {exc}")
     except json.JSONDecodeError as exc:
         fail(f"invalid json: {exc}")
+
+
+def validate_connected_paths(index: dict, repos: list[dict]) -> None:
+    connected_paths = index.get("connected_paths")
+    if not isinstance(connected_paths, list) or not connected_paths:
+        fail("connected_paths must be a non-empty list")
+
+    repos_by_slug = {repo["slug"]: repo for repo in repos}
+    path_ids: list[str] = []
+    covered: set[str] = set()
+    for path in connected_paths:
+        if not isinstance(path, dict):
+            fail("connected path entries must be objects")
+        if set(path) != {"id", "name", "description", "steps"}:
+            fail("connected paths must contain exactly id, name, description, and steps")
+        for field in ("id", "name", "description"):
+            if not isinstance(path[field], str) or not path[field].strip():
+                fail(f"connected path {field} must be non-empty text")
+        if not CONNECTED_PATH_ID.fullmatch(path["id"]):
+            fail(f"malformed connected path id: {path['id']}")
+        steps = path["steps"]
+        if not isinstance(steps, list) or not 3 <= len(steps) <= 5:
+            fail(f"connected path {path['id']} must contain 3 to 5 steps")
+        step_slugs: list[str] = []
+        for step in steps:
+            if not isinstance(step, dict) or set(step) != {"slug", "role"}:
+                fail(f"malformed step in connected path {path['id']}")
+            slug = step["slug"]
+            role = step["role"]
+            if not isinstance(slug, str) or not slug.strip():
+                fail(f"connected path {path['id']} has an invalid repository reference")
+            if slug not in repos_by_slug:
+                fail(f"connected path {path['id']} references missing repository {slug}")
+            if not repos_by_slug[slug]["navigator_eligible"]:
+                fail(f"connected path {path['id']} references ineligible repository {slug}")
+            if not isinstance(role, str) or not role.strip() or len(role) > 200:
+                fail(f"connected path {path['id']} has a malformed role for {slug}")
+            step_slugs.append(slug)
+            covered.add(slug)
+        if len(step_slugs) != len(set(step_slugs)):
+            fail(f"connected path {path['id']} contains a duplicate repository")
+        path_ids.append(path["id"])
+
+    if len(path_ids) != len(set(path_ids)):
+        fail("duplicate connected path id")
+    eligible = {repo["slug"] for repo in repos if repo["navigator_eligible"]}
+    missing = eligible - covered
+    if missing:
+        fail("navigator-eligible repos missing a connected path: " + ", ".join(sorted(missing)))
 
 
 def validate_index(index: dict) -> None:
@@ -165,6 +216,8 @@ def validate_index(index: dict) -> None:
     if missing:
         fail("missing required repos: " + ", ".join(sorted(missing)))
 
+    validate_connected_paths(index, repos)
+
     evidencegate = next(repo for repo in repos if repo["slug"] == "evidencegate")
     if EVIDENCEGATE_REFERENCE_COMMAND not in evidencegate["commands"]:
         fail("EvidenceGate entry must include the detached v1 reference run")
@@ -235,6 +288,7 @@ def main(argv: list[str]) -> int:
     print("PASS first_party_repository_links")
     print("PASS visitor_journeys")
     print("PASS trust_signals")
+    print("PASS connected_paths")
     print("PASS evidencegate_v1_reference")
     print("PASS public_safe_text")
     return 0

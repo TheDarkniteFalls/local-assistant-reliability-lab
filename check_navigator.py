@@ -117,6 +117,8 @@ def main() -> int:
     toggle = next(attrs for tag, attrs, _ in tags if attrs.get("id") == "details-toggle")
     details = next(attrs for tag, attrs, _ in tags if attrs.get("id") == "proof-details")
     shortlist = next(attrs for tag, attrs, _ in tags if attrs.get("id") == "shortlist")
+    connected_path = next(attrs for tag, attrs, _ in tags if attrs.get("id") == "connected-path")
+    path_select = next(attrs for tag, attrs, _ in tags if attrs.get("id") == "path-select")
     require(result.get("aria-live") == "polite", "result must announce changes politely")
     require(result.get("aria-busy") == "true", "loading state must be explicit")
     require(result.get("tabindex") == "-1", "mobile result target must accept focus")
@@ -126,6 +128,16 @@ def main() -> int:
     require("hidden" in details, "proof detail must start hidden")
     require(shortlist.get("aria-labelledby") == "shortlist-title", "shortlist heading relationship missing")
     require("hidden" in shortlist, "shortlist must start hidden")
+    require(
+        connected_path.get("aria-labelledby") == "connected-path-title",
+        "connected path heading relationship missing",
+    )
+    require("hidden" in connected_path, "connected path must start hidden")
+    require(
+        any(tag == "label" and attrs.get("for") == "path-select" for tag, attrs, _ in tags),
+        "connected path selector needs a visible label",
+    )
+    require(path_select.get("class") == "path-select", "connected path selector is missing")
     print("PASS navigator_accessibility")
 
     require("@media (max-width: 1040px)" in css, "tablet breakpoint missing")
@@ -134,6 +146,8 @@ def main() -> int:
     require("@media (max-width: 380px)" in css, "small-phone header breakpoint missing")
     require(".choice input:focus-visible + span" in css, "keyboard focus style missing")
     require(".problem-select:focus-visible" in css, "problem selector focus style missing")
+    require(".path-select:focus-visible" in css, "connected path selector focus style missing")
+    require(".connected-path-step.current" in css, "current path step style missing")
     require("[hidden]" in css and "display: none !important;" in css, "hidden controls must stay hidden")
     require("flex-wrap: wrap;" in css, "footer discovery links must wrap")
     require("@media (prefers-reduced-motion: reduce)" in css, "reduced-motion path missing")
@@ -142,6 +156,10 @@ def main() -> int:
     require('await fetch("toolkit-data.json")' in app, "generated data is not loaded")
     require("recommendRepos(toolkit.repos, state)" in app, "explicit recommendation contract is missing")
     require("recommendation.issues" in app, "mismatch disclosure is missing")
+    require("renderConnectedPath(repo, preferredPathId)" in app, "connected path rendering is missing")
+    require('link.setAttribute("aria-current", "step")' in app, "current step announcement is missing")
+    require("parseNavigatorState(" in app, "deep-link parser is not used")
+    require("syncNavigatorUrl(state, preferredPathId)" in app, "deep-link URL update is missing")
     require("NOT_LISTED_PROBLEM" in app, "explicit need-not-listed path is missing")
     require("showNoPurposeMatch" in app, "semantic mismatch state is missing")
     require(

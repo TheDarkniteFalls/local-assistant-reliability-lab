@@ -1,8 +1,12 @@
 import {
   NOT_LISTED_PROBLEM,
+  connectedPathsForRepo,
   eligibleReposForJourney,
+  parseNavigatorState,
   proofPresentation,
   recommendRepos,
+  resolveConnectedPath,
+  serializeNavigatorState,
 } from "./ranking.js";
 
 const form = document.querySelector("#navigator-form");
@@ -20,8 +24,14 @@ const shortlistTitle = document.querySelector("#shortlist-title");
 const shortlistSummary = document.querySelector("#shortlist-summary");
 const shortlistList = document.querySelector("#shortlist-list");
 const mobileResultLink = document.querySelector(".mobile-result-link");
+const connectedPath = document.querySelector("#connected-path");
+const pathSelect = document.querySelector("#path-select");
+const connectedPathTitle = document.querySelector("#connected-path-title");
+const connectedPathDescription = document.querySelector("#connected-path-description");
+const connectedPathSteps = document.querySelector("#connected-path-steps");
 
 let toolkit;
+let preferredPathId = null;
 
 function selectedValue(name) {
   return form.elements[name].value;
@@ -41,6 +51,25 @@ function stateFromForm() {
 
 function setText(selector, value) {
   document.querySelector(selector).textContent = value;
+}
+
+function applyFormState(state) {
+  form.elements.journey.value = state.journey;
+  form.elements.help_type.value = state.help_type;
+  form.elements.runtime.value = state.runtime;
+  form.elements.local.checked = state.local;
+  form.elements.no_model.checked = state.no_model;
+  form.elements.read_only.checked = state.read_only;
+}
+
+function syncNavigatorUrl(state, pathId) {
+  const query = serializeNavigatorState(state, pathId);
+  const nextUrl = `${window.location.pathname}?${query}${window.location.hash}`;
+  window.history.replaceState(null, "", nextUrl);
+}
+
+function clearNavigatorUrl() {
+  window.history.replaceState(null, "", `${window.location.pathname}${window.location.hash}`);
 }
 
 function populateProblems(preferredSlug) {
@@ -97,16 +126,70 @@ function renderShortlist(alternatives, mode) {
   }
 }
 
-function updateResult() {
+function appendBoundary(label, value, item) {
+  const paragraph = document.createElement("p");
+  const heading = document.createElement("strong");
+  heading.textContent = `${label}: `;
+  paragraph.append(heading, value);
+  item.append(paragraph);
+}
+
+function renderConnectedPath(repo, requestedPathId) {
+  const paths = connectedPathsForRepo(toolkit.connected_paths, repo.slug);
+  const selectedPath = resolveConnectedPath(toolkit.connected_paths, repo.slug, requestedPathId);
+  if (!selectedPath) {
+    connectedPath.hidden = true;
+    return null;
+  }
+
+  pathSelect.replaceChildren();
+  for (const path of paths) {
+    const option = document.createElement("option");
+    option.value = path.id;
+    option.textContent = path.name;
+    pathSelect.append(option);
+  }
+  pathSelect.value = selectedPath.id;
+  connectedPathTitle.textContent = selectedPath.name;
+  connectedPathDescription.textContent = selectedPath.description;
+  connectedPathSteps.replaceChildren();
+
+  for (const step of selectedPath.steps) {
+    const item = document.createElement("li");
+    item.className = "connected-path-step";
+    const link = document.createElement("a");
+    link.href = step.url;
+    link.rel = "noreferrer";
+    link.textContent = step.name;
+    if (step.slug === repo.slug) {
+      item.classList.add("current");
+      link.setAttribute("aria-current", "step");
+    }
+    const role = document.createElement("p");
+    role.className = "path-role";
+    role.textContent = step.role;
+    item.append(link, role);
+    appendBoundary("Proves", step.proof, item);
+    appendBoundary("Limit", step.limitation, item);
+    connectedPathSteps.append(item);
+  }
+
+  connectedPath.hidden = false;
+  return selectedPath.id;
+}
+
+function updateResult({ syncUrl = true } = {}) {
   if (!toolkit) return;
   const state = stateFromForm();
   const recommendation = recommendRepos(toolkit.repos, state);
   if (recommendation.match === "semantic_mismatch") {
+    if (syncUrl) clearNavigatorUrl();
     showNoPurposeMatch(recommendation.alternatives);
     return;
   }
   const repo = recommendation.selectedRepo;
   if (!repo) {
+    if (syncUrl) clearNavigatorUrl();
     showUnavailable("The selected outcome is no longer available in the generated toolkit data.");
     return;
   }
@@ -141,6 +224,8 @@ function updateResult() {
         .map((issue) => issue.message)
         .join(" ")}`;
   renderShortlist(recommendation.alternatives, recommendation.match);
+  preferredPathId = renderConnectedPath(repo, preferredPathId);
+  if (syncUrl && preferredPathId) syncNavigatorUrl(state, preferredPathId);
   detailsToggle.hidden = false;
   document.querySelector(".trust-list").hidden = false;
   result.setAttribute("aria-busy", "false");
@@ -167,6 +252,8 @@ function showNoPurposeMatch(alternatives) {
   detailsToggle.textContent = "See proof and limits";
   details.hidden = true;
   document.querySelector(".trust-list").hidden = true;
+  connectedPath.hidden = true;
+  preferredPathId = null;
   renderShortlist(alternatives, "semantic_mismatch");
 }
 
@@ -182,6 +269,8 @@ function showUnavailable(message) {
   detailsToggle.hidden = true;
   details.hidden = true;
   document.querySelector(".trust-list").hidden = true;
+  connectedPath.hidden = true;
+  preferredPathId = null;
   boundaryNote.hidden = true;
   shortlist.hidden = true;
 }
@@ -195,7 +284,16 @@ detailsToggle.addEventListener("click", () => {
 
 form.addEventListener("change", (event) => {
   if (event.target.name === "journey") populateProblems(problemSelect.value);
+  preferredPathId = null;
   updateResult();
+});
+
+pathSelect.addEventListener("change", () => {
+  preferredPathId = renderConnectedPath(
+    recommendRepos(toolkit.repos, stateFromForm()).selectedRepo,
+    pathSelect.value,
+  );
+  if (preferredPathId) syncNavigatorUrl(stateFromForm(), preferredPathId);
 });
 
 mobileResultLink.addEventListener("click", () => {
@@ -206,8 +304,21 @@ try {
   const response = await fetch("toolkit-data.json");
   if (!response.ok) throw new Error(`Toolkit data returned ${response.status}`);
   toolkit = await response.json();
-  populateProblems();
-  updateResult();
+  const deepLink = parseNavigatorState(
+    new URLSearchParams(window.location.search),
+    toolkit.repos,
+    toolkit.connected_paths,
+  );
+  if (deepLink) {
+    applyFormState(deepLink.state);
+    populateProblems(deepLink.state.problem);
+    problemSelect.value = deepLink.state.problem;
+    preferredPathId = deepLink.pathId;
+  } else {
+    populateProblems();
+    if (window.location.search) clearNavigatorUrl();
+  }
+  updateResult({ syncUrl: false });
 } catch (error) {
   showUnavailable(
     "The generated toolkit data could not be loaded. Open the complete toolkit map instead.",

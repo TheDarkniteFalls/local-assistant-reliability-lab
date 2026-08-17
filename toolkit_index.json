@@ -25,6 +25,165 @@
     "stable": "A focused example with deterministic checks and a deliberately narrow public contract.",
     "experimental": "A tested teaching pattern whose contract may still change as outside use reveals better boundaries."
   },
+  "connected_paths": [
+    {
+      "id": "guide-bounded-work",
+      "name": "Guide bounded AI work",
+      "description": "Turn an idea into a private, authority-aware workflow with an inspectable review receipt.",
+      "steps": [
+        {
+          "slug": "agent-operator-handbook",
+          "role": "Define the task, evidence, approval points, and human decision boundary."
+        },
+        {
+          "slug": "reliable-ai-work-starter",
+          "role": "Keep the working sources, authority, review, and handoff state in a private folder."
+        },
+        {
+          "slug": "agent-action-authority-examples",
+          "role": "Classify proposed actions before execution and require a fresh grant when scope changes."
+        },
+        {
+          "slug": "evidencegate",
+          "role": "Bind the claims, checks, changed paths, and review to the exact Git revision."
+        }
+      ]
+    },
+    {
+      "id": "govern-coding-work",
+      "name": "Govern coding-agent work",
+      "description": "Set repository rules, compile only allowed context, test one important path, and leave revision-bound evidence.",
+      "steps": [
+        {
+          "slug": "codex-project-instructions-starter",
+          "role": "Write clear repository rules before a coding agent starts."
+        },
+        {
+          "slug": "context-contract-compiler",
+          "role": "Select only allowed context and detect when a later change makes the receipt stale."
+        },
+        {
+          "slug": "green-spine-qa-pattern",
+          "role": "Exercise one representative workflow with a memorable deterministic check."
+        },
+        {
+          "slug": "evidencegate",
+          "role": "Tie the review claim and check results to the exact change under review."
+        }
+      ]
+    },
+    {
+      "id": "ground-model-output",
+      "name": "Ground model output",
+      "description": "Keep an answer inside supplied evidence, reject unsupported output, and record uncertainty without overstating it.",
+      "steps": [
+        {
+          "slug": "context-boundary-examples",
+          "role": "Check that the answer cites only the evidence supplied for the task."
+        },
+        {
+          "slug": "local-model-reliability-example",
+          "role": "Reject unsupported, malformed, or hostile output before it enters trusted context."
+        },
+        {
+          "slug": "earned-confidence",
+          "role": "Preserve the available evidence, unknowns, and policy-defined decision band."
+        },
+        {
+          "slug": "evidencegate",
+          "role": "Leave a revision-bound receipt for the checks and human review."
+        }
+      ]
+    },
+    {
+      "id": "prepare-public-release",
+      "name": "Prepare a public release",
+      "description": "Review public-candidate material, run a meaningful product check, and preserve what was reviewed.",
+      "steps": [
+        {
+          "slug": "public-repo-safety-kit",
+          "role": "Inspect the candidate tree and Git metadata for common public-safety risks."
+        },
+        {
+          "slug": "green-spine-qa-pattern",
+          "role": "Run one named check that exercises the release's most important workflow."
+        },
+        {
+          "slug": "evidencegate",
+          "role": "Record the checked revision and the human publication review without granting publication authority."
+        }
+      ]
+    },
+    {
+      "id": "evaluate-model-routes",
+      "name": "Evaluate model routes",
+      "description": "Protect scarce evaluation material, compare like-for-like workloads, and retain uncertainty and provenance.",
+      "steps": [
+        {
+          "slug": "sealed-evaluation-pattern",
+          "role": "Separate learning, calibration, and sealed material and retire revealed holdouts."
+        },
+        {
+          "slug": "model-workload-telemetry",
+          "role": "Compare model runs only within shared workload classes and preserve route provenance."
+        },
+        {
+          "slug": "earned-confidence",
+          "role": "Record what the evaluation supports, what remains unknown, and the decision snapshot."
+        },
+        {
+          "slug": "evidencegate",
+          "role": "Bind the evaluation claims, checks, and review to the exact revision."
+        }
+      ]
+    },
+    {
+      "id": "verify-generated-workflow",
+      "name": "Verify a generated workflow",
+      "description": "Check generated structure, preserve legal state transitions, and exercise a representative journey.",
+      "steps": [
+        {
+          "slug": "generated-system-qa-pattern",
+          "role": "Check freshness, integrity, reachability, services, and one declared journey."
+        },
+        {
+          "slug": "ai-game-state-machine-pattern",
+          "role": "Keep legal actions, obligations, save state, and replay deterministic."
+        },
+        {
+          "slug": "green-spine-qa-pattern",
+          "role": "Expose the most important end-to-end journey as one memorable health check."
+        },
+        {
+          "slug": "evidencegate",
+          "role": "Preserve the exact revision, check evidence, and human review boundary."
+        }
+      ]
+    },
+    {
+      "id": "compare-agent-options",
+      "name": "Compare agent options",
+      "description": "Compare publisher-scoped agent evidence, frame a bounded decision, and gate any resulting action.",
+      "steps": [
+        {
+          "slug": "agent-evidence-catalog",
+          "role": "Compare exact versions, publisher claims, authority boundaries, and explicit unknowns."
+        },
+        {
+          "slug": "agent-operator-handbook",
+          "role": "Turn the comparison into a bounded task with named evidence and human decisions."
+        },
+        {
+          "slug": "agent-action-authority-examples",
+          "role": "Separate a proposed tool or agent action from permission to execute it."
+        },
+        {
+          "slug": "evidencegate",
+          "role": "Record what was compared, checked, and reviewed at the exact revision."
+        }
+      ]
+    }
+  ],
   "repos": [
     {
       "slug": "agent-operator-handbook",

@@ -272,6 +272,7 @@ legend span {
 
 .choice input:focus-visible + span,
 .problem-select:focus-visible,
+.path-select:focus-visible,
 .button:focus-visible,
 .mobile-result-link:focus-visible,
 .toolkit-link:focus-visible,
@@ -477,6 +478,136 @@ legend span {
   background: #fffaf0;
   font-size: 0.88rem;
   line-height: 1.45;
+}
+
+.connected-path {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.connected-path-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(140px, 0.85fr);
+  gap: 16px;
+  align-items: end;
+}
+
+.connected-path-label {
+  margin: 0 0 4px;
+  color: #925500;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.connected-path h3 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.path-select-label {
+  display: grid;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.path-select {
+  width: 100%;
+  min-height: 38px;
+  padding: 7px 30px 7px 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  color: var(--ink);
+  background: white;
+  font: inherit;
+  font-size: 0.78rem;
+}
+
+.connected-path-description,
+.connected-path-boundary {
+  margin: 11px 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.42;
+}
+
+.connected-path-steps {
+  margin: 14px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  counter-reset: connected-step;
+}
+
+.connected-path-step {
+  position: relative;
+  padding: 11px 11px 11px 42px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  counter-increment: connected-step;
+}
+
+.connected-path-step::before {
+  position: absolute;
+  top: 11px;
+  left: 11px;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 780;
+  content: counter(connected-step);
+}
+
+.connected-path-step.current {
+  border-color: var(--blue);
+  background: var(--blue-wash);
+  box-shadow: inset 3px 0 0 var(--blue);
+}
+
+.connected-path-step.current::before {
+  border-color: var(--blue);
+  color: white;
+  background: var(--blue);
+}
+
+.connected-path-step a {
+  color: var(--blue-dark);
+  font-size: 0.84rem;
+  font-weight: 760;
+  text-underline-offset: 3px;
+}
+
+.connected-path-step p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.38;
+  overflow-wrap: anywhere;
+}
+
+.connected-path-step .path-role {
+  color: var(--ink);
+}
+
+.connected-path-step strong {
+  color: var(--ink);
+  font-size: 0.7rem;
+}
+
+.connected-path-boundary {
+  padding-left: 10px;
+  border-left: 2px solid var(--amber);
 }
 
 .shortlist {
@@ -762,6 +893,20 @@ legend span {
     width: 23px;
     height: 23px;
     flex-basis: 23px;
+  }
+
+  .connected-path-heading {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .path-select {
+    min-height: 44px;
+    font-size: 0.86rem;
+  }
+
+  .connected-path-step {
+    padding: 13px 12px 13px 44px;
   }
 
   .site-footer {

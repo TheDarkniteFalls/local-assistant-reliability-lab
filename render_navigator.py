@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 
 from check_toolkit_index import load_index, validate_index
-from toolkit_contract import TEMPLATE_CREATE_URL, navigator_entry
+from toolkit_contract import TEMPLATE_CREATE_URL, connected_path_entry, navigator_entry
 
 
 ROOT = Path(__file__).resolve().parent
@@ -17,6 +17,7 @@ OUTPUT_PATH = ROOT / "docs" / "toolkit-data.json"
 
 
 def render(index: dict) -> str:
+    repos_by_slug = {repo["slug"]: repo for repo in index["repos"]}
     payload = {
         "site_name": "Reliability Navigator",
         "generated_from": "toolkit_index.json",
@@ -24,6 +25,10 @@ def render(index: dict) -> str:
         "template_create_url": TEMPLATE_CREATE_URL,
         "journeys": index["journeys"],
         "maturity_definitions": index["maturity_definitions"],
+        "connected_paths": [
+            connected_path_entry(path, repos_by_slug)
+            for path in index["connected_paths"]
+        ],
         "repos": [navigator_entry(repo) for repo in index["repos"]],
     }
     return json.dumps(payload, indent=2, ensure_ascii=False) + "\n"
