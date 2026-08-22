@@ -8,14 +8,9 @@
       content="Answer five quick questions to find one reliable AI guide, starter, or runnable check—with mismatches and limits made clear."
     />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#0757e8" />
+    <meta name="theme-color" content="#0d5ce5" />
     <link rel="canonical" href="https://thedarknitefalls.github.io/local-assistant-reliability-lab/" />
-    <link
-      rel="alternate"
-      type="application/json"
-      href="toolkit-data.json"
-      title="Machine-readable toolkit catalog"
-    />
+    <link rel="alternate" type="application/json" href="toolkit-data.json" title="Machine-readable toolkit catalog" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Reliability Navigator" />
     <meta property="og:title" content="Reliability Navigator — find a reliable AI workflow starting point" />
@@ -24,149 +19,137 @@
     <meta name="twitter:card" content="summary" />
     <title>Reliability Navigator — find a reliable AI workflow starting point</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=20260816-1" />
+    <link rel="stylesheet" href="styles.css?v=20260822-2" />
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="./" aria-label="Reliability Navigator home">
-        Reliability Navigator
-      </a>
+      <a class="brand" href="./" aria-label="Reliability Navigator home">Reliability Navigator</a>
       <a class="toolkit-link" href="https://github.com/TheDarkniteFalls/local-assistant-reliability-lab/blob/main/TOOLKIT_MAP.md">View complete toolkit</a>
     </header>
 
     <main class="page-shell">
+      <svg class="route-map" viewBox="0 0 1274 676" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 74 540 V 214 H 850 Q 869 214 869 195 V 72 Q 869 49 892 49 H 932" />
+      </svg>
       <section class="chooser" aria-labelledby="page-title">
         <div class="intro">
-          <h1 id="page-title">Find a reliable AI starting point.</h1>
-          <div id="intro-guide" class="intro-guide">
-            <p>
-              <strong>What to do</strong>
-              Answer five quick questions about your goal and what you can run.
-            </p>
-            <p>
-              <strong>What to expect</strong>
-              One best-fit guide, starter, or check—or a clear mismatch with nearby options.
-            </p>
-          </div>
-          <p id="privacy-note" class="privacy-note">
-            Nothing is saved or sent. No sign-up or analytics.
-          </p>
+          <h1 id="page-title">Find a reliable<br />AI starting point.</h1>
+          <p id="intro-guide" class="intro-summary visually-hidden">Answer five quick questions about your goal and what you can run.</p>
+          <p id="privacy-note" class="privacy-note"><span class="trust-mark" aria-hidden="true">✓</span>Nothing is saved or sent. No sign-up or analytics.</p>
         </div>
 
-        <form id="navigator-form" class="question-flow" aria-describedby="intro-guide privacy-note">
-          <fieldset>
-            <legend><span aria-hidden="true">1</span>What are you doing?</legend>
+        <nav class="step-rail" aria-label="Navigator progress">
+          <ol>
+            <li data-progress-step="0" aria-current="step"><span aria-hidden="true"></span><strong>Goal</strong><small aria-hidden="true">40.7128° N<br />74.0060° W</small></li>
+            <li data-progress-step="1"><span aria-hidden="true"></span><strong>Outcome</strong><small aria-hidden="true">40.7138° N<br />74.0020° W</small></li>
+            <li data-progress-step="2"><span aria-hidden="true"></span><strong>Help</strong><small aria-hidden="true">40.7148° N<br />73.9975° W</small></li>
+            <li data-progress-step="3"><span aria-hidden="true"></span><strong>Runtime</strong><small aria-hidden="true">40.7156° N<br />73.9930° W</small></li>
+            <li data-progress-step="4"><span aria-hidden="true"></span><strong>Limits</strong><small aria-hidden="true">40.7164° N<br />73.9885° W</small></li>
+          </ol>
+        </nav>
+
+        <form id="navigator-form" class="question-flow" aria-describedby="intro-guide privacy-note" novalidate>
+          <p id="step-status" class="visually-hidden" aria-live="polite">Question 1 of 5</p>
+
+          <fieldset class="navigator-step" data-step="0" aria-labelledby="step-title-1">
+            <legend><span class="step-kicker">Question 1 of 5</span><span id="step-title-1" class="step-question" tabindex="-1">What are you doing?</span></legend>
             <div class="choice-row">
               <label class="choice">
                 <input type="radio" name="journey" value="start_and_direct" checked />
-                <span class="choice-card">
-                  <span class="choice-copy"><strong>Plan work or set rules</strong><small>Define the task, workspace, or instructions before an agent starts.</small></span>
-                </span>
+                <span class="choice-card"><span class="choice-copy"><strong>Plan work or set rules</strong><small>Define the task, workspace, or instructions before an agent starts.</small></span><span class="choice-coordinate" aria-hidden="true">40.7130° N<br />74.0065° W</span></span>
               </label>
               <label class="choice">
                 <input type="radio" name="journey" value="bound_and_prove" />
-                <span class="choice-card">
-                  <span class="choice-copy"><strong>Check boundaries or evidence</strong><small>Verify safety, evidence scope, output, or action authority.</small></span>
-                </span>
+                <span class="choice-card"><span class="choice-copy"><strong>Check boundaries or evidence</strong><small>Verify safety, evidence scope, output, or action authority.</small></span><span class="choice-coordinate" aria-hidden="true">40.7122° N<br />74.0065° W</span></span>
               </label>
               <label class="choice">
                 <input type="radio" name="journey" value="evaluate_and_operate" />
-                <span class="choice-card">
-                  <span class="choice-copy"><strong>Test or run a workflow</strong><small>Exercise repeatable QA, evaluation, telemetry, or state.</small></span>
-                </span>
+                <span class="choice-card"><span class="choice-copy"><strong>Test or run a workflow</strong><small>Exercise repeatable QA, evaluation, telemetry, or state.</small></span><span class="choice-coordinate" aria-hidden="true">40.7114° N<br />74.0065° W</span></span>
               </label>
             </div>
           </fieldset>
 
-          <fieldset>
-            <legend><span aria-hidden="true">2</span>What outcome do you need?</legend>
+          <fieldset class="navigator-step" data-step="1" aria-labelledby="step-title-2" hidden>
+            <legend><span class="step-kicker">Question 2 of 5</span><span id="step-title-2" class="step-question" tabindex="-1">What outcome do you need?</span></legend>
             <label class="select-label" for="problem-select">Choose the closest description</label>
             <select id="problem-select" name="problem" class="problem-select"></select>
             <p class="field-help">Can't find it? Choose “My need is not listed.” We won't force a match.</p>
           </fieldset>
 
-          <fieldset>
-            <legend><span aria-hidden="true">3</span>What kind of help do you want?</legend>
+          <fieldset class="navigator-step" data-step="2" aria-labelledby="step-title-3" hidden>
+            <legend><span class="step-kicker">Question 3 of 5</span><span id="step-title-3" class="step-question" tabindex="-1">What kind of help do you want?</span></legend>
             <div class="choice-row">
               <label class="choice">
                 <input type="radio" name="help_type" value="guide" checked />
-                <span class="choice-card">
-                  <span class="choice-copy"><strong>Guide</strong><small>Advice to read and apply yourself.</small></span>
-                </span>
+                <span class="choice-card"><span class="choice-copy"><strong>Guide</strong><small>Advice to read and apply yourself.</small></span></span>
               </label>
               <label class="choice">
                 <input type="radio" name="help_type" value="starter" />
-                <span class="choice-card">
-                  <span class="choice-copy"><strong>Starter</strong><small>Files or a template to begin with.</small></span>
-                </span>
+                <span class="choice-card"><span class="choice-copy"><strong>Starter</strong><small>Files or a template to begin with.</small></span></span>
               </label>
               <label class="choice">
                 <input type="radio" name="help_type" value="runnable_check" />
-                <span class="choice-card">
-                  <span class="choice-copy"><strong>Runnable check</strong><small>A command that produces a result.</small></span>
-                </span>
+                <span class="choice-card"><span class="choice-copy"><strong>Runnable check</strong><small>A command that produces a result.</small></span></span>
               </label>
             </div>
           </fieldset>
 
-          <fieldset>
-            <legend><span aria-hidden="true">4</span>What can you run?</legend>
+          <fieldset class="navigator-step" data-step="3" aria-labelledby="step-title-4" hidden>
+            <legend><span class="step-kicker">Question 4 of 5</span><span id="step-title-4" class="step-question" tabindex="-1">What can you run?</span></legend>
             <div class="choice-row">
               <label class="choice">
                 <input type="radio" name="runtime" value="no_code" checked />
-                <span class="choice-card">
-                  <span class="choice-copy"><strong>No code</strong><small>Read or set up without running a command.</small></span>
-                </span>
+                <span class="choice-card"><span class="choice-copy"><strong>No code</strong><small>Read or set up without running a command.</small></span></span>
               </label>
               <label class="choice">
                 <input type="radio" name="runtime" value="python" />
-                <span class="choice-card">
-                  <span class="choice-copy"><strong>Python</strong><small>Run a Python check locally.</small></span>
-                </span>
+                <span class="choice-card"><span class="choice-copy"><strong>Python</strong><small>Run a Python check locally.</small></span></span>
               </label>
               <label class="choice">
                 <input type="radio" name="runtime" value="node" />
-                <span class="choice-card">
-                  <span class="choice-copy"><strong>Node.js</strong><small>Run a Node.js check locally.</small></span>
-                </span>
+                <span class="choice-card"><span class="choice-copy"><strong>Node.js</strong><small>Run a Node.js check locally.</small></span></span>
               </label>
             </div>
           </fieldset>
 
-          <fieldset>
-            <legend><span aria-hidden="true">5</span>Which limits matter?</legend>
-            <div class="choice-row">
+          <fieldset class="navigator-step" data-step="4" aria-labelledby="step-title-5" hidden>
+            <legend><span class="step-kicker">Question 5 of 5</span><span id="step-title-5" class="step-question" tabindex="-1">Which limits matter?</span></legend>
+            <div class="choice-row limit-row">
               <label class="choice check-choice">
                 <input type="checkbox" name="local" checked />
-                <span>Local</span>
+                <span><span class="choice-copy"><strong>Local</strong><small>Prefer a route that can stay on this machine.</small></span></span>
               </label>
               <label class="choice check-choice">
                 <input type="checkbox" name="no_model" checked />
-                <span>No model call</span>
+                <span><span class="choice-copy"><strong>No model call</strong><small>Prefer a route that does not invoke a model.</small></span></span>
               </label>
               <label class="choice check-choice">
                 <input type="checkbox" name="read_only" checked />
-                <span>Read-only</span>
+                <span><span class="choice-copy"><strong>Read-only</strong><small>Prefer a check that does not change the target.</small></span></span>
               </label>
             </div>
           </fieldset>
 
-          <a class="mobile-result-link" href="#result">See your recommendation ↓</a>
+          <div class="flow-actions">
+            <button id="back-button" class="flow-button back" type="button" disabled><span aria-hidden="true">←</span> Back</button>
+            <button id="continue-button" class="flow-button continue" type="button">Continue <span aria-hidden="true">→</span></button>
+            <span class="next-stop" aria-hidden="true">Next stop<br /><strong id="next-stop-name">Outcome</strong><br /><span id="next-stop-coordinate">40.7138° N<br />74.0020° W</span></span>
+          </div>
+
+          <section id="result-preview" class="result-preview" aria-labelledby="preview-name">
+            <div class="preview-route" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div><p>Current route</p><strong id="preview-name">Loading toolkit…</strong><span id="preview-fit">Checking the current choices.</span></div>
+            <a class="mobile-result-link" href="#result">View recommendation</a>
+          </section>
         </form>
       </section>
 
       <noscript>
-        <style>
-          .result-panel { display: none; }
-          .no-script-routes { display: block; }
-        </style>
+        <style>.result-panel, .question-flow, .step-rail { display: none; }.no-script-routes { display: block; }</style>
         <section class="no-script-routes" aria-labelledby="no-script-title">
           <p class="result-label">Choose without JavaScript</p>
           <h2 id="no-script-title">Three useful starting routes</h2>
-          <p>
-            The chooser needs JavaScript, but every linked resource works
-            independently on GitHub.
-          </p>
+          <p>The chooser needs JavaScript, but every linked resource works independently on GitHub.</p>
           <ul>
             <li><a href="https://github.com/TheDarkniteFalls/agent-operator-handbook">Read the plain-English handbook</a></li>
             <li><a href="https://github.com/new?template_owner=TheDarkniteFalls&amp;template_name=reliable-ai-work-starter&amp;visibility=private">Create a private starter</a></li>
@@ -175,24 +158,20 @@
         </section>
       </noscript>
 
+      <div class="route-corridor" aria-hidden="true"></div>
+
       <aside id="result" class="result-panel" tabindex="-1" aria-live="polite" aria-busy="true">
-        <div class="result-accent" aria-hidden="true"></div>
+        <span class="destination-node" aria-hidden="true"></span>
         <p id="result-label" class="result-label">Your starting point</p>
         <h2 id="result-name">Loading toolkit…</h2>
+        <p class="result-coordinate" aria-hidden="true">40.7172° N, 73.9850° W</p>
+        <div id="result-fit" class="result-fit"><span class="fit-dot" aria-hidden="true">✓</span><p><strong id="fit-title">Checking fit</strong><span id="fit-summary">Comparing the current choices.</span></p></div>
         <p id="result-summary" class="result-summary"></p>
         <p id="boundary-note" class="boundary-note" hidden></p>
 
         <div class="result-actions">
           <a id="primary-action" class="button primary" href="#">Open recommendation</a>
-          <button
-            id="details-toggle"
-            class="button secondary"
-            type="button"
-            aria-expanded="false"
-            aria-controls="proof-details"
-          >
-            See proof and limits
-          </button>
+          <button id="details-toggle" class="button secondary" type="button" aria-expanded="false" aria-controls="proof-details">See proof and limits</button>
         </div>
 
         <div id="proof-details" class="proof-details" hidden>
@@ -200,40 +179,38 @@
           <p id="result-proof"></p>
           <h3>It does not establish</h3>
           <p id="result-limit"></p>
-          <section id="no-code-first-action" class="no-code-first-action" hidden>
-            <h3>Start without code</h3>
-            <p id="result-no-code-action"></p>
-          </section>
+          <section id="no-code-first-action" class="no-code-first-action" hidden><h3>Start without code</h3><p id="result-no-code-action"></p></section>
           <p class="first-command"><strong id="result-command-label">First runnable check:</strong> <code id="result-command"></code></p>
         </div>
 
         <ul class="trust-list" aria-label="Recommendation trust facts">
-          <li><span class="trust-icon" aria-hidden="true">✓</span><span id="fact-maturity">—</span></li>
-          <li><span class="trust-icon" aria-hidden="true">○</span>No model</li>
-          <li><span class="trust-icon" aria-hidden="true">⌁</span>No network</li>
-          <li><span class="trust-icon" aria-hidden="true">□</span><span id="fact-operation">—</span></li>
+          <li><span class="trust-icon trust-stable" aria-hidden="true">✓</span><span id="fact-maturity">—</span></li>
+          <li><span class="trust-icon trust-no-model" aria-hidden="true">○</span>No model</li>
+          <li><span class="trust-icon trust-no-network" aria-hidden="true">⌁</span>No network</li>
+          <li><span class="trust-icon trust-guidance" aria-hidden="true">□</span><span id="fact-operation">—</span></li>
         </ul>
+
         <section id="connected-path" class="connected-path" aria-labelledby="connected-path-title" hidden>
+          <p class="connected-path-label">Connected path</p>
+          <ol class="connected-path-visual" aria-hidden="true">
+            <li class="active"><span></span><small>Goal</small></li>
+            <li><span></span><small>Outcome</small></li>
+            <li><span></span><small>Help</small></li>
+            <li><span></span><small>Runtime</small></li>
+            <li class="destination"><span></span><small>Limits</small></li>
+          </ol>
+          <div class="connected-coordinate" aria-hidden="true"><span>40.7128° N<br />74.0060° W</span><span>40.7172° N<br />73.9850° W</span></div>
           <div class="connected-path-heading">
-            <div>
-              <p class="connected-path-label">How this fits</p>
-              <h3 id="connected-path-title">Connected path</h3>
-            </div>
-            <label class="path-select-label" for="path-select">
-              Workflow
-              <select id="path-select" class="path-select"></select>
-            </label>
+            <div><p class="connected-path-detail-label">How this fits</p><h3 id="connected-path-title">Connected path</h3></div>
+            <label class="path-select-label" for="path-select">Workflow<select id="path-select" class="path-select"></select></label>
           </div>
           <p id="connected-path-description" class="connected-path-description"></p>
           <ol id="connected-path-steps" class="connected-path-steps"></ol>
-          <p class="connected-path-boundary">
-            These roles connect focused examples; they do not make the tools integrate automatically or prove the whole workflow safe.
-          </p>
+          <p class="connected-path-boundary">These roles connect focused examples; they do not make the tools integrate automatically or prove the whole workflow safe.</p>
         </section>
+
         <section id="shortlist" class="shortlist" aria-labelledby="shortlist-title" hidden>
-          <h3 id="shortlist-title">Eligible alternatives</h3>
-          <p id="shortlist-summary"></p>
-          <ul id="shortlist-list"></ul>
+          <h3 id="shortlist-title">Eligible alternatives</h3><p id="shortlist-summary"></p><ul id="shortlist-list"></ul>
         </section>
       </aside>
     </main>
@@ -247,6 +224,6 @@
       </nav>
     </footer>
 
-    <script type="module" src="app.js?v=20260816-1"></script>
+    <script type="module" src="app.js?v=20260822-2"></script>
   </body>
 </html>

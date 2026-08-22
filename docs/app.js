@@ -29,9 +29,79 @@ const pathSelect = document.querySelector("#path-select");
 const connectedPathTitle = document.querySelector("#connected-path-title");
 const connectedPathDescription = document.querySelector("#connected-path-description");
 const connectedPathSteps = document.querySelector("#connected-path-steps");
+const steps = [...document.querySelectorAll(".navigator-step")];
+const progressSteps = [...document.querySelectorAll("[data-progress-step]")];
+const backButton = document.querySelector("#back-button");
+const continueButton = document.querySelector("#continue-button");
+const stepStatus = document.querySelector("#step-status");
+const previewName = document.querySelector("#preview-name");
+const previewFit = document.querySelector("#preview-fit");
+const fitTitle = document.querySelector("#fit-title");
+const fitSummary = document.querySelector("#fit-summary");
+const resultFit = document.querySelector("#result-fit");
+const nextStopName = document.querySelector("#next-stop-name");
+const nextStopCoordinate = document.querySelector("#next-stop-coordinate");
+
+const routeStops = [
+  ["Outcome", "40.7138° N", "74.0020° W"],
+  ["Help", "40.7148° N", "73.9975° W"],
+  ["Runtime", "40.7156° N", "73.9930° W"],
+  ["Limits", "40.7164° N", "73.9885° W"],
+  ["Destination", "40.7172° N", "73.9850° W"],
+];
 
 let toolkit;
 let preferredPathId = null;
+let currentStep = 0;
+
+function boundedStep(step) {
+  return Math.max(0, Math.min(steps.length - 1, Number(step) || 0));
+}
+
+function historyStateFor(step) {
+  return { ...(window.history.state ?? {}), navigatorStep: boundedStep(step) };
+}
+
+function requestPreviousStep(step, historyObject) {
+  if (step <= 0) return false;
+  historyObject.back();
+  return true;
+}
+
+function seedStepHistoryThrough(step) {
+  const targetStep = boundedStep(step);
+  window.history.replaceState(historyStateFor(0), "", window.location.href);
+  for (let index = 1; index <= targetStep; index += 1) {
+    window.history.pushState(historyStateFor(index), "", window.location.href);
+  }
+}
+
+function setCurrentStep(step, { focus = true, historyMode = "replace" } = {}) {
+  currentStep = boundedStep(step);
+  for (const [index, panel] of steps.entries()) {
+    panel.hidden = index !== currentStep;
+  }
+  for (const [index, item] of progressSteps.entries()) {
+    if (index === currentStep) item.setAttribute("aria-current", "step");
+    else item.removeAttribute("aria-current");
+    item.classList.toggle("complete", index < currentStep);
+  }
+  backButton.disabled = currentStep === 0;
+  continueButton.firstChild.textContent = currentStep === steps.length - 1
+    ? "View recommendation "
+    : "Continue ";
+  nextStopName.textContent = routeStops[currentStep][0];
+  nextStopCoordinate.replaceChildren(
+    document.createTextNode(routeStops[currentStep][1]),
+    document.createElement("br"),
+    document.createTextNode(routeStops[currentStep][2]),
+  );
+  stepStatus.textContent = `Question ${currentStep + 1} of ${steps.length}`;
+  const state = historyStateFor(currentStep);
+  if (historyMode === "push") window.history.pushState(state, "", window.location.href);
+  else if (historyMode === "replace") window.history.replaceState(state, "", window.location.href);
+  if (focus) steps[currentStep].querySelector(".step-question").focus();
+}
 
 function selectedValue(name) {
   return form.elements[name].value;
@@ -65,11 +135,15 @@ function applyFormState(state) {
 function syncNavigatorUrl(state, pathId) {
   const query = serializeNavigatorState(state, pathId);
   const nextUrl = `${window.location.pathname}?${query}${window.location.hash}`;
-  window.history.replaceState(null, "", nextUrl);
+  window.history.replaceState(historyStateFor(currentStep), "", nextUrl);
 }
 
 function clearNavigatorUrl() {
-  window.history.replaceState(null, "", `${window.location.pathname}${window.location.hash}`);
+  window.history.replaceState(
+    historyStateFor(currentStep),
+    "",
+    `${window.location.pathname}${window.location.hash}`,
+  );
 }
 
 function populateProblems(preferredSlug) {
@@ -194,9 +268,7 @@ function updateResult({ syncUrl = true } = {}) {
     return;
   }
 
-  resultLabel.textContent = recommendation.exact
-    ? "Good fit for your choices"
-    : "Your goal fits; your setup differs";
+  resultLabel.textContent = "Destination";
   setText("#result-name", repo.name);
   setText("#result-summary", `${repo.use_when} About ${repo.minutes} minutes to start.`);
   setText("#result-proof", repo.proof);
@@ -204,6 +276,15 @@ function updateResult({ syncUrl = true } = {}) {
   setText("#result-command", repo.command);
   setText("#fact-maturity", repo.maturity[0].toUpperCase() + repo.maturity.slice(1));
   setText("#fact-operation", repo.operation);
+  resultFit.classList.toggle("mismatch", !recommendation.exact);
+  fitTitle.textContent = recommendation.exact ? "Good fit" : "Setup differs";
+  fitSummary.textContent = recommendation.exact
+    ? "This route matches the selected purpose and operating limits."
+    : recommendation.issues[0].message;
+  previewName.textContent = repo.name;
+  previewFit.textContent = recommendation.exact
+    ? "Good fit for the current choices."
+    : "The purpose fits, but one or more setup choices differ.";
 
   const primary = document.querySelector("#primary-action");
   primary.textContent = recommendation.exact
@@ -233,8 +314,13 @@ function updateResult({ syncUrl = true } = {}) {
 
 function showNoPurposeMatch(alternatives) {
   result.setAttribute("aria-busy", "false");
-  resultLabel.textContent = "Your need is not listed";
+  resultLabel.textContent = "Destination unavailable";
   setText("#result-name", "No purpose match");
+  resultFit.classList.add("mismatch");
+  fitTitle.textContent = "Honest stop";
+  fitSummary.textContent = "The listed outcomes do not describe this need.";
+  previewName.textContent = "No purpose match";
+  previewFit.textContent = "Review nearby technical routes without forcing a recommendation.";
   setText(
     "#result-summary",
     "The Navigator only recommends a project when one of the listed outcomes genuinely describes your need.",
@@ -259,8 +345,13 @@ function showNoPurposeMatch(alternatives) {
 
 function showUnavailable(message) {
   result.setAttribute("aria-busy", "false");
-  resultLabel.textContent = "Navigator unavailable";
+  resultLabel.textContent = "Destination unavailable";
   setText("#result-name", "Toolkit unavailable");
+  resultFit.classList.add("mismatch");
+  fitTitle.textContent = "Unavailable";
+  fitSummary.textContent = "The generated toolkit data could not be used.";
+  previewName.textContent = "Toolkit unavailable";
+  previewFit.textContent = "Open the complete toolkit map instead.";
   setText("#result-summary", message);
   const primary = document.querySelector("#primary-action");
   primary.textContent = "View complete toolkit";
@@ -280,6 +371,25 @@ detailsToggle.addEventListener("click", () => {
   detailsToggle.setAttribute("aria-expanded", String(!expanded));
   details.hidden = expanded;
   detailsToggle.textContent = expanded ? "See proof and limits" : "Hide proof and limits";
+});
+
+backButton.addEventListener("click", () => {
+  requestPreviousStep(currentStep, window.history);
+});
+
+continueButton.addEventListener("click", () => {
+  if (currentStep < steps.length - 1) {
+    setCurrentStep(currentStep + 1, { historyMode: "push" });
+    return;
+  }
+  result.focus();
+  result.scrollIntoView({ block: "start" });
+});
+
+window.addEventListener("popstate", (event) => {
+  if (Number.isInteger(event.state?.navigatorStep)) {
+    setCurrentStep(event.state.navigatorStep, { historyMode: "none" });
+  }
 });
 
 form.addEventListener("change", (event) => {
@@ -314,10 +424,21 @@ try {
     populateProblems(deepLink.state.problem);
     problemSelect.value = deepLink.state.problem;
     preferredPathId = deepLink.pathId;
+    const restoredStep = Number.isInteger(window.history.state?.navigatorStep)
+      ? boundedStep(window.history.state.navigatorStep)
+      : null;
+    currentStep = restoredStep ?? steps.length - 1;
+    if (restoredStep === null) seedStepHistoryThrough(currentStep);
   } else {
     populateProblems();
     if (window.location.search) clearNavigatorUrl();
   }
+  setCurrentStep(currentStep, {
+    focus: false,
+    historyMode: deepLink && window.history.state?.navigatorStep === currentStep
+      ? "none"
+      : "replace",
+  });
   updateResult({ syncUrl: false });
 } catch (error) {
   showUnavailable(
