@@ -103,9 +103,12 @@ def main() -> int:
     require('class="route-map"' in html, "Transit Atlas route spine missing")
     require('class="route-corridor"' in html, "Transit Atlas destination corridor missing")
     require(
-        html.count('class="choice-coordinate" aria-hidden="true"') == 3,
-        "decorative choice coordinates must stay hidden from assistive technology",
+        "coordinate" not in html.lower()
+        and "coordinate" not in css.lower()
+        and "coordinate" not in app.lower(),
+        "decorative coordinate markup, styles, and data must remain absent",
     )
+    require("° N" not in html and "° W" not in html and "° N" not in app and "° W" not in app, "coordinate annotations must remain absent")
     require('class="destination-node" aria-hidden="true"' in html, "destination marker missing")
     require('class="connected-path-visual" aria-hidden="true"' in html, "compact connected route missing")
     require("Choose without JavaScript" in html, "no-JavaScript routes missing")
@@ -196,7 +199,7 @@ def main() -> int:
     require("syncNavigatorUrl(state, preferredPathId)" in app, "deep-link URL update is missing")
     require("function setCurrentStep(" in app, "progressive question controller missing")
     require('resultLabel.textContent = "Destination"' in app, "destination result label missing")
-    require("const routeStops = [" in app, "next-stop route metadata missing")
+    require("const routeStops = [" in app, "next-stop route labels missing")
     require('window.history.pushState(state, "", window.location.href)' in app, "step history is missing")
     require('window.addEventListener("popstate"' in app, "browser Back restoration is missing")
     require('.querySelector(".step-question").focus()' in app, "step focus handoff is missing")
