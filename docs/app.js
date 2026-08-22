@@ -40,14 +40,13 @@ const fitTitle = document.querySelector("#fit-title");
 const fitSummary = document.querySelector("#fit-summary");
 const resultFit = document.querySelector("#result-fit");
 const nextStopName = document.querySelector("#next-stop-name");
-const nextStopCoordinate = document.querySelector("#next-stop-coordinate");
 
 const routeStops = [
-  ["Outcome", "40.7138° N", "74.0020° W"],
-  ["Help", "40.7148° N", "73.9975° W"],
-  ["Runtime", "40.7156° N", "73.9930° W"],
-  ["Limits", "40.7164° N", "73.9885° W"],
-  ["Destination", "40.7172° N", "73.9850° W"],
+  "Outcome",
+  "Help",
+  "Runtime",
+  "Limits",
+  "Destination",
 ];
 
 let toolkit;
@@ -90,12 +89,7 @@ function setCurrentStep(step, { focus = true, historyMode = "replace" } = {}) {
   continueButton.firstChild.textContent = currentStep === steps.length - 1
     ? "View recommendation "
     : "Continue ";
-  nextStopName.textContent = routeStops[currentStep][0];
-  nextStopCoordinate.replaceChildren(
-    document.createTextNode(routeStops[currentStep][1]),
-    document.createElement("br"),
-    document.createTextNode(routeStops[currentStep][2]),
-  );
+  nextStopName.textContent = routeStops[currentStep];
   stepStatus.textContent = `Question ${currentStep + 1} of ${steps.length}`;
   const state = historyStateFor(currentStep);
   if (historyMode === "push") window.history.pushState(state, "", window.location.href);

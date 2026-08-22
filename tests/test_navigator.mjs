@@ -348,10 +348,14 @@ assert.match(navigatorCss, /@media \(prefers-reduced-motion: reduce\)/);
 assert.match(navigatorCss, /min-height: 44px/);
 assert.match(navigatorHtml, /class="route-map"/);
 assert.match(navigatorHtml, /class="route-corridor"/);
-assert.equal(
-  (navigatorHtml.match(/class="choice-coordinate" aria-hidden="true"/g) ?? []).length,
-  3,
-);
+for (const [name, source] of [
+  ["HTML", navigatorHtml],
+  ["CSS", navigatorCss],
+  ["app data", navigatorApp],
+]) {
+  assert.equal(source.toLowerCase().includes("coordinate"), false, `${name} must not retain coordinate markup, styles, or data`);
+  assert.doesNotMatch(source, /°\s*[NW]/, `${name} must not retain N/W coordinate annotations`);
+}
 assert.match(navigatorHtml, /class="destination-node" aria-hidden="true"/);
 assert.match(navigatorHtml, /class="connected-path-visual" aria-hidden="true"/);
 assert.match(navigatorCss, /grid-template-columns: minmax\(0, 1fr\) 62px 342px/);

@@ -19,7 +19,7 @@
     <meta name="twitter:card" content="summary" />
     <title>Reliability Navigator — find a reliable AI workflow starting point</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=20260822-2" />
+    <link rel="stylesheet" href="styles.css?v=20260822-3" />
   </head>
   <body>
     <header class="site-header">
@@ -40,11 +40,11 @@
 
         <nav class="step-rail" aria-label="Navigator progress">
           <ol>
-            <li data-progress-step="0" aria-current="step"><span aria-hidden="true"></span><strong>Goal</strong><small aria-hidden="true">40.7128° N<br />74.0060° W</small></li>
-            <li data-progress-step="1"><span aria-hidden="true"></span><strong>Outcome</strong><small aria-hidden="true">40.7138° N<br />74.0020° W</small></li>
-            <li data-progress-step="2"><span aria-hidden="true"></span><strong>Help</strong><small aria-hidden="true">40.7148° N<br />73.9975° W</small></li>
-            <li data-progress-step="3"><span aria-hidden="true"></span><strong>Runtime</strong><small aria-hidden="true">40.7156° N<br />73.9930° W</small></li>
-            <li data-progress-step="4"><span aria-hidden="true"></span><strong>Limits</strong><small aria-hidden="true">40.7164° N<br />73.9885° W</small></li>
+            <li data-progress-step="0" aria-current="step"><span aria-hidden="true"></span><strong>Goal</strong></li>
+            <li data-progress-step="1"><span aria-hidden="true"></span><strong>Outcome</strong></li>
+            <li data-progress-step="2"><span aria-hidden="true"></span><strong>Help</strong></li>
+            <li data-progress-step="3"><span aria-hidden="true"></span><strong>Runtime</strong></li>
+            <li data-progress-step="4"><span aria-hidden="true"></span><strong>Limits</strong></li>
           </ol>
         </nav>
 
@@ -56,15 +56,15 @@
             <div class="choice-row">
               <label class="choice">
                 <input type="radio" name="journey" value="start_and_direct" checked />
-                <span class="choice-card"><span class="choice-copy"><strong>Plan work or set rules</strong><small>Define the task, workspace, or instructions before an agent starts.</small></span><span class="choice-coordinate" aria-hidden="true">40.7130° N<br />74.0065° W</span></span>
+                <span class="choice-card"><span class="choice-copy"><strong>Plan work or set rules</strong><small>Define the task, workspace, or instructions before an agent starts.</small></span></span>
               </label>
               <label class="choice">
                 <input type="radio" name="journey" value="bound_and_prove" />
-                <span class="choice-card"><span class="choice-copy"><strong>Check boundaries or evidence</strong><small>Verify safety, evidence scope, output, or action authority.</small></span><span class="choice-coordinate" aria-hidden="true">40.7122° N<br />74.0065° W</span></span>
+                <span class="choice-card"><span class="choice-copy"><strong>Check boundaries or evidence</strong><small>Verify safety, evidence scope, output, or action authority.</small></span></span>
               </label>
               <label class="choice">
                 <input type="radio" name="journey" value="evaluate_and_operate" />
-                <span class="choice-card"><span class="choice-copy"><strong>Test or run a workflow</strong><small>Exercise repeatable QA, evaluation, telemetry, or state.</small></span><span class="choice-coordinate" aria-hidden="true">40.7114° N<br />74.0065° W</span></span>
+                <span class="choice-card"><span class="choice-copy"><strong>Test or run a workflow</strong><small>Exercise repeatable QA, evaluation, telemetry, or state.</small></span></span>
               </label>
             </div>
           </fieldset>
@@ -133,7 +133,7 @@
           <div class="flow-actions">
             <button id="back-button" class="flow-button back" type="button" disabled><span aria-hidden="true">←</span> Back</button>
             <button id="continue-button" class="flow-button continue" type="button">Continue <span aria-hidden="true">→</span></button>
-            <span class="next-stop" aria-hidden="true">Next stop<br /><strong id="next-stop-name">Outcome</strong><br /><span id="next-stop-coordinate">40.7138° N<br />74.0020° W</span></span>
+            <span class="next-stop" aria-hidden="true">Next stop<br /><strong id="next-stop-name">Outcome</strong></span>
           </div>
 
           <section id="result-preview" class="result-preview" aria-labelledby="preview-name">
@@ -164,7 +164,6 @@
         <span class="destination-node" aria-hidden="true"></span>
         <p id="result-label" class="result-label">Your starting point</p>
         <h2 id="result-name">Loading toolkit…</h2>
-        <p class="result-coordinate" aria-hidden="true">40.7172° N, 73.9850° W</p>
         <div id="result-fit" class="result-fit"><span class="fit-dot" aria-hidden="true">✓</span><p><strong id="fit-title">Checking fit</strong><span id="fit-summary">Comparing the current choices.</span></p></div>
         <p id="result-summary" class="result-summary"></p>
         <p id="boundary-note" class="boundary-note" hidden></p>
@@ -199,7 +198,6 @@
             <li><span></span><small>Runtime</small></li>
             <li class="destination"><span></span><small>Limits</small></li>
           </ol>
-          <div class="connected-coordinate" aria-hidden="true"><span>40.7128° N<br />74.0060° W</span><span>40.7172° N<br />73.9850° W</span></div>
           <div class="connected-path-heading">
             <div><p class="connected-path-detail-label">How this fits</p><h3 id="connected-path-title">Connected path</h3></div>
             <label class="path-select-label" for="path-select">Workflow<select id="path-select" class="path-select"></select></label>
@@ -224,6 +222,6 @@
       </nav>
     </footer>
 
-    <script type="module" src="app.js?v=20260822-2"></script>
+    <script type="module" src="app.js?v=20260822-3"></script>
   </body>
 </html>
