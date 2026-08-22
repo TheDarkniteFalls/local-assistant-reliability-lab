@@ -308,6 +308,125 @@ assert.deepEqual(
   ["eligibility"],
 );
 
+const navigatorHtml = await readFile(
+  new URL("../docs/index.html", import.meta.url),
+  "utf8",
+);
+const navigatorApp = await readFile(
+  new URL("../docs/app.js", import.meta.url),
+  "utf8",
+);
+const navigatorCss = await readFile(
+  new URL("../docs/styles.css", import.meta.url),
+  "utf8",
+);
+
+assert.equal((navigatorHtml.match(/class="navigator-step"/g) ?? []).length, 5);
+assert.equal((navigatorHtml.match(/data-progress-step=/g) ?? []).length, 5);
+assert.equal((navigatorHtml.match(/aria-current="step"/g) ?? []).length, 1);
+assert.match(navigatorHtml, /id="back-button"[^>]+type="button"[^>]+disabled/);
+assert.match(navigatorHtml, /id="continue-button"[^>]+type="button"/);
+assert.match(navigatorApp, /function setCurrentStep\(/);
+assert.match(navigatorApp, /window\.history\.pushState\(state, "", window\.location\.href\)/);
+assert.match(navigatorApp, /window\.addEventListener\("popstate"/);
+assert.match(navigatorApp, /\.querySelector\("\.step-question"\)\.focus\(\)/);
+assert.match(navigatorApp, /result\.focus\(\)/);
+assert.match(navigatorApp, /result\.focus\(\{ preventScroll: true \}\)/);
+assert.equal((navigatorApp.match(/fetch\(/g) ?? []).length, 1);
+assert.match(navigatorApp, /fetch\("toolkit-data\.json"\)/);
+for (const forbidden of [
+  "localStorage",
+  "sessionStorage",
+  "document.cookie",
+  "sendBeacon",
+  "XMLHttpRequest",
+]) {
+  assert.equal(navigatorApp.includes(forbidden), false, `${forbidden} must stay absent`);
+}
+assert.match(navigatorCss, /\[aria-current="step"\]/);
+assert.match(navigatorCss, /@media \(prefers-reduced-motion: reduce\)/);
+assert.match(navigatorCss, /min-height: 44px/);
+assert.match(navigatorHtml, /class="route-map"/);
+assert.match(navigatorHtml, /class="route-corridor"/);
+assert.equal(
+  (navigatorHtml.match(/class="choice-coordinate" aria-hidden="true"/g) ?? []).length,
+  3,
+);
+assert.match(navigatorHtml, /class="destination-node" aria-hidden="true"/);
+assert.match(navigatorHtml, /class="connected-path-visual" aria-hidden="true"/);
+assert.match(navigatorCss, /grid-template-columns: minmax\(0, 1fr\) 62px 342px/);
+assert.match(navigatorCss, /--yellow: #ffdc00/);
+assert.match(navigatorCss, /\.route-map path/);
+assert.match(navigatorApp, /resultLabel\.textContent = "Destination"/);
+assert.match(navigatorApp, /const routeStops = \[/);
+
+const previousStepHelper = navigatorApp.match(
+  /function requestPreviousStep\(step, historyObject\) \{[\s\S]*?\n\}/,
+);
+assert.ok(previousStepHelper, "browser-history back helper missing");
+const requestPreviousStep = Function(`"use strict"; return (${previousStepHelper[0]});`)();
+
+const backHandler = navigatorApp.match(
+  /backButton\.addEventListener\("click", \(\) => \{[\s\S]*?\n\}\);/,
+);
+assert.ok(backHandler, "UI Back handler missing");
+assert.match(
+  backHandler[0],
+  /requestPreviousStep\(currentStep, window\.history\)/,
+  "UI Back must traverse the browser's question history",
+);
+assert.doesNotMatch(
+  backHandler[0],
+  /historyMode:\s*"replace"/,
+  "UI Back must not rewrite the current history entry",
+);
+
+class StepHistory {
+  constructor(initialStep = 0) {
+    this.entries = [initialStep];
+    this.index = 0;
+  }
+
+  get step() {
+    return this.entries[this.index];
+  }
+
+  push(step) {
+    this.entries.splice(this.index + 1, Infinity, step);
+    this.index += 1;
+    return this.step;
+  }
+
+  back() {
+    if (this.index > 0) this.index -= 1;
+    return this.step;
+  }
+
+  forward() {
+    if (this.index < this.entries.length - 1) this.index += 1;
+    return this.step;
+  }
+}
+
+const mixedHistory = new StepHistory();
+mixedHistory.push(1);
+mixedHistory.push(2);
+assert.equal(mixedHistory.step, 2, "Continue, Continue must reach question 3");
+assert.equal(
+  requestPreviousStep(mixedHistory.step, mixedHistory),
+  true,
+  "UI Back must request browser history traversal",
+);
+assert.equal(mixedHistory.step, 1, "UI Back must reach question 2");
+assert.equal(mixedHistory.back(), 0, "browser Back must reach question 1");
+assert.equal(mixedHistory.forward(), 1, "first browser Forward must reach question 2");
+assert.equal(mixedHistory.forward(), 2, "second browser Forward must reach question 3");
+assert.equal(
+  requestPreviousStep(0, mixedHistory),
+  false,
+  "UI Back must not traverse away from question 1",
+);
+
 console.log("PASS navigator_reachability_16_of_16");
 console.log(`PASS navigator_exhaustive_states_${exhaustiveStates}`);
 console.log(`PASS navigator_semantic_mismatch_states_${semanticMismatchStates}`);
@@ -319,3 +438,8 @@ console.log("PASS navigator_starter_taxonomy_contract");
 console.log("PASS navigator_connected_paths_16_of_16");
 console.log("PASS navigator_deep_link_round_trip");
 console.log("PASS navigator_invalid_deep_links_fail_closed");
+console.log("PASS navigator_progressive_question_contract");
+console.log("PASS navigator_browser_back_contract");
+console.log("PASS navigator_mixed_ui_browser_history_regression");
+console.log("PASS navigator_no_storage_or_network_write_contract");
+console.log("PASS navigator_transit_atlas_visual_contract");
