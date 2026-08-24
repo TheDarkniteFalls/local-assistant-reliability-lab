@@ -42,8 +42,9 @@ Keep an answer inside supplied evidence, reject unsupported output, and record u
 
 1. [Context Boundary Examples](https://github.com/TheDarkniteFalls/context-boundary-examples) — Check that the answer cites only the evidence supplied for the task.
 2. [Local Model Reliability Example](https://github.com/TheDarkniteFalls/local-model-reliability-example) — Reject unsupported, malformed, or hostile output before it enters trusted context.
-3. [Earned Confidence](https://github.com/TheDarkniteFalls/earned-confidence) — Preserve the available evidence, unknowns, and policy-defined decision band.
-4. [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) — Leave a revision-bound receipt for the checks and human review.
+3. [Detecting AI Deception](https://github.com/TheDarkniteFalls/detecting-ai-deception) — Compare observable claims with observable evidence while keeping intent explicitly not-assessed.
+4. [Earned Confidence](https://github.com/TheDarkniteFalls/earned-confidence) — Preserve the available evidence, unknowns, and policy-defined decision band.
+5. [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) — Leave a revision-bound receipt for the checks and human review.
 
 ### Prepare a public release
 
@@ -128,6 +129,7 @@ Check publication safety, evidence scope, model output, or action authority and 
 | [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate) | tool | flagship | 5 min | Python 3 | Create a compact review receipt for AI-assisted work. | `python3 -B examples/run-v1-reference.py` |
 | [Local Model Reliability Example](https://github.com/TheDarkniteFalls/local-model-reliability-example) | pattern | experimental | 5 min | Python 3 | Prevent an ungrounded web answer from entering trusted agent context. | `python3 grounded_answer_gate.py examples/grounded_answer_cases.json` |
 | [Context Boundary Examples](https://github.com/TheDarkniteFalls/context-boundary-examples) | pattern | stable | 5 min | Python 3 | Check that an answer stays within the evidence you supplied. | `python3 context_boundary_check.py --self-test` |
+| [Detecting AI Deception](https://github.com/TheDarkniteFalls/detecting-ai-deception) | pattern | experimental | 5 min | Node.js 20+ | Compare an AI claim with declared observable evidence in a deterministic synthetic teaching investigation. | `npm test` |
 | [Agent Action Authority Examples](https://github.com/TheDarkniteFalls/agent-action-authority-examples) | pattern | stable | 5 min | Python 3 | Classify a model or agent action before allowing it to run. | `python3 action_authority_check.py --self-test` |
 | [Agent Evidence Catalog](https://github.com/TheDarkniteFalls/agent-evidence-catalog) | tool | experimental | 10 min | Node.js 20+ | Compare exact agent versions, authority boundaries, publisher claims, and known gaps. | `node scripts/catalog.mjs test` |
 
@@ -172,6 +174,15 @@ Check publication safety, evidence scope, model output, or action authority and 
 - **A pass establishes:** Expected answers cite only allowed sources and known unsupported or uncited outputs fail.
 - **It does not establish:** Grounding to supplied snippets does not establish that those snippets are true or current.
 - **CI:** [checks workflow](https://github.com/TheDarkniteFalls/context-boundary-examples/actions/workflows/checks.yml)
+
+#### [Detecting AI Deception](https://github.com/TheDarkniteFalls/detecting-ai-deception)
+
+- **For:** People investigating whether an AI system's observable claims match observable evidence without inferring intent.
+- **First-use estimate:** 5 minutes; Node.js 20+.
+- **A pass establishes:** The dependency-free classifier shared by the browser and Node.js tests deterministically reproduces the declared findings for exactly six synthetic teaching cases; the static investigation uses no model, backend, account, analytics, or submitted data.
+- **It does not establish:** Intent is not-assessed: it does not infer deliberate lying, consciousness, or malicious intent, and six synthetic cases do not establish real-world prevalence, production behavior, or whole-system safety.
+- **CI:** [checks workflow](https://github.com/TheDarkniteFalls/detecting-ai-deception/actions/workflows/checks.yml)
+- **Live investigation:** [open the published site](https://thedarknitefalls.github.io/detecting-ai-deception/)
 
 #### [Agent Action Authority Examples](https://github.com/TheDarkniteFalls/agent-action-authority-examples)
 

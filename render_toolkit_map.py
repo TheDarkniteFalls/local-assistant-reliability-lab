@@ -82,6 +82,11 @@ def render(index: dict) -> str:
 
         lines.extend(["", "### Trust boundaries", ""])
         for repo in journey_repos:
+            live_line = (
+                f"- **Live investigation:** [open the published site]({repo['live_url']})"
+                if "live_url" in repo
+                else None
+            )
             lines.extend(
                 [
                     f"#### [{repo['name']}]({repo['url']})",
@@ -91,9 +96,11 @@ def render(index: dict) -> str:
                     f"- **A pass establishes:** {repo['proof']}",
                     f"- **It does not establish:** {repo['limitation']}",
                     f"- **CI:** [checks workflow]({repo['ci_url']})",
-                    "",
                 ]
             )
+            if live_line:
+                lines.append(live_line)
+            lines.append("")
 
     lines.extend(
         [

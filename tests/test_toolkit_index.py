@@ -66,7 +66,7 @@ class ConnectedPathContractTests(unittest.TestCase):
             for path in self.index["connected_paths"]
             for step in path["steps"]
         }
-        self.assertEqual(len(eligible), 16)
+        self.assertEqual(len(eligible), 17)
         self.assertEqual(covered, eligible)
 
     def test_missing_repository_reference_fails(self) -> None:
