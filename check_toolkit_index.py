@@ -17,6 +17,7 @@ REQUIRED_REPOS = {
     "evidencegate",
     "local-model-reliability-example",
     "context-boundary-examples",
+    "detecting-ai-deception",
     "agent-action-authority-examples",
     "agent-evidence-catalog",
     "green-spine-qa-pattern",
@@ -180,6 +181,13 @@ def validate_index(index: dict) -> None:
         expected_url = f"https://github.com/TheDarkniteFalls/{repo['slug']}"
         if repo["url"] != expected_url:
             fail(f"unexpected url for {repo['slug']}")
+        live_url = repo.get("live_url")
+        if live_url is not None:
+            expected_live_url = (
+                f"https://thedarknitefalls.github.io/{repo['slug']}/"
+            )
+            if live_url != expected_live_url:
+                fail(f"unexpected live url for {repo['slug']}")
         if repo["journey"] not in REQUIRED_JOURNEYS:
             fail(f"unexpected journey for {repo['slug']}")
         if repo["kind"] not in ALLOWED_KINDS:

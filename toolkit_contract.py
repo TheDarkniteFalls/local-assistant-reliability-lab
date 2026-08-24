@@ -63,6 +63,8 @@ def action(repo: dict) -> dict[str, str]:
         return {"label": "Create a private starter", "url": TEMPLATE_CREATE_URL}
     if repo["slug"] == "agent-operator-handbook":
         return {"label": "Read the handbook", "url": repo["url"]}
+    if "live_url" in repo:
+        return {"label": f"Open live {repo['name']}", "url": repo["live_url"]}
     return {"label": f"Open {repo['name']}", "url": repo["url"]}
 
 

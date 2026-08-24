@@ -126,6 +126,14 @@
           "limitation": "The gate calls no model or network, covers only the declared software-release fact profile and canaries, and does not establish source truth, general semantic correctness, live-model quality, or external adoption."
         },
         {
+          "slug": "detecting-ai-deception",
+          "name": "Detecting AI Deception",
+          "url": "https://github.com/TheDarkniteFalls/detecting-ai-deception",
+          "role": "Compare observable claims with observable evidence while keeping intent explicitly not-assessed.",
+          "proof": "The dependency-free classifier shared by the browser and Node.js tests deterministically reproduces the declared findings for exactly six synthetic teaching cases; the static investigation uses no model, backend, account, analytics, or submitted data.",
+          "limitation": "Intent is not-assessed: it does not infer deliberate lying, consciousness, or malicious intent, and six synthetic cases do not establish real-world prevalence, production behavior, or whole-system safety."
+        },
+        {
           "slug": "earned-confidence",
           "name": "Earned Confidence",
           "url": "https://github.com/TheDarkniteFalls/earned-confidence",
@@ -545,6 +553,37 @@
       "action": {
         "label": "Open Context Boundary Examples",
         "url": "https://github.com/TheDarkniteFalls/context-boundary-examples"
+      }
+    },
+    {
+      "slug": "detecting-ai-deception",
+      "name": "Detecting AI Deception",
+      "url": "https://github.com/TheDarkniteFalls/detecting-ai-deception",
+      "navigator_eligible": true,
+      "problem_label": "Compare an AI claim with declared observable evidence in a deterministic synthetic teaching investigation",
+      "journey": "bound_and_prove",
+      "kind": "pattern",
+      "help_type": "runnable_check",
+      "maturity": "experimental",
+      "minutes": 5,
+      "runtimes": [
+        "node"
+      ],
+      "runtime_label": "Node.js 20+",
+      "use_when": "Compare an AI claim with declared observable evidence in a deterministic synthetic teaching investigation.",
+      "proof": "The dependency-free classifier shared by the browser and Node.js tests deterministically reproduces the declared findings for exactly six synthetic teaching cases; the static investigation uses no model, backend, account, analytics, or submitted data.",
+      "limitation": "Intent is not-assessed: it does not infer deliberate lying, consciousness, or malicious intent, and six synthetic cases do not establish real-world prevalence, production behavior, or whole-system safety.",
+      "command": "npm test",
+      "constraints": {
+        "local": true,
+        "no_model": true,
+        "no_network": true,
+        "read_only": true
+      },
+      "operation": "Read-only check; examples may use temporary files",
+      "action": {
+        "label": "Open live Detecting AI Deception",
+        "url": "https://thedarknitefalls.github.io/detecting-ai-deception/"
       }
     },
     {

@@ -32,7 +32,7 @@ function exactState(repo) {
   };
 }
 
-assert.equal(toolkit.repos.length, 16);
+assert.equal(toolkit.repos.length, 17);
 assert.ok(toolkit.repos.every((repo) => typeof repo.navigator_eligible === "boolean"));
 assert.ok(
   toolkit.repos
@@ -58,7 +58,7 @@ for (const repo of toolkit.repos.filter((entry) => entry.navigator_eligible)) {
   assert.deepEqual(recommendation.issues, []);
   reachable.add(repo.slug);
 }
-assert.equal(reachable.size, 16, "all eligible projects must be exactly reachable");
+assert.equal(reachable.size, 17, "all eligible projects must be exactly reachable");
 
 const connectedCoverage = new Set();
 for (const path of toolkit.connected_paths) {
@@ -174,7 +174,7 @@ for (const repo of toolkit.repos.filter((entry) => entry.navigator_eligible)) {
     }
   }
 }
-assert.equal(exhaustiveStates, 1152);
+assert.equal(exhaustiveStates, 1224);
 assert.ok(mismatchStates > 0);
 
 let semanticMismatchStates = 0;
@@ -246,6 +246,22 @@ const localModel = toolkit.repos.find(
   (repo) => repo.slug === "local-model-reliability-example",
 );
 assert.equal(recommendRepos(toolkit.repos, exactState(localModel)).exact, true);
+
+const detectingDeception = toolkit.repos.find(
+  (repo) => repo.slug === "detecting-ai-deception",
+);
+assert.equal(detectingDeception.command, "npm test");
+assert.equal(detectingDeception.runtime_label, "Node.js 20+");
+assert.equal(
+  detectingDeception.action.url,
+  "https://thedarknitefalls.github.io/detecting-ai-deception/",
+);
+assert.match(detectingDeception.proof, /exactly six synthetic teaching cases/);
+assert.match(detectingDeception.proof, /no model, backend, account, analytics, or submitted data/);
+assert.match(detectingDeception.limitation, /Intent is not-assessed/);
+assert.match(detectingDeception.limitation, /deliberate lying, consciousness, or malicious intent/);
+assert.match(detectingDeception.limitation, /whole-system safety/);
+assert.equal(recommendRepos(toolkit.repos, exactState(detectingDeception)).exact, true);
 
 const sealedEvaluation = toolkit.repos.find(
   (repo) => repo.slug === "sealed-evaluation-pattern",
@@ -431,7 +447,7 @@ assert.equal(
   "UI Back must not traverse away from question 1",
 );
 
-console.log("PASS navigator_reachability_16_of_16");
+console.log("PASS navigator_reachability_17_of_17");
 console.log(`PASS navigator_exhaustive_states_${exhaustiveStates}`);
 console.log(`PASS navigator_semantic_mismatch_states_${semanticMismatchStates}`);
 console.log("PASS navigator_explicit_mismatch_contract");
@@ -439,7 +455,7 @@ console.log("PASS navigator_compatible_shortlists");
 console.log("PASS navigator_explicit_ineligibility_contract");
 console.log("PASS navigator_no_code_first_action_contract");
 console.log("PASS navigator_starter_taxonomy_contract");
-console.log("PASS navigator_connected_paths_16_of_16");
+console.log("PASS navigator_connected_paths_17_of_17");
 console.log("PASS navigator_deep_link_round_trip");
 console.log("PASS navigator_invalid_deep_links_fail_closed");
 console.log("PASS navigator_progressive_question_contract");

@@ -86,6 +86,10 @@
           "role": "Reject unsupported, malformed, or hostile output before it enters trusted context."
         },
         {
+          "slug": "detecting-ai-deception",
+          "role": "Compare observable claims with observable evidence while keeping intent explicitly not-assessed."
+        },
+        {
           "slug": "earned-confidence",
           "role": "Preserve the available evidence, unknowns, and policy-defined decision band."
         },
@@ -338,6 +342,27 @@
       "commands": [
         "python3 context_boundary_check.py --self-test",
         "python3 context_boundary_check.py examples/context_outputs.jsonl"
+      ]
+    },
+    {
+      "slug": "detecting-ai-deception",
+      "name": "Detecting AI Deception",
+      "url": "https://github.com/TheDarkniteFalls/detecting-ai-deception",
+      "live_url": "https://thedarknitefalls.github.io/detecting-ai-deception/",
+      "journey": "bound_and_prove",
+      "kind": "pattern",
+      "maturity": "experimental",
+      "minutes": 5,
+      "navigator_eligible": true,
+      "runtime_label": "Node.js 20+",
+      "audience": "People investigating whether an AI system's observable claims match observable evidence without inferring intent.",
+      "use_when": "Compare an AI claim with declared observable evidence in a deterministic synthetic teaching investigation.",
+      "proof": "The dependency-free classifier shared by the browser and Node.js tests deterministically reproduces the declared findings for exactly six synthetic teaching cases; the static investigation uses no model, backend, account, analytics, or submitted data.",
+      "limitation": "Intent is not-assessed: it does not infer deliberate lying, consciousness, or malicious intent, and six synthetic cases do not establish real-world prevalence, production behavior, or whole-system safety.",
+      "ci_url": "https://github.com/TheDarkniteFalls/detecting-ai-deception/actions/workflows/checks.yml",
+      "commands": [
+        "npm test",
+        "npm run check"
       ]
     },
     {
