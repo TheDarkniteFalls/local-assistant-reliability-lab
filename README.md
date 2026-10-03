@@ -1,25 +1,28 @@
 # Local Assistant Reliability Lab
 
-Start here for public, runnable examples of practical harnesses for reliable,
-human-accountable AI work.
+AI-assisted work is easier to trust when you can see what it used, what it
+was allowed to do, and how its result was checked. This Lab brings together
+small public examples you can read, run, and adapt.
 
-**Choose in two minutes:** use the
-[Toolkit Navigator](https://thedarknitefalls.github.io/local-assistant-reliability-lab/)
-for one exact route, its connected end-to-end path, or a disclosed compatible shortlist, or scan the
-[complete toolkit map](TOOLKIT_MAP.md) when you want every indexed public
-contract at once.
-Agents and tools can read the same catalog from the
-[machine-readable toolkit index](toolkit_index.json).
+**Find your starting point:** answer five quick questions in the
+[Toolkit Navigator](https://thedarknitefalls.github.io/local-assistant-reliability-lab/).
+It suggests a guide, starter, or runnable check and explains where your setup
+differs. Prefer to browse? The [complete toolkit map](TOOLKIT_MAP.md) shows
+every project, its first command, and what its checks can and cannot tell you.
 
-This is an overview repo, not a platform. EvidenceGate is the flagship pattern
-for leaving a revision-bound, human-reviewed receipt, while the wider toolkit
-explores small models, coding-agent boundaries, structured output, context,
-action authority, repeatable QA, and public-safe publishing.
+You do not need to be a developer to begin. Read the
+[Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook)
+for a practical way to direct the work, or
+[create a private Reliable AI Work Starter](https://github.com/new?template_owner=TheDarkniteFalls&template_name=reliable-ai-work-starter&visibility=private)
+to keep sources, permissions, and review notes together.
 
-**Not a coder?** [Create a private Reliable AI Work Starter](https://github.com/new?template_owner=TheDarkniteFalls&template_name=reliable-ai-work-starter&visibility=private),
-or read the [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook)
-first. Both keep important state outside chat and consequential actions behind
-clear approval boundaries.
+If you want to run an example now, try the complete workflow below. For a
+receipt tied to the exact change you reviewed, start with
+[EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate).
+
+Each project is useful on its own. The Lab helps you find a route through them;
+it does not run an agent or combine them into a platform. Agents and tools can
+read the same catalog from the [toolkit index](toolkit_index.json).
 
 ## See It All Come Together
 
@@ -77,13 +80,13 @@ toolkit component proves and what it deliberately leaves open.
 | You want one useful private workflow without building an app | [Reliable AI Work Starter](https://github.com/TheDarkniteFalls/reliable-ai-work-starter) | Named sources, bounded authority, durable state, review evidence, and a clean handoff |
 | You want to build with Codex without becoming a developer first | [Agent Operator Handbook](https://github.com/TheDarkniteFalls/agent-operator-handbook) | A Project Card, approval ladder, verification guide, and plain-English operating method |
 | An agent exceeds the authority it was given | `python3 -B run_complete_workflow.py` | Protected writes, grant replay, and changed scope are rejected |
-| A web-backed model answer may enter trusted context without adequate support | `python3 grounded_answer_gate.py examples/grounded_answer_cases.json` in Local Model Reliability Example | One valid answer is accepted; unsupported citations, facts, metadata, hostile echoes, and malformed outputs fail closed |
+| You need to check a web-backed answer before an agent relies on it | `python3 grounded_answer_gate.py examples/grounded_answer_cases.json` in Local Model Reliability Example | One valid answer is accepted; unsupported citations, facts, metadata, hostile echoes, and malformed outputs fail closed |
 | A receipt describes the wrong revision or evidence | `python3 -B examples/run-v1-reference.py` in EvidenceGate | Stale heads, omitted paths, and protected paths fail |
 | An answer escapes the supplied evidence | `python3 context_boundary_check.py --self-test` in Context Boundary Examples | Unsupported answers and missing citations fail |
-| An agent may continue from illegal or stale context | `python3 -B context_compiler.py check` in Context Contract Compiler | Required records, explicit exclusions, fail-closed obligations, and stale receipts are checked deterministically |
+| You need to check which context an agent may use, and whether it is still current | `python3 -B context_compiler.py check` in Context Contract Compiler | Required records, explicit exclusions, fail-closed obligations, and stale receipts are checked deterministically |
 | Generated content is stale, disconnected, or impossible to traverse | `python3 -B generated_system_qa.py --self-test` in Generated-System QA Pattern | Freshness, integrity, reachability, required services, and a representative journey are checked |
-| A scarce holdout may have leaked into generation or review | `python3 -B sealed_eval.py --self-test` in Sealed Evaluation Pattern | Access order, frozen outputs, digests, and retirement of revealed material are checked |
-| Model comparisons mix different kinds of work, or a route receipt loses its decision provenance | `python3 -B model_workload_telemetry.py --self-test` in Model Workload Telemetry | Shared tasks stay paired, and the declared synthetic shadow decision is replayed and linked to its receipt |
+| Evaluation answers may have been seen before scoring | `python3 -B sealed_eval.py --self-test` in Sealed Evaluation Pattern | Access order, frozen outputs, digests, and retirement of revealed material are checked |
+| You need to compare models on shared tasks and trace the resulting decision | `python3 -B model_workload_telemetry.py --self-test` in Model Workload Telemetry | Shared tasks stay paired, and the declared synthetic shadow decision is replayed and linked to its receipt |
 | AI-assisted game changes can violate the legal flow | `npm test` in AI Game State Machine Pattern | Illegal actions, read-only inspection, save/restore obligations, and deterministic replay are checked |
 
 ```mermaid
@@ -108,19 +111,21 @@ flowchart LR
   stay in control.
 - Start with [EvidenceGate](https://github.com/TheDarkniteFalls/evidencegate)
   for the core idea and its one-command detached v1 reference run.
-- Choose a repository from the problem-based table below when you need a
+- Choose a repository from the problem-based table above when you need a
   specific runnable pattern.
 - Use the 15-minute walkthrough and command matrix for a quick tour of the
   complete toolkit.
 
-## Latest Lessons
+<a id="latest-lessons"></a>
 
-- [AI-assisted work should leave a revision-bound, reviewable receipt](https://github.com/TheDarkniteFalls/evidencegate),
+## Ideas To Take Into Your Own Work
+
+- [Keep a review receipt tied to the exact revision](https://github.com/TheDarkniteFalls/evidencegate),
   not just a chat history or an ungrounded summary.
-- [A model may suggest an action without owning the authority to execute it](https://github.com/TheDarkniteFalls/agent-action-authority-examples).
-- [Reliable harnesses validate model output before trusting or applying it](https://github.com/TheDarkniteFalls/local-model-reliability-example).
-- [A completed web-backed answer should enter trusted context only after a deterministic source-bound acceptance receipt](https://github.com/TheDarkniteFalls/local-model-reliability-example).
-- [A route receipt should remain traceable to the exact evidence and policy that produced its candidate decision](https://github.com/TheDarkniteFalls/model-workload-telemetry),
+- [Separate an agent's suggestion from permission to act](https://github.com/TheDarkniteFalls/agent-action-authority-examples).
+- [Check model output before relying on it](https://github.com/TheDarkniteFalls/local-model-reliability-example).
+- [Check a web-backed answer against its declared sources before an agent relies on it](https://github.com/TheDarkniteFalls/local-model-reliability-example).
+- [Keep the evidence and policy behind each proposed model choice](https://github.com/TheDarkniteFalls/model-workload-telemetry),
   without granting authority to execute or promote that route.
 
 ## Complete Toolkit Map
@@ -134,12 +139,12 @@ tool, and runnable pattern into three visitor journeys:
 | **Check boundaries or evidence** | Check publication safety, evidence scope, model output, or action authority and leave inspectable proof |
 | **Test or run a workflow** | Exercise repeatable QA, evaluation, telemetry, generated systems, or deterministic state |
 
-The map makes the maturity, intended audience, first command, proof boundary,
-limitation, and CI workflow visible for every entry. It is generated from
+Each entry shows who it is for, how to begin, what a passing check establishes,
+what it leaves open, and where its automated checks run. It is generated from
 `toolkit_index.json`, so the public catalog and its validation use one source
-of truth. The same index defines seven short connected paths that explain how
-focused assets can support one workflow without implying automatic integration
-or whole-system safety.
+of truth. The same index defines seven short paths through related examples. These paths
+show how the ideas fit together; the tools do not integrate automatically, and
+combining them does not prove a whole system safe.
 
 ## Core 15-Minute Walkthrough
 
