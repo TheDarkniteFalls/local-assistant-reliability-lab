@@ -7,17 +7,17 @@
     {
       "id": "start_and_direct",
       "name": "Plan work or set rules",
-      "description": "Define an AI-assisted task, private workspace, or coding-agent instructions before work begins."
+      "description": "Decide what an AI task should do, what it may use, and when it needs your approval."
     },
     {
       "id": "bound_and_prove",
       "name": "Check boundaries or evidence",
-      "description": "Check publication safety, evidence scope, model output, or action authority and leave inspectable proof."
+      "description": "Check what an answer or action is allowed to rely on, and keep evidence you can review."
     },
     {
       "id": "evaluate_and_operate",
       "name": "Test or run a workflow",
-      "description": "Exercise repeatable QA, evaluation, telemetry, generated systems, or deterministic state."
+      "description": "Try a repeatable check of a workflow, model comparison, generated system, or saved game."
     }
   ],
   "maturity_definitions": {
@@ -29,7 +29,7 @@
     {
       "id": "guide-bounded-work",
       "name": "Guide bounded AI work",
-      "description": "Turn an idea into a private, authority-aware workflow with an inspectable review receipt.",
+      "description": "Turn an idea into a private workflow with clear permissions and a review you can revisit.",
       "steps": [
         {
           "slug": "agent-operator-handbook",
@@ -68,7 +68,7 @@
     {
       "id": "govern-coding-work",
       "name": "Govern coding-agent work",
-      "description": "Set repository rules, compile only allowed context, test one important path, and leave revision-bound evidence.",
+      "description": "Set project rules, choose allowed context, test an important workflow, and keep evidence tied to the change.",
       "steps": [
         {
           "slug": "codex-project-instructions-starter",
@@ -107,7 +107,7 @@
     {
       "id": "ground-model-output",
       "name": "Ground model output",
-      "description": "Keep an answer inside supplied evidence, reject unsupported output, and record uncertainty without overstating it.",
+      "description": "Keep answers within the supplied evidence, reject unsupported output, and make uncertainty visible.",
       "steps": [
         {
           "slug": "context-boundary-examples",
@@ -127,7 +127,7 @@
         },
         {
           "slug": "detecting-ai-deception",
-          "name": "Detecting AI Deception",
+          "name": "Agent Claim Check",
           "url": "https://github.com/TheDarkniteFalls/detecting-ai-deception",
           "role": "Compare observable claims with observable evidence while keeping intent explicitly not-assessed.",
           "proof": "The dependency-free classifier shared by the browser and Node.js tests deterministically reproduces the declared findings for exactly six synthetic teaching cases; the static investigation uses no model, backend, account, analytics, or submitted data.",
@@ -154,7 +154,7 @@
     {
       "id": "prepare-public-release",
       "name": "Prepare a public release",
-      "description": "Review public-candidate material, run a meaningful product check, and preserve what was reviewed.",
+      "description": "Review the material you plan to publish, run a useful product check, and keep a record of the review.",
       "steps": [
         {
           "slug": "public-repo-safety-kit",
@@ -185,7 +185,7 @@
     {
       "id": "evaluate-model-routes",
       "name": "Evaluate model routes",
-      "description": "Protect scarce evaluation material, compare like-for-like workloads, and retain uncertainty and provenance.",
+      "description": "Protect evaluation material, compare shared tasks, and keep the evidence and uncertainty behind each decision.",
       "steps": [
         {
           "slug": "sealed-evaluation-pattern",
@@ -224,7 +224,7 @@
     {
       "id": "verify-generated-workflow",
       "name": "Verify a generated workflow",
-      "description": "Check generated structure, preserve legal state transitions, and exercise a representative journey.",
+      "description": "Check generated content, legal actions, and one journey through the result.",
       "steps": [
         {
           "slug": "generated-system-qa-pattern",
@@ -306,7 +306,7 @@
       "name": "Agent Operator Handbook",
       "url": "https://github.com/TheDarkniteFalls/agent-operator-handbook",
       "navigator_eligible": true,
-      "problem_label": "Turn an idea or recurring job into bounded, reviewable work",
+      "problem_label": "Turn an idea or recurring job into a clear task with limits and review points",
       "journey": "start_and_direct",
       "kind": "guide",
       "help_type": "guide",
@@ -317,7 +317,7 @@
         "python"
       ],
       "runtime_label": "No code; Python optional",
-      "use_when": "Turn an idea or recurring job into bounded, reviewable work.",
+      "use_when": "Turn an idea or recurring job into a clear task with limits and review points.",
       "proof": "The starter bundle contains the declared source, authority, review, and handoff files and passes its structural checks.",
       "limitation": "Guidance and templates do not enforce permissions or verify a live project.",
       "command": "python3 scripts/check_starter_bundle.py",
@@ -339,7 +339,7 @@
       "name": "Reliable AI Work Starter",
       "url": "https://github.com/TheDarkniteFalls/reliable-ai-work-starter",
       "navigator_eligible": true,
-      "problem_label": "Set up a private AI-work folder with clear sources, permissions, review, and handoff state",
+      "problem_label": "Keep sources, permissions, review notes, and the next handoff in a private AI-work folder",
       "journey": "start_and_direct",
       "kind": "starter",
       "help_type": "starter",
@@ -350,7 +350,7 @@
         "python"
       ],
       "runtime_label": "No code; Python optional",
-      "use_when": "Set up a private AI-work folder with clear sources, permissions, review, and handoff state.",
+      "use_when": "Keep sources, permissions, review notes, and the next handoff in a private AI-work folder.",
       "proof": "The declared starter files, setup boundary, template links, and public-safety text pass deterministic structural checks.",
       "limitation": "The starter does not run an agent, enforce permissions, inspect sources, or prove that a live workflow is useful.",
       "command": "python3 -B check_starter.py",
@@ -436,7 +436,7 @@
       "name": "Earned Confidence",
       "url": "https://github.com/TheDarkniteFalls/earned-confidence",
       "navigator_eligible": true,
-      "problem_label": "Record available evidence, remaining uncertainty, and what was known when a decision was made",
+      "problem_label": "Record the evidence, the unknowns, and what you knew when you made a decision",
       "journey": "bound_and_prove",
       "kind": "pattern",
       "help_type": "runnable_check",
@@ -446,7 +446,7 @@
         "node"
       ],
       "runtime_label": "Node.js 22.6+",
-      "use_when": "Record available evidence, remaining uncertainty, and what was known when a decision was made.",
+      "use_when": "Record the evidence, the unknowns, and what you knew when you made a decision.",
       "proof": "Type checking, behavioral tests, and the synthetic example preserve unknown state, evidence-key isolation, policy-defined bands, immutable snapshots, and deterministic serialization.",
       "limitation": "Observations are not authenticated, bands are not statistical, and the package supplies no persistence or authorization.",
       "command": "npm run check",
@@ -467,7 +467,7 @@
       "name": "EvidenceGate",
       "url": "https://github.com/TheDarkniteFalls/evidencegate",
       "navigator_eligible": true,
-      "problem_label": "Create a compact review receipt for AI-assisted work",
+      "problem_label": "Keep a review receipt tied to the exact version of an AI-assisted change",
       "journey": "bound_and_prove",
       "kind": "tool",
       "help_type": "runnable_check",
@@ -477,7 +477,7 @@
         "python"
       ],
       "runtime_label": "Python 3",
-      "use_when": "Create a compact review receipt for AI-assisted work.",
+      "use_when": "Keep a review receipt tied to the exact version of an AI-assisted change.",
       "proof": "Declared claims, checks, changed paths, review, and public-safety fields are tied to the exact Git revision supplied to the verifier.",
       "limitation": "It does not authenticate a reviewer, prove semantic correctness, or approve publication.",
       "command": "python3 -B examples/run-v1-reference.py",
@@ -498,7 +498,7 @@
       "name": "Local Model Reliability Example",
       "url": "https://github.com/TheDarkniteFalls/local-model-reliability-example",
       "navigator_eligible": true,
-      "problem_label": "Prevent an ungrounded web answer from entering trusted agent context",
+      "problem_label": "Check a web-backed answer before letting an agent rely on it",
       "journey": "bound_and_prove",
       "kind": "pattern",
       "help_type": "runnable_check",
@@ -508,7 +508,7 @@
         "python"
       ],
       "runtime_label": "Python 3",
-      "use_when": "Prevent an ungrounded web answer from entering trusted agent context.",
+      "use_when": "Check a web-backed answer before letting an agent rely on it.",
       "proof": "The frozen synthetic cases accept only the source-bound answer and reject missing or unapproved citations, unsupported release facts, false metadata, hostile echoes, raw source content, and malformed shapes before downstream context is allowed.",
       "limitation": "The gate calls no model or network, covers only the declared software-release fact profile and canaries, and does not establish source truth, general semantic correctness, live-model quality, or external adoption.",
       "command": "python3 grounded_answer_gate.py examples/grounded_answer_cases.json",
@@ -557,10 +557,10 @@
     },
     {
       "slug": "detecting-ai-deception",
-      "name": "Detecting AI Deception",
+      "name": "Agent Claim Check",
       "url": "https://github.com/TheDarkniteFalls/detecting-ai-deception",
       "navigator_eligible": true,
-      "problem_label": "Compare an AI claim with declared observable evidence in a deterministic synthetic teaching investigation",
+      "problem_label": "Compare an AI claim with the evidence in a small, fictional investigation",
       "journey": "bound_and_prove",
       "kind": "pattern",
       "help_type": "runnable_check",
@@ -570,7 +570,7 @@
         "node"
       ],
       "runtime_label": "Node.js 20+",
-      "use_when": "Compare an AI claim with declared observable evidence in a deterministic synthetic teaching investigation.",
+      "use_when": "Compare an AI claim with the evidence in a small, fictional investigation.",
       "proof": "The dependency-free classifier shared by the browser and Node.js tests deterministically reproduces the declared findings for exactly six synthetic teaching cases; the static investigation uses no model, backend, account, analytics, or submitted data.",
       "limitation": "Intent is not-assessed: it does not infer deliberate lying, consciousness, or malicious intent, and six synthetic cases do not establish real-world prevalence, production behavior, or whole-system safety.",
       "command": "npm test",
@@ -582,7 +582,7 @@
       },
       "operation": "Read-only check; examples may use temporary files",
       "action": {
-        "label": "Open live Detecting AI Deception",
+        "label": "Open live Agent Claim Check",
         "url": "https://thedarknitefalls.github.io/detecting-ai-deception/"
       }
     },
@@ -591,7 +591,7 @@
       "name": "Agent Action Authority Examples",
       "url": "https://github.com/TheDarkniteFalls/agent-action-authority-examples",
       "navigator_eligible": true,
-      "problem_label": "Classify a model or agent action before allowing it to run",
+      "problem_label": "Check whether a proposed agent action has permission to run",
       "journey": "bound_and_prove",
       "kind": "pattern",
       "help_type": "runnable_check",
@@ -601,7 +601,7 @@
         "python"
       ],
       "runtime_label": "Python 3",
-      "use_when": "Classify a model or agent action before allowing it to run.",
+      "use_when": "Check whether a proposed agent action has permission to run.",
       "proof": "Synthetic actions and scoped grants receive the expected allow, reject, or reapproval decisions.",
       "limitation": "The classifier does not execute actions, provide a sandbox, or infer security-relevant scope.",
       "command": "python3 action_authority_check.py --self-test",
@@ -684,7 +684,7 @@
       "name": "Context Contract Compiler",
       "url": "https://github.com/TheDarkniteFalls/context-contract-compiler",
       "navigator_eligible": true,
-      "problem_label": "Build only the allowed context for an AI task and detect when a late change makes it stale",
+      "problem_label": "Give an AI task only the context it may use, and notice when that context changes",
       "journey": "evaluate_and_operate",
       "kind": "pattern",
       "help_type": "runnable_check",
@@ -694,7 +694,7 @@
         "python"
       ],
       "runtime_label": "Python 3",
-      "use_when": "Build only the allowed context for an AI task and detect when a late change makes it stale.",
+      "use_when": "Give an AI task only the context it may use, and notice when that context changes.",
       "proof": "The synthetic compiler protects required records before ranking, explains every inclusion and exclusion, fails closed on invalid obligations, and rejects stale receipts deterministically.",
       "limitation": "Structured metadata and changes are supplied; the project does not discover runtime changes, authorize actions, verify truth, or prove downstream model safety.",
       "command": "python3 -B context_compiler.py check",
@@ -715,7 +715,7 @@
       "name": "Sealed Evaluation Pattern",
       "url": "https://github.com/TheDarkniteFalls/sealed-evaluation-pattern",
       "navigator_eligible": true,
-      "problem_label": "Keep evaluation answers hidden until scoring and retire calibration material after it is revealed",
+      "problem_label": "Keep evaluation answers hidden until scoring, and stop reusing revealed material as a holdout",
       "journey": "evaluate_and_operate",
       "kind": "pattern",
       "help_type": "runnable_check",
@@ -725,7 +725,7 @@
         "python"
       ],
       "runtime_label": "Python 3",
-      "use_when": "Keep evaluation answers hidden until scoring and retire calibration material after it is revealed.",
+      "use_when": "Keep evaluation answers hidden until scoring, and stop reusing revealed material as a holdout.",
       "proof": "The supplied record preserves the declared information zones, freeze order, digests, and retirement rule.",
       "limitation": "The checker is not a sandbox and cannot prove an access log is complete or authentic.",
       "command": "python3 -B sealed_eval.py --self-test",
@@ -746,7 +746,7 @@
       "name": "Generated-System QA Pattern",
       "url": "https://github.com/TheDarkniteFalls/generated-system-qa-pattern",
       "navigator_eligible": true,
-      "problem_label": "Check generated data, required services, reachable content, and one representative user journey",
+      "problem_label": "Check that generated content is current, connected, and usable along one chosen journey",
       "journey": "evaluate_and_operate",
       "kind": "pattern",
       "help_type": "runnable_check",
@@ -756,7 +756,7 @@
         "python"
       ],
       "runtime_label": "Python 3",
-      "use_when": "Check generated data, required services, reachable content, and one representative user journey.",
+      "use_when": "Check that generated content is current, connected, and usable along one chosen journey.",
       "proof": "The supplied artifact matches its blueprint and satisfies the declared structural and journey requirements.",
       "limitation": "Structural readiness does not prove live UI freshness, domain quality, accessibility, or enjoyment.",
       "command": "python3 -B generated_system_qa.py --self-test",
@@ -777,7 +777,7 @@
       "name": "Model Workload Telemetry",
       "url": "https://github.com/TheDarkniteFalls/model-workload-telemetry",
       "navigator_eligible": true,
-      "problem_label": "Compare models on the same task while preserving provenance for every run",
+      "problem_label": "Compare models on shared tasks and trace each result back to its run and decision",
       "journey": "evaluate_and_operate",
       "kind": "tool",
       "help_type": "runnable_check",
@@ -787,7 +787,7 @@
         "python"
       ],
       "runtime_label": "Python 3",
-      "use_when": "Compare models on the same task while preserving provenance for every run.",
+      "use_when": "Compare models on shared tasks and trace each result back to its run and decision.",
       "proof": "The declared synthetic shared-task, receipt, and Phase 3 provenance checks pass.",
       "limitation": "The checks do not prove live-routing safety, production reliability, causal model superiority, cost efficiency, or statistical significance.",
       "command": "python3 -B model_workload_telemetry.py --self-test",
@@ -808,7 +808,7 @@
       "name": "AI Game State Machine Pattern",
       "url": "https://github.com/TheDarkniteFalls/ai-game-state-machine-pattern",
       "navigator_eligible": true,
-      "problem_label": "Keep valid actions and unresolved obligations consistent when an AI game is saved and replayed",
+      "problem_label": "Keep game actions, unfinished obligations, saves, and replays consistent",
       "journey": "evaluate_and_operate",
       "kind": "pattern",
       "help_type": "runnable_check",
@@ -818,7 +818,7 @@
         "node"
       ],
       "runtime_label": "Node.js 20+",
-      "use_when": "Keep valid actions and unresolved obligations consistent when an AI game is saved and replayed.",
+      "use_when": "Keep game actions, unfinished obligations, saves, and replays consistent.",
       "proof": "Illegal actions remain non-mutating, inspection is read-only, obligations persist, and seeded replay is deterministic.",
       "limitation": "State-machine correctness does not prove that the game is understandable, balanced, emotional, or fun.",
       "command": "npm test",

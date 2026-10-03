@@ -23,8 +23,8 @@ def render(index: dict) -> str:
     lines = [
         "# Public Toolkit Map",
         "",
-        "This page is generated from `toolkit_index.json`. It is a problem-first map",
-        "of the public guides, tools, and teaching patterns in this toolkit.",
+        "Choose a guide, starter, or runnable check for the problem in front of you.",
+        "This map is generated from `toolkit_index.json`.",
         "",
         "> All examples use synthetic data. Maturity describes the public contract,",
         "> not external adoption or a claim that a check proves the whole system safe.",
@@ -41,9 +41,9 @@ def render(index: dict) -> str:
             "",
             "## Connected paths",
             "",
-            "Each path shows how several focused assets can support one workflow. The",
-            "role is connective guidance, not a guarantee that the tools integrate",
-            "automatically or establish the whole workflow safe.",
+            "Each path shows how several small examples can help with one workflow. The",
+            "steps explain how the ideas fit together; they do not make the tools integrate",
+            "automatically or prove the whole workflow safe.",
         ]
     )
     for path in index["connected_paths"]:
@@ -87,6 +87,8 @@ def render(index: dict) -> str:
                 if "live_url" in repo
                 else None
             )
+            if repo["slug"] == "detecting-ai-deception":
+                lines.extend(['<a id="detecting-ai-deception"></a>', ""])
             lines.extend(
                 [
                     f"#### [{repo['name']}]({repo['url']})",

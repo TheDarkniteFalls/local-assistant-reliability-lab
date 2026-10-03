@@ -2,13 +2,13 @@
 
 Here is a practical way to see the public toolkit work as a whole. We will
 follow one small, synthetic change from its project instructions to its final
-publication decision. This is a review path, not a framework, so feel free to
-borrow the questions that help and leave the rest.
+publication decision. You can try each step on its own, then borrow the questions that help
+with your own work.
 
 ## Scenario
 
-Imagine that a small Python CLI, `docs_export.py`, has an export-path
-regression. A maintainer asks an AI coding agent to fix it using only the
+Imagine that a small Python command-line tool, `docs_export.py`, has stopped
+exporting files to the right path. A maintainer asks an AI coding agent to fix it using only the
 supplied issue, reproduction, and synthetic fixture. The scope is deliberately
 small: the CLI, its regression test, the synthetic fixture, and the changelog.
 The agent may edit those files and run local checks, while a human keeps the
@@ -17,7 +17,8 @@ authority to approve and publish the result.
 EvidenceGate's
 [`examples/run-v1-reference.py`](https://github.com/TheDarkniteFalls/evidencegate/blob/main/examples/run-v1-reference.py)
 recreates the receipt portion of this scenario with actual temporary Git
-revisions and a detached v1 receipt. The commands below exercise the public
+revisions and a detached v1 receipt: a review record stored outside the
+repository it describes. The commands below exercise the public
 examples around that same review. Run each command from the root of the named
 repository unless the step says otherwise. None of them calls a model.
 
@@ -144,7 +145,7 @@ PASS ask_for_source
 ```
 
 **What the check proves:** A pass shows that the sample outputs satisfy a
-deterministic contract before the application accepts them. The same boundary
+fixed set of rules before the application accepts them. The same boundary
 can keep a model in a helpful proposal role while the coding workflow owns file
 writes and command execution.
 
@@ -178,7 +179,7 @@ PASS green_spine
 parses, stays inside its source and write boundaries, returns the expected
 result, and continues to reject known-bad outputs. For the CLI fix, the
 equivalent green spine would combine the export-path regression and one
-synthetic export smoke test behind one small command.
+quick export check using fictional data behind one small command.
 
 **What it does not prove:** One green spine is intentionally modest. It does
 not test this synthetic CLI, cover every platform or edge case, or replace
@@ -253,7 +254,7 @@ findings from the kit's checks for environment files, symlinks, private-key or
 token-like text, and raw export-style filenames. If it does find something,
 pause for manual review before publishing.
 
-**What it does not prove:** This friendly last check is still only one layer. It
+**What it does not prove:** This check is still only one layer. It
 is not a complete secret scanner, privacy audit, license review, dependency
 audit, commit-history review, or authorization to push.
 
